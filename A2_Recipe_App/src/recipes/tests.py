@@ -26,4 +26,10 @@ class RecipeModelTest(TestCase):
         recipe = Recipe.objects.get(name="Test Recipe")
         self.assertEqual(recipe.cooking_time, 30)
 
+    def test_difficulty_calculation(self):
+        recipe = Recipe.objects.get(id=1)
+        self.assertEqual(recipe.calculate_difficulty(), 'Easy')
+
+ 
+
 

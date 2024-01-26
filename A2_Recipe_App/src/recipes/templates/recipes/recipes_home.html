@@ -1,9 +1,74 @@
 <!DOCTYPE html>
-<html>
-   <title>
-       Recipe Application Home
-   </title>
-   <body>
-       Welcome to the Recipes Application
-   </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cookbook Collective</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
+    <!--test-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+</head>
+<body>
+     
+    <header>
+        <h1>The Cookbook Collective</h1>
+    </header>
+
+    <main>
+
+        <section class="centered-content raised">
+            <h2>Welcome to your recipe haven...</h2>
+        </section>
+
+        <div class="scrolling-images-container">
+            <div class="scrolling-images">
+                {% for image in random_images %}
+                    <div><img src="{{ image.pic.url }}" alt="Recipe Image"></div>
+                {% endfor %}
+            </div>
+        </div>     
+
+        <section class="featured-recipes centered-content">
+            <p>Where happy stomachs begin, and culinary adventures never end!</p>
+        </section>
+        <section class="homepage-options-container raised">
+            <div class="homepage-options-section">
+                <div class="centered-content">
+                    <h4>Search Recipes</h4>
+                
+                    <section class="search-bar">
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" name="query" placeholder="Search for recipes">
+                            <button class="browse-button" type="submit">Search</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+            <div class="homepage-options-section">
+                <div class="centered-content">
+                    <h4>Look Through Recipes</h4>
+                
+                    <section class="centered-content">
+                        <button class="browse-button">Browse</button>
+                    </section>
+                </div>
+            </div>
+            <div class="homepage-options-section">
+                <div class="centered-content">
+                    <h4>Upload Recipes</h4>
+                
+                    <section class="centered-content">
+                        <button class="browse-button">Upload</button>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="{% static 'recipes/scripts.js' %}"></script>
+</body>
 </html>
