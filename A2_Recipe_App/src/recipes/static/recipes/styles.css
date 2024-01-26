@@ -1,0 +1,112 @@
+:root {
+    --secondary-color: #fbd6cf; 
+    --secondary-hover: #FA8072;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 4em; 
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.featured-recipes, .category-tiles {
+    margin-bottom: 30px;
+}
+
+.recipe-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.centered-content {
+    text-align: center;
+    justify-content: center;
+}
+
+/* Scrolling Images */
+
+.scrolling-images-container {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px;
+    white-space: nowrap;
+}
+
+.scrolling-images {
+    display: flex;
+    animation: scroll 50s linear infinite;
+}
+
+.scrolling-images img {
+    width: 250px; 
+    height: 300px;
+    margin-right: 10px; 
+    margin-left: 10px; 
+}
+
+
+.raised {
+    margin-top: -21px;
+}
+
+.homepage-options-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.homepage-options-section {
+    width: 30%; /* Adjust the width as needed */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Add spacing between sections */
+}
+
+/* Example media query to make it responsive */
+@media (max-width: 768px) {
+    .homepage-options-section {
+        width: 100%; /* Make it full width on smaller screens */
+    }
+}
+
+.browse-button {
+    background-color: var(--secondary-color);
+    color: black; /* White text color */
+    padding: 10px 20px; /* Padding for better appearance */
+    font-size: 16px; /* Adjust font size as needed */
+    border: none; /* Remove border */
+    cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+.browse-button:hover {
+    background-color: #FA8072; 
+}
