@@ -10,9 +10,11 @@ TYPE_OF_RECIPE= (
     ('dinner', 'Dinner'),
 )
 
-
+# takes on ingredients and adds new ingredients to master ingredient list
 def process_recipe_ingredients(ingredients_string):
-    # Split the string into a list based on commas and spaces
+    """
+    Process a string of ingredients, split it into a list, and add each ingredient to the database.
+    """
     ingredients_list = [ingredient.strip() for ingredient in ingredients_string.split(',')]
 
     # Loop through the list and add each ingredient to the master ingredient list
@@ -35,33 +37,53 @@ class Recipe(models.Model):
     ingredients = models.TextField("ingredients.Ingredient", blank=True, help_text="Enter the ingredients for the recipe, separated by commas.", default="")
     directions = models.TextField(help_text="Enter the directions for preparing the recipe.")
 
-    pic = models.ImageField(upload_to="recipes", default="no_picture.jpeg")
+    pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
 
     def calculate_difficulty(self):
+        """
+        Calculate the difficulty level of the recipe based on cooking time and number of ingredients.
+        """
         ingredients_list = [ingredient.strip() for ingredient in self.ingredients.split(',')]
         num_ingredients = len(ingredients_list)
 
+        print("Cooking Time:", self.cooking_time)
+        print("Number of Ingredients:", num_ingredients)
+
         if self.cooking_time < 10 and num_ingredients < 4:
+            print("Easy")
             return "Easy"
         elif self.cooking_time < 10 and num_ingredients >= 4:
+            print("Medium")
             return "Medium"
         elif self.cooking_time >= 10 and num_ingredients < 4:
+            print("Intermediate")
             return "Intermediate"
         else:
+            print("Hard")
             return "Hard"
 
 
 
 
+
+
     def save(self, *args, **kwargs):
+        """
+        Override the save method to calculate and set the difficulty before saving.
+        """
         self.difficulty = self.calculate_difficulty()
         super().save(*args, **kwargs)
 
     def __str__(self):
+        """
+        Return a string representation of the Recipe.
+        """
         return self.name
 
     def add_to_master_list(self):
-        # Split the ingredients string by commas and strip spaces
+        """
+        Add unique ingredients from the recipe to the master ingredient list.
+        """
         ingredient_list = [ingredient.strip() for ingredient in self.ingredients.split(',')]
 
         # Remove duplicates from the ingredient list
@@ -82,4 +104,7 @@ class Recipe(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse("recipes:recipes_detail", kwargs={"pk": self.pk})
+        """
+        Get the absolute URL for the recipe detail page.
+        """
+        return reverse("recipes:recipe_detail", kwargs={"pk": self.pk})

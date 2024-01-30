@@ -1,3 +1,4 @@
+/*slick-carousel script*/
 $(document).ready(function(){
     $('.scrolling-images').slick({
         infinite: true,
@@ -9,3 +10,5 @@ $(document).ready(function(){
         pauseOnHover: false, // Allow continuous scroll even on hover
     });
 });
+
+

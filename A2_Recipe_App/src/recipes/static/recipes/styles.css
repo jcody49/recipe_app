@@ -1,14 +1,29 @@
 :root {
     --secondary-color: #fbd6cf; 
     --secondary-hover: #FA8072;
+
 }
 
+/*general link stylings*/
+.link {
+    color: salmon;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.link:hover {
+    color: #ff725b;
+    transform: scale(1.1);
+}
+
+/*font*/
 body {
     font-family: 'Georgia', serif;
     margin: 0;
     padding: 0;
 }
 
+/*styles container with title, subtitle, and logo*/
 header {
     background-color: var(--secondary-color);
     padding: 20px;
@@ -22,35 +37,41 @@ h1 {
 main {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 80px;
+    margin-bottom: -5%;
 }
 
-.search-bar {
-    margin-bottom: 20px;
-}
-
-.featured-recipes, .category-tiles {
-    margin-bottom: 30px;
-}
-
-.recipe-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-}
 
 .centered-content {
-    text-align: center;
+    display: flex;
     justify-content: center;
+    align-items: center;
+
+}
+
+.horizontal-centering {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.raised {
+    margin-top: -21px;
+}
+
+.detail-text {
+    padding: 10px;
+    font-size: 20px;
+    margin: 35px 140px 140px; 
+    text-align: left;
+}
+
+.txt-20 {
+    font-size: 20px;
+}
+
+.increase-top-margin {
+    margin-top: 50px;
 }
 
 /* Scrolling Images */
@@ -60,6 +81,7 @@ footer {
     overflow: hidden;
     margin-bottom: 30px;
     white-space: nowrap;
+    margin-top:-5%;
 }
 
 .scrolling-images {
@@ -74,39 +96,235 @@ footer {
     margin-left: 10px; 
 }
 
-
-.raised {
-    margin-top: -21px;
-}
-
+/*HOMEPAGE OPTIONS*/
 .homepage-options-container {
+    margin-top: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 
 .homepage-options-section {
-    width: 30%; /* Adjust the width as needed */
+    width: 30%; 
     box-sizing: border-box;
-    margin-bottom: 20px; /* Add spacing between sections */
+    margin-bottom: 20px; 
+    margin-right: 10px;
 }
 
-/* Example media query to make it responsive */
+
 @media (max-width: 768px) {
     .homepage-options-section {
-        width: 100%; /* Make it full width on smaller screens */
+        width: 100%; 
+        margin-right: 0;
     }
 }
 
-.browse-button {
-    background-color: var(--secondary-color);
-    color: black; /* White text color */
-    padding: 10px 20px; /* Padding for better appearance */
-    font-size: 16px; /* Adjust font size as needed */
-    border: none; /* Remove border */
-    cursor: pointer; /* Add a pointer cursor on hover */
+/*TAY-BULL-SAH!*/
+.full-width-table {
+    width: 70%;
+    border: 1px solid white;
 }
 
-.browse-button:hover {
-    background-color: #FA8072; 
+
+.full-width-table table {
+    border-collapse: collapse; /* Remove default spacing between table cells */
+    border: 1px solid white;
+}
+
+.full-width-table td {
+    padding: 10px; 
+    border: 1px solid white;
+    font-size: 25px;
+}
+
+
+.full-width-table .link {
+    color: salmon;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.full-width-table .link:hover {
+    color: #ff725b;
+    transform: scale(1.1); 
+}
+
+
+/*BUTTONS*/
+
+
+.upload-button {
+    background-color: #fbd6cf;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px; 
+
+}
+
+.upload-button:hover {
+    background-color: white;
+}
+
+.browse-button {
+    background-color: #FA8072;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.search-button {
+    background-color: #fbd6cf;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px; /* adjust the value to control the roundness */
+}
+
+.browse-button:hover,
+.search-button:hover {
+    background-color: white;
+}
+
+/*styling for enter new recipe forms*/
+.new-recipe-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+
+}
+
+.new-recipe-content {
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 20px; 
+
+}
+
+/* remove bullet points and style the results */
+.recipe-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.recipe-item {
+    margin: 10px;
+    text-align: center;
+}
+
+.recipe-image {
+    width: 170px; 
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 8px; /* Add rounded corners */
+}
+
+.recipe-name {
+    display: block;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+
+/*LOGO*/
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-width: 80px; /* Adjust the maximum width of the logo as needed */
+    margin-right: 20px; /* Adjust the margin as needed for spacing */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+.title-container {
+    text-align: left; /* Align the title text to the left */
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+
+.subtitle-text {
+    margin-top: -15px;
+    font-size: 20px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 100% viewport height */
+    margin: 0;
+}
+
+.salmon-container {
+    flex: 1;
+    min-height: 8vh; /* Adjust the percentage as needed */
+    background-color: salmon;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.light-salmon-container {
+    background-color: var(--secondary-color);
+    text-align: right;
+    height: 250px;
+    width: 100%;
+}
+
+.title-raise{
+    margin-top: -9.3%;
+}
+
+
+/*SEARCH*/
+.search-form {
+    width: 300px; 
+    font-size: 16px; 
+    padding: 12px; 
+    font-family: inherit;
+}
+
+@media screen and (max-width: 600px) {
+    .salmon-container {
+        padding: 1%; /* Adjust as needed for smaller screens */
+    }
+
+    .search-form {
+        font-size: 14px; /* Adjust as needed for smaller screens */
+    }
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-form {
+    margin-left: 120px;
 }
