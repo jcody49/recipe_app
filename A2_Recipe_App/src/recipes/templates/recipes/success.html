@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Logout Success</title>
+        {% load static %}
+        <!--css stylesheet-->
+        <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
+    </head>
+    <body style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('{% static 'recipes/images/CC_Logo.jpg' %}'); background-size: 30%; background-repeat: no-repeat; background-position: center center; position: relative;">
+        <header><h1>{{ message }}</h1></header>
+        <p class= "success-login"><a class= "login-link" href="{% url 'recipes:login' %}">Log back in</a></p>
+    </body>
+</html>

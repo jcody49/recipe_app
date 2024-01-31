@@ -14,6 +14,9 @@ from django.contrib.auth.decorators import login_required
 # Import Django query objects for complex database queries
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#to protect class-based view
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 
@@ -26,7 +29,8 @@ def recipes_home(request):
     
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
-# defines search_view   
+# defines search_view 
+@login_required  
 def search_view(request):
     query = request.GET.get('query', '')        # Get the 'query' parameter from the request's GET parameters; default to an empty string if not present
     
@@ -43,6 +47,7 @@ def search_view(request):
     return render(request, 'recipes/search_results.html', {'results': search_results, 'query': query})
 
 # defines create_recipe view
+@login_required
 def create_recipe(request):
     if request.method == 'POST':        # checks if req is POST
         form = RecipeForm(request.POST, request.FILES)      # Takes input from a form and sends it as a POST req, which in Django, is handled by creating an instance of the RecipeForm class--This line creates a new instance of the RecipeForm class and initializes it with the data from the user's submitted form
@@ -56,11 +61,6 @@ def create_recipe(request):
 
     return render(request, 'recipes/create_recipe.html', {'form': form})        # Render the create_recipe.html template with the form instance in the context (the data that is passed to a template for rendering)
 
-
-def logout_view(request):
-    logout(request)
-    return redirect('recipes:home')
-
 @login_required     # restricts access to only authenticated users
 def delete_account(request):
     # Add logic to delete the user and log them out
@@ -69,7 +69,7 @@ def delete_account(request):
     return redirect('recipes:home')
 
 
-class RecipeListView(ListView):           #class-based view
+class RecipeListView(LoginRequiredMixin, ListView):           #class-based “protected” view
     model = Recipe                         #specify model
     template_name = 'recipes/home.html'    #specify template
     context_object_name = 'object_list'     # the data that is passed to a template for rendering
@@ -102,6 +102,6 @@ class RecipeListView(ListView):           #class-based view
         context['object_list'] = recipes  # Update paginated recipes to 'object_list'
         return context      # returns updated context containing the paginated list
 
-class RecipeDetailView(DetailView):                       #class-based view
+class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
     model = Recipe                                        #specify model
     template_name = 'recipes/recipe_detail.html'                 #specify template
