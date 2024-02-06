@@ -1,6 +1,7 @@
 :root {
     --secondary-color: #fbd6cf; 
     --secondary-hover: #FA8072;
+    --dark-salm: #d45e51;
 
 }
 
@@ -325,9 +326,7 @@ body {
     margin-bottom: 20px;
 }
 
-.search-form {
-    margin-left: 120px;
-}
+
 
 
 /* Login and Logout Links */
@@ -370,8 +369,6 @@ body {
 .success-link:hover {
     color: #fbd6cf; 
 }
-
-
 
 .footer-with-attribution {
     position: fixed;
@@ -422,9 +419,53 @@ body {
 }
 
 
-/* Add this style for form fields */
 .login-form input {
     font-family: 'Georgia', serif;
-    font-size: 20px; /* Adjust the size as needed */
-    /* Add any other styles you want for the input fields */
+    font-size: 20px; 
+}
+
+.recipe-names {
+    color: var(--dark-salm);
+    text-decoration: none;
+    font-size: 115%;
+    padding: 5%;
+}
+
+.table-headers {
+    font-size: 135%;
+    text-decoration: none;
+    padding:5%;
+}
+
+.table-rows tr {
+    height: 5%;  /* Adjust the height of the table rows as needed */
+}
+
+.table-rows img {
+    max-height: 100%;  /* Make the images take up the entire height of the container */
+    width: 100%;  
+    height: 80px;  
+    object-fit: cover;  /* Maintain aspect ratio and cover the entire container */
+}
+
+.search-form label, .search-form input {
+    margin-bottom: 10px; 
+    display: block; /* Display label and input on separate lines */
+}
+
+.search-results-forms {
+    width: 300px; 
+    font-size: 16px; 
+    padding: 12px; 
+    font-family: inherit;
+}
+
+.link {
+    color: var(--dark-salm);
+    display: inline-block;
+    font-size: large;
+}
+
+.link:hover{
+    transform: scale(1.1);
 }

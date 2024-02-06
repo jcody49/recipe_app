@@ -1,7 +1,7 @@
 from django import forms
 from .models import Recipe
 
-# Define a form class named RecipeForm, which is a ModelForm for the Recipe model
+# ModelForm for entering a new recipe
 class RecipeForm(forms.ModelForm):
     # Customize the label for the ingredients field
     ingredients = forms.CharField(label='Ingredients', widget=forms.Textarea(attrs={'rows': 4}))
@@ -21,4 +21,22 @@ class RecipeForm(forms.ModelForm):
         self.fields['cooking_time'].widget.attrs['placeholder'] = 'Enter cooking time in minutes'
         self.fields['ingredients'].widget.attrs['placeholder'] = 'Enter ingredients, separated by commas'
         self.fields['directions'].widget.attrs['rows'] = 5      # Adjust the number of rows for the 'directions' field using a Textarea widget
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Recipe Name', max_length=100, required=False)
+    ingredients = forms.CharField(label='Ingredients', max_length=100, required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        query = cleaned_data.get('query')
+        ingredients = cleaned_data.get('ingredients')
+
+        if not query and not ingredients:
+            raise forms.ValidationError('Please enter a search query or ingredients.')
+
+        return cleaned_data
+
+
+
 

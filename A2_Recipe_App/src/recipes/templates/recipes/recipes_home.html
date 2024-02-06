@@ -78,20 +78,21 @@
         </main>
 
         <!-- Search bar section for searching recipes by name or ingredient -->
+        <!-- Search bar section for searching recipes by name or ingredient -->
         <div class="salmon-container" style="width: 100%">
             <div class="txt-20">
                 <p class="horizontal-centering"><br>Have a particular hankering?</p> 
                 <!-- Search form -->
                 <section class="search-bar horizontal-centering">
-                    <form class="horizontal-centering" action="{% url 'recipes:search' %}" method="get">
-                        <!-- Input field for search query -->
-                        <input class="search-form " type="text" name="query" placeholder="Search by name or ingredient">
-                        <!-- Search button -->
-                        <button class="search-button" type="submit">Search</button>
+                    <form method="get" action="{% url 'recipes:search' %}">
+                        {% csrf_token %}
+                        {{ form.query }}
+                        <button type="submit">Search</button>
                     </form>
                 </section>
             </div>
         </div>
+
         
         <!--script links for slick carousel, jquery, and the js script-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

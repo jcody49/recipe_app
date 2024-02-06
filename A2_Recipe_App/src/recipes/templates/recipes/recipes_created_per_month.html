@@ -1,0 +1,7 @@
+{% extends 'recipes/recipes_home.html' %}
+
+{% block content %}
+  <h1>Recipes Created per Month</h1>
+  <p>{{ description }}</p>
+  <img src="data:image/png;base64,{{ chart_image }}" alt="Recipes Created per Month">
+{% endblock %}

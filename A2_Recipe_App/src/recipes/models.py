@@ -10,6 +10,14 @@ TYPE_OF_RECIPE= (
     ('dinner', 'Dinner'),
 )
 
+DIFFICULTY_LEVELS = (
+    ('Easy', 'Easy'),
+    ('Medium', 'Medium'),
+    ('Intermediate', 'Intermediate'),
+    ('Hard', 'Hard'),
+)
+
+
 # takes on ingredients and adds new ingredients to master ingredient list
 def process_recipe_ingredients(ingredients_string):
     """
@@ -38,6 +46,16 @@ class Recipe(models.Model):
     directions = models.TextField(help_text="Enter the directions for preparing the recipe.")
 
     pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
+
+    BREAKFAST = 'breakfast'
+    LUNCH = 'lunch'
+    DINNER = 'dinner'
+
+    TYPE_OF_RECIPE = [
+        (BREAKFAST, 'Breakfast'),
+        (LUNCH, 'Lunch'),
+        (DINNER, 'Dinner'),
+    ]
 
     def calculate_difficulty(self):
         """

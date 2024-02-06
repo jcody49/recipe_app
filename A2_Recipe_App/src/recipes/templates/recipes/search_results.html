@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     {% load static %}
+
+
     <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
 </head>
 <body>
@@ -15,28 +17,51 @@
         </a>
         <h1 class="centered-content">Search Results</h1>
     </header>
-    <a href ="{%url 'logout' %}"> Logout </a>
+    <a href="{% url 'logout' %}"> Logout </a>
 
     <main>
-        <!-- Check if there are search results -->
-        {% if results %}
-            <!-- Display a list of recipes with links to their detailed views -->
-            <ul class="recipe-list">
-                {% for recipe in results %}
-                    <li class="recipe-item">
-                        <!-- Clickable link to the detailed view of the recipe with an image and name -->
-                        <a class="link" href="{{ recipe.get_absolute_url }}">
-                            <!-- Image element displaying the recipe image -->
-                            <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}" class="recipe-image">
-                            <span class="recipe-name">{{ recipe.name }}</span>
-                        </a>
-                    </li>
+        <div class="search-results-forms horizontal-centering">
+            <form  method="get">
+                {% csrf_token %}
+                <div class="horizontal-centering">{{ form.query.label_tag }} {{ form.query }}</div><br>
+                {{ form.ingredients.label_tag }} {{ form.ingredients }}<br><br>
+                <button class="search-button" type="submit">Search</button>
+            </form>
+            <div style="padding-top: 20px;">
+                <a class="link" href="{% url 'recipes:recipe_list_all' %}">Show All Recipes</a>
+            </div>
+            
+        </div>
+        
+        
+        <!-- Display search results as a table -->
+        {% if recipes_queryset %}
+        <table class="table table-striped horizontal-centering table-rows">
+            <thead>
+                <tr>
+                    <th class="table-headers">Recipe Name</th>
+                    <th class="table-headers">Image</th>
+    
+                </tr><br>
+            </thead>
+            <tbody class="table-rows">
+                {% for recipe in recipes_queryset %}
+                <tr class="horizontal-centering recipe-names">
+                    <td><a class=" table-rows recipe-names" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
+                    <td><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}"></a></td>
+                    <!-- Add other columns as needed -->
+                </tr>
                 {% endfor %}
-            </ul>
+            </tbody>
+        </table>
         {% else %}
-            <!-- Display a message if no search results are found -->
-            <p>No results found.</p>
+        <p>No results found.</p>
         {% endif %}
+
+
+
+
+
     </main>
 </body>
 </html>

@@ -1,0 +1,11 @@
+{% extends 'recipes/recipes_home.html' %}
+
+{% block content %}
+  <h2>Recipe Type Distribution</h2>
+  
+  <!-- Display the chart image -->
+  <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Type Distribution Chart">
+  
+  <!-- Display the description -->
+  <p>{{ description }}</p>
+{% endblock %}
