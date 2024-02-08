@@ -31,7 +31,7 @@ import calendar
 from .utils import render_chart, get_recipe_type_distribution_data, get_recipe_difficulty_distribution_data, get_recipe_name_from_id
 import numpy as np
 
-
+# django's logger--helps with debugging
 logger = logging.getLogger(__name__)
 
 
@@ -44,32 +44,30 @@ def recipes_home(request):
     
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
+
 @login_required
 def search_view(request):
-    form = SearchForm(request.GET or None)
-    recipes_queryset = None
+    form = SearchForm(request.GET or None)      # applies the SearchForm class to a form that is intende to use the GET method
+    recipes_queryset = None     # initializes the recipe's query set to none
 
     if form.is_valid():
-        query = form.cleaned_data['query'].strip()
-        ingredients = form.cleaned_data['ingredients'].strip()
+        query = form.cleaned_data['query'].strip()      # strips the whitespace from the query
 
-        if query or ingredients:
+        if query:
             # Use Q objects to combine queries for name and ingredients
-            name_query = Q(name__icontains=query) if query else Q()
-            ingredients_query = Q(ingredients__icontains=ingredients) if ingredients else Q()
-
-            # Combine the queries using OR
-            combined_query = name_query | ingredients_query
+            combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
 
             # Filter recipes based on the combined query
             recipes_queryset = Recipe.objects.filter(combined_query)
 
+    # The context dictionary is passed as an argument to a Django template renderer, allowing the template to access and display the values associated with the keys
     context = {
         'form': form,
         'recipes_queryset': recipes_queryset,
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 # defines create_recipe view
@@ -95,9 +93,36 @@ def delete_account(request):
     return redirect('recipes:home')
 
 
+def visualizations(request, type_of_recipe=None):
+    
+    
+
+    # Fetch recipes based on type_of_recipe, adjust this part as needed
+    if type_of_recipe:
+        recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+    else:
+        recipes = None  # You may want to fetch all recipes or leave it as None if not needed
+
+    # Check if type_of_recipe is None and set a message
+    if type_of_recipe is None:
+        message = "Please select a type of recipe to proceed."
+    else:
+        message = None
+
+    context = {
+        'type_of_recipe': type_of_recipe,
+        'recipes': recipes,
+        'message': message,  # Include the message in the context
+    }
+    return render(request, 'recipes/visualizations.html', context)
+
+
+
+    
+# defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
 def recipe_difficulty_distribution(request, type_of_recipe):
-    data = get_recipe_difficulty_distribution_data(type_of_recipe)
-    chart_image = render_chart(request, chart_type=2, data=data)  # Use chart_type as an integer
+    data = get_recipe_difficulty_distribution_data(type_of_recipe)      # calls the function to get the required data for the chart
+    chart_image = render_chart(request, chart_type=2, data=data)  # Use chart_type 2 with the data just gathered to produce a chart_image
 
     context = {
         'chart_image': chart_image,
@@ -105,6 +130,7 @@ def recipe_difficulty_distribution(request, type_of_recipe):
     }
     return render(request, 'recipes/recipe_difficulty_distribution.html', context)
 
+# defines view for recipe_type_distribution chart on all recipes
 def recipe_type_distribution(request, type_of_recipe=None):
     # If type_of_recipe is not specified, get data for all recipe types
     if type_of_recipe is None:
@@ -176,7 +202,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):                       #c
     model = Recipe                                        #specify model
     template_name = 'recipes/recipe_detail.html'                 #specify template
 
-
+# uses a list view to view all recipes
 class RecipeListViewAll(LoginRequiredMixin, ListView):
     model = Recipe
     template_name = 'recipes/home.html'
@@ -185,5 +211,7 @@ class RecipeListViewAll(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Recipe.objects.all().order_by('name')
+
+
 
 

@@ -10,25 +10,30 @@
 <body>
 
     <header>
+        <!-- Display the Collective Cookbook Logo -->
         <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
         <h1>Login</h1>
     </header>
 
     {% if error_message %}
+    <!-- Display error message if any -->
         <p class="error-message">{{ error_message }}</p>
     {% endif %}
 
     <div class="centered-content column">
+        <!-- Login form -->
         <form action="" method="POST" class="login-form">
             {% csrf_token %}
+            <!-- Render form fields as paragraphs for simplicity -->
             {{ form.as_p }}
             <div class="centered-content">
                 <button class="" type="submit">Login</button>
             </div>
         </form>
     </div>
-    <!--test-->
+
     <div class="background-container">
+        <!-- Footer with a background image -->
         <footer style="background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('{% static 'recipes/images/tomatoes-near-mushrooms-herbs.jpg' %}'); background-size: cover; background-repeat: no-repeat; background-position: center bottom; position: fixed; bottom: 0; left: 0; right: 0; height: 21%;">
             <img src="{% static 'recipes/images/tomatoes-near-mushrooms-herbs.jpg' %}" alt="Background Image" style="width: 100%; height: auto; opacity: 0.7;">
             <!-- Attribution details inside the footer -->

@@ -1,7 +1,22 @@
-{% extends 'recipes/recipes_home.html' %}
-
-{% block content %}
-  <h1>Recipes Created per Month</h1>
-  <p>{{ description }}</p>
-  <img src="data:image/png;base64,{{ chart_image }}" alt="Recipes Created per Month">
-{% endblock %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes Created Per Month</title>
+    
+</head>
+<body>
+    <a href ="{%url 'logout' %}"> Logout </a>
+    <h2>Recipes Created Per Month</h2>
+    
+    <!-- Display the chart image -->
+    <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Difficulty Distribution Chart">
+    
+    <!-- Display the description if available -->
+    {% if description %}
+        <p>{{ description }}</p>
+    {% endif %}
+</body>
+</html>

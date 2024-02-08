@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Difficulty Distribution</title>
+    <a href ="{%url 'logout' %}"> Logout </a>
 </head>
 <body>
-    <h2>Recipe Difficulty Distribution</h2>
+    <header>
+      <h1>Recipe Difficulty Distribution</h1>
+    </header>
     
     <!-- Display the chart image -->
     <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Difficulty Distribution Chart">

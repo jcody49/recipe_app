@@ -78,7 +78,6 @@
         </main>
 
         <!-- Search bar section for searching recipes by name or ingredient -->
-        <!-- Search bar section for searching recipes by name or ingredient -->
         <div class="salmon-container" style="width: 100%">
             <div class="txt-20">
                 <p class="horizontal-centering"><br>Have a particular hankering?</p> 
@@ -87,13 +86,21 @@
                     <form method="get" action="{% url 'recipes:search' %}">
                         {% csrf_token %}
                         {{ form.query }}
-                        <button type="submit">Search</button>
+                        <button class="search-button" type="submit">Search</button>
                     </form>
                 </section>
             </div>
         </div>
 
+        <div class="horizontal-centering" style="margin-top: 5%;">
+            <p>
+                Check out trends in the website with our   
+                <a class="link" style="margin-left: 5px" href="{% url 'recipes:visualizations' %}">data visualizations!</a>
+            </p>
+        </div>
+
         
+
         <!--script links for slick carousel, jquery, and the js script-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

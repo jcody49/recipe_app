@@ -22,20 +22,26 @@ class RecipeForm(forms.ModelForm):
         self.fields['ingredients'].widget.attrs['placeholder'] = 'Enter ingredients, separated by commas'
         self.fields['directions'].widget.attrs['rows'] = 5      # Adjust the number of rows for the 'directions' field using a Textarea widget
 
-
+# Define a form class named SearchForm, which inherits from the base class forms.Form.
 class SearchForm(forms.Form):
-    query = forms.CharField(label='Recipe Name', max_length=100, required=False)
-    ingredients = forms.CharField(label='Ingredients', max_length=100, required=False)
+    # Define a form field named 'query' with type: CharField
+    # - It is a text input field
+    # - It has a label 'Recipe Name or Ingredients'
+    # - The maximum length of input allowed is 100 characters.
+    # - It is not marked as required, meaning it can be left empty.
+    query = forms.CharField(label='Recipe Name or Ingredients', max_length=100, required=False)
 
     def clean(self):
-        cleaned_data = super().clean()
-        query = cleaned_data.get('query')
-        ingredients = cleaned_data.get('ingredients')
-
-        if not query and not ingredients:
-            raise forms.ValidationError('Please enter a search query or ingredients.')
+        cleaned_data = super().clean()      # super().clean() is a call to the clean method of the parent class, forms.Form, to retrieve the cleaned data for all the form fields.
+        query = cleaned_data.get('query')       # retrieving the cleaned and validated value of the 'query' field from the cleaned_data dictionary
+        # If the 'query' field is empty, it raises a ValidationError indicating that the user should enter a search query or ingredients
+        if not query:
+            raise forms.ValidationError({'query': 'Please enter a search query or ingredients.'})
 
         return cleaned_data
+
+
+
 
 
 

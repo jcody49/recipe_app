@@ -11,17 +11,16 @@ from django.http import HttpResponse
 
 
 
-def get_recipe_name_from_id(value):
+def get_recipe_name_from_id(value):     # takes id as value parameter
     try:
-        recipe_name = Recipe.objects.get(id=value).name
+        recipe_name = Recipe.objects.get(id=value).name     #looks through all recipe objects for the id specified to get the recipe name
     except Recipe.DoesNotExist:
         recipe_name = f"Recipe {value} (Not Found)"
     return recipe_name
 
 
-
+# counts the occurance of each recipe type for a data visualization
 def get_recipe_type_distribution_data(type_of_recipe=None):
-    print("Inside get_recipe_type_distribution_data function")
 
     # Get all distinct recipe types
     all_recipe_types = Recipe.TYPE_OF_RECIPE
@@ -35,17 +34,11 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
         recipe_type_counts[type_of_recipe] = count
 
     # Convert the dictionary to a Pandas DataFrame
-    data = pd.DataFrame(list(recipe_type_counts.items()), columns=['recipe_type', 'count'])
-    
-    print("Data for recipe type distribution:", data)
+    data = pd.DataFrame(list(recipe_type_counts.items()), columns=['recipe_type', 'count'])     # The list() method is being used here to convert the items of a dictionary, specifically recipe_type_counts, into a list of tuples
+
     return data
 
-
-
-
-
-
-#test
+# counts the occurance of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(type_of_recipe):
     # Filter recipes based on type_of_recipe
     recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
@@ -59,24 +52,25 @@ def get_recipe_difficulty_distribution_data(type_of_recipe):
     return data_df
 
 
+
+# takes data and renders its respective chart_image
 def render_chart(request, chart_type, data=None, **kwargs):
-    print("chart_type:", chart_type)
-    print("data:", data)
 
     if data is None or data.empty:
         # Handle the case when data is not available or empty
         print("No data available.")
         return HttpResponse("No data available.")
 
-    plt.switch_backend("AGG")
-    fig = plt.figure(figsize=(12, 8), dpi=100)
-    ax = fig.add_subplot(111)
+    plt.switch_backend("AGG")       # Matplotlib has different rendering backends--AGG" stands for Anti-Grain Geometry, which is a high-quality rendering engine for C++
+    fig = plt.figure(figsize=(12, 8), dpi=100)      # plt.figure() is a function in Matplotlib that creates a new figure with parameters that set the chart_image size as well as the dpi (resolution, dots per inch)
+    ax = fig.add_subplot(111)       # The argument 111 is a shorthand notation for a subplot configuration, creating a single subplot in a grid with 1 row and 1 column, and the subplot being the first (and only) subplot. The three digits represent (nrows, ncols, index).
 
+    # essentially, these are models that determine the attributes of the charts
     if chart_type == 1:
-        plt.title("Recipe Type Distribution", fontsize=20)
-        plt.bar(data["recipe_type"], data["count"])
-        plt.xlabel("Recipe Types", fontsize=16)
-        plt.ylabel("Number of Recipes", fontsize=16)
+        plt.title("Recipe Type Distribution", fontsize=20)      #title
+        plt.bar(data["recipe_type"], data["count"])     # chart type
+        plt.xlabel("Recipe Types", fontsize=16)     # label for the x axis
+        plt.ylabel("Number of Recipes", fontsize=16)        # label for the y axis
 
     elif chart_type == 2:
         plt.title("Recipe Difficulty Distribution", fontsize=20)
@@ -95,14 +89,18 @@ def render_chart(request, chart_type, data=None, **kwargs):
     else:
         print("Unknown chart type.")
 
-    plt.tight_layout(pad=3.0)
+    plt.tight_layout(pad=3.0)       # adjusts padding
 
-    buffer = BytesIO()
-    plt.savefig(buffer, format="png")
-    buffer.seek(0)
+    buffer = BytesIO()      # creates an in-memory binary stream (a buffer)--buffer is an instance of this class and will be used to store the image data.
+    plt.savefig(buffer, format="png")       # Matplotlib function used to save the current figure to a file
+    buffer.seek(0)      # used to move the cursor to the beginning of the buffer (position 0). This prepares the buffer for reading its content.
+    
+    # buffer.read() reads the binary data from the buffer.
+    # base64.b64encode() is used to encode the binary data into base64 format.
+    # decode("utf-8") converts the base64-encoded binary data to a UTF-8 encoded string.
     chart_image = base64.b64encode(buffer.read()).decode("utf-8")
 
-    print("Chart Image Length:", len(chart_image))
+
     return chart_image
 
 
@@ -133,5 +131,6 @@ def get_graph(fig):
 
 
 
-
+# template.Library is a class provided by Django in the django.template module.
+# It is used to register and organize custom template tags and filters.
 register = template.Library()

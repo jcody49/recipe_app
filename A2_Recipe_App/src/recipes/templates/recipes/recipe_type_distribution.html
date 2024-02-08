@@ -1,11 +1,21 @@
-{% extends 'recipes/recipes_home.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Type Distribution</title>
+</head>
+<body>
+  <a href ="{%url 'logout' %}"> Logout </a>
+    <h2>Recipe Type Distribution</h2>
+    
+    <!-- Display the chart image -->
+    <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Type Distribution Chart">
+    
 
-{% block content %}
-  <h2>Recipe Type Distribution</h2>
-  
-  <!-- Display the chart image -->
-  <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Type Distribution Chart">
-  
-  <!-- Display the description -->
-  <p>{{ description }}</p>
-{% endblock %}
+    {% if description %}
+        <p>{{ description }}</p>
+    {% endif %}
+</body>
+</html>
