@@ -8,7 +8,10 @@
     
 </head>
 <body>
-    <a href ="{%url 'logout' %}"> Logout </a>
+    <a class="link" href="{% url 'recipes:home' %}">
+        <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" ><br>
+    </a>
+    <a class="logout-link" href ="{%url 'logout' %}"> Logout </a>
     <h2>Recipes Created Per Month</h2>
     
     <!-- Display the chart image -->

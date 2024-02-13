@@ -92,11 +92,11 @@ main {
     overflow: hidden;
     margin-bottom: 30px;
     white-space: nowrap;
-    margin-top:-5%;
+    margin-top: -5%;
 }
 
 .scrolling-images {
-    display: flex;
+    display: inline-block;
     animation: scroll 50s linear infinite;
 }
 
@@ -106,6 +106,9 @@ main {
     margin-right: 10px; 
     margin-left: 10px; 
 }
+
+
+
 
 /*HOMEPAGE OPTIONS*/
 .homepage-options-container {
@@ -279,16 +282,6 @@ main {
     margin-right: 20px; /* Adjust the margin as needed for spacing */
 }
 
-.header-container {
-    display: flex;
-    align-items: center;
-    background-color: var(--secondary-color);
-    padding: 20px;
-}
-
-.title-container {
-    text-align: left; /* Align the title text to the left */
-}
 
 h1, h2 {
     margin: 0;
@@ -370,13 +363,13 @@ body {
 
 /* Login and Logout Links */
 .login-link, .logout-link {
-    color: salmon;
+    color: var(--dark-salm);
     text-decoration: none;
     transition: color 0.2s, transform 0.2s;
 }
 
 .login-link:hover, .logout-link:hover {
-    color: rgb(254, 88, 70); 
+    color: salmon; 
     transform: scale(1.1);
 }
 
@@ -485,5 +478,295 @@ body {
 }
 
 
+
+/*test*/
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; /* Adjust the padding as needed */
+}
+
+.left-third {
+    flex: 1;
+    display: flex;
+    align-items: left;
+}
+
+.center-third {
+    flex: 2;
+}
+
+.right-third {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+/* Logo */
+.logo {
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+
+
+/* Login and Logout Links */
+.login-link,
+.logout-link {
+    color: var(--dark-salm);
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+}
+
+
+.login-link:hover,
+.logout-link:hover {
+    color: salmon;
+    transform: scale(1.1);
+}
+
+.success-login {
+    font-size: 26px;
+    text-align: center;
+}
+
+
+/*GENERAL CONTAINERS*/
+
+.salmon-container {
+    width: 100%;
+    background-color: var(--salmon); /* Adjust the background color as needed */
+    padding: 10px; /* Add padding as needed */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    background-color: salmon;
+}
+
+.homepage-options-container {
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    padding: 10px; /* Add padding as needed */
+    margin-top: 10px; /* Add margin as needed */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+.left-third, .center-third, .right-third {
+    flex: 1;
+}
+
+.logo {
+    max-width: 100%; /* Ensure the logo doesn't exceed the container's width */
+    height: auto; /* Maintain the aspect ratio while resizing */
+}
+
+.right-third {
+    text-align: right;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: stretch; /* Stretch items to fill the width */
+    }
+
+    .left-third, .center-third, .right-third {
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 10px; /* Add some space below the logo for better spacing */
+    }
+}
+
+.title-container {
+    text-align: left; /* Align the title text to the left */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* This can help prevent horizontal scrolling */
+}
+
+/* General styling for containers */
+.salmon-container, .homepage-options-container, .scrolling-images-container, .raised {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .salmon-container, .homepage-options-container, .scrolling-images-container, .raised {
+        padding: 10px; /* Adjust padding for better spacing on smaller screens */
+    }
+
+    .scrolling-images-container {
+        margin-top: 10px; /* Adjust margin for better spacing on smaller screens */
+    }
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+    .scrolling-images-container {
+        display: none; /* Hide scrolling images on smaller screens */
+    }
+}
+
+main {
+    padding: 20px; /* Adjust padding as needed for spacing */
+    box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+
+.logo {
+    max-width: 50%;
+    width: auto; /* Ensure the logo scales down proportionally */
+    height: auto; /* Maintain the aspect ratio while resizing */
+}
+
+
+
+
+
+/*test*/
+body {
+    margin: 0;
+}
+
+.logo {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.home-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.right-third {
+    display: flex;
+    justify-content: flex-end;
+    align-items: right;
+    text-align: right;
+    justify-content: space-between;
+}
+
+.login-link, .logout-link {
+    padding-bottom: 6%;
+    font-size: 114%;
+}
+
+.center-third, .title-container {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .title-container {
+        display: none;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .right-third {
+        margin-top: -14%;
+    }
+
+    .logo {
+        max-width: 47%;
+    }
+
+    .title {
+        font-size: 1.3em;
+        text-align: center;
+    }
+
+    .logout-link {
+        padding-top: 4%;
+        font-size: 1em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    *:not(h1) {
+        font-size: clamp(1em, 3vw, 1.2em);
+    }
+}
+
+/* Your existing styles for larger screens */
+
+/* Adjust styles for specific elements on the 'Create a New Recipe' page */
+@media screen and (max-width: 768px) {
+    .header-container h1 {
+        font-size: 1.5em;
+    }
+
+    .new-recipe-content label {
+        font-size: 0.6em;
+    }
+
+    .new-recipe-content input,
+    .new-recipe-content select,
+    .new-recipe-content textarea {
+        font-size: 0.6em;
+        width: 90%;
+        margin: 5px 0;
+    }
+
+    .new-recipe-content button {
+        font-size: 1em;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Add more specific selectors and adjust styles as needed */
+}
+
+/* For smaller screens */
+@media screen and (max-width: 768px) {
+    .title-container {
+        display: none;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        max-width: 70%;
+        margin: 10% auto;
+    }
+
+    h1 {
+        font-size: 1.3em;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .logout-link {
+        font-size: 1.1em;
+        margin-top: 5px;
+    }
+
+    .detail-text {
+        padding: 10px;
+        font-size: 16px; /* Adjust the font size for smaller screens */
+        margin: 20px 10px; /* Adjust the margin for better spacing on smaller screens */
+        text-align: left;
+    }
+}
 
 

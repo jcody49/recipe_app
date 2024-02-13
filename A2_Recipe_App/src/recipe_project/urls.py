@@ -19,13 +19,15 @@ from django.urls import include, path
 from recipes.views import recipes_home
 from django.conf.urls.static import static  
 from django.conf import settings
-from .views import login_view, logout_view
+from .views import login_view, logout_view, signup, delete_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('signup/', signup, name='signup'),
+    path('delete_account/', delete_account, name='delete_account'),
 ]
 
 

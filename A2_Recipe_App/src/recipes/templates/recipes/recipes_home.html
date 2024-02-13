@@ -12,21 +12,41 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     </head>
     <body>
-        <!-- Header section with logo and site title -->
+        <!--test-->
         <header class="header-container">
-            <!-- Logo linking to the home page -->
-            <a href="{% url 'recipes:home' %}">
-                <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
-            </a>
-            <!-- Site title and subtitle -->
-            <div class="title-container">
-                <h1>The Cookbook Collective</h1>
-                <p class="subtitle-text" style="text-align: right;"><i>Welcome to your recipe haven...</i></p>
-
+            <div class="left-third">
+                <!-- Logo linking to the home page -->
+                <a class="link" href="{% url 'recipes:home' %}">
+                    <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" ><br>
+                    Home
+                </a>
             </div>
-            <a href ="{%url 'login' %}">  Login  </a>
-            <a href ="{%url 'logout' %}"> Logout </a>
-        </header>        
+        
+            <div class="center-third">
+                <!-- Site title and subtitle -->
+                <div class="title-container">
+                    <h1>The Cookbook Collective</h1>
+                    <p class="subtitle-text" style="text-align: right;"><i>Welcome to your recipe haven...</i></p>
+                </div>
+            </div>
+        
+            <div class="right-third">
+                <div class="right-third">
+                    <a style="align-items: right;" class="login-link" href="{%url 'login' %}">Login</a><br>
+                    <a class="logout-link" href="{%url 'logout' %}">Logout</a>
+                    
+                    {% if user.is_authenticated %}
+                        <!-- Display link for deleting account if the user is logged in -->
+                        <a class="logout-link" style="margin-top: 10%" href="{% url 'delete_account' %}">Delete Account</a>
+                    {% else %}
+                        <!-- Display link for signing up if the user is not logged in -->
+                        <a style="padding-top: 25%;" class="log-out link" href="{% url 'signup' %}">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        
+        
 
         <!-- Main content section with scrolling images, introductory text, and homepage options -->
         <main>
@@ -35,47 +55,57 @@
                 <!-- Slick Carousel for displaying random recipe images -->
                 <div class="scrolling-images">
                     {% for image in random_images %}
-                        <div><img src="{{ image.pic.url }}" alt="Recipe Image"></div>
+                        {% if image.pic.name != "no_picture.jpg" %}
+                            <div><img src="{{ image.pic.url }}" alt="Recipe Image"></div>
+                        {% endif %}
                     {% endfor %}
                 </div>
-            </div>     
-
-            <section class="raised centered-content">
-                <p><em>Where happy stomachs begin, and culinary adventures never end!</em></p>
-            </section>
-            
-            <!-- Homepage options section with buttons to browse and create recipes -->
-            <section class="homepage-options-container raised">
-
-                <div class="homepage-options-section">
-                    <div class="horizontal-centering">
-                        <h4>Look Through Recipes</h4>
-                    
-                        <section class="centered-content">
-                            <!-- Browse recipes button -->
-                            <a href="{% url 'recipes:recipe_list' %}">
-                                <button class="browse-button">Browse</button>
-                            </a>
-                        </section>
-                    </div>
-                </div>
-    
-                <div class="homepage-options-section">
-                    <div class="horizontal-centering">
-                        <h4>Enter New Recipe</h4>
-                    
-                        <section>
-                            <!-- Create new recipe button -->
-                            <a href="{% url 'recipes:create_recipe' %}">
-                                <button class="browse-button">Create</button>
-                            </a>
-                        </section>
-                    </div>
-                </div>
-
-            </section>
-
+            </div>
         </main>
+            
+
+        <div class="centered-content">
+            <p class="horizontal-centering"><em>Where happy stomachs begin, and culinary adventures never end!</em></p>
+        </div>
+        
+        {% if messages %}
+        <div class="messages horizontal-centering">
+            {% for message in messages %}
+                    {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+        
+        <!-- Homepage options section with buttons to browse and create recipes -->
+        <section style="padding:5%" class=" horizontal-centering raised">
+
+            <div class=" centered-content">
+                <h4>Look Through Recipes</h4>
+                
+            </div>
+            <section class="horizontal-centering">
+                <!-- Browse recipes button -->
+                <a href="{% url 'recipes:recipe_list' %}">
+                    <button class="browse-button">Browse</button>
+                </a>
+            </section>
+    
+            <div class="horizontal-centering">
+                <h4>Enter New Recipe</h4>
+            
+                <section>
+                    <!-- Create new recipe button -->
+                    <a href="{% url 'recipes:create_recipe' %}">
+                        <button class="browse-button">Create</button>
+                    </a>
+                </section>
+            </div>
+    
+
+        </section>
+
+     
 
         <!-- Search bar section for searching recipes by name or ingredient -->
         <div class="salmon-container" style="width: 100%">

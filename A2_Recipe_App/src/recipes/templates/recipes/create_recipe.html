@@ -15,8 +15,9 @@
                 <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
             </a>
             <h1 >Enter New Recipe Information</h1>
+            <a class="logout-link" href ="{%url 'logout' %}"> Logout </a>
         </header>
-        <a href ="{%url 'logout' %}"> Logout </a>
+        
         {% block content %}     <!--blocks of content that can be overridden in child templates--flexible-->
         <form class="new-recipe-content" method="post" enctype="multipart/form-data" style="font-size: 25px">
             <!--The {% csrf_token %} template tag generates a hidden input field in the form containing a unique token. When the form is submitted, this token is checked by Django to ensure that the form submission is legitimate and not a result of a CSRF attack-->

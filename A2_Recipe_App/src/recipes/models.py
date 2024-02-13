@@ -44,8 +44,8 @@ class Recipe(models.Model):
     type_of_recipe = models.CharField(max_length=30, choices=TYPE_OF_RECIPE)
     ingredients = models.TextField("ingredients.Ingredient", blank=True, help_text="Enter the ingredients for the recipe, separated by commas.", default="")
     directions = models.TextField(help_text="Enter the directions for preparing the recipe.")
-
-    pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
+    #test
+    pic = models.ImageField(upload_to='recipes/', null=True, blank=True, default='recipes/no_picture.jpeg')
 
     BREAKFAST = 'breakfast'
     LUNCH = 'lunch'

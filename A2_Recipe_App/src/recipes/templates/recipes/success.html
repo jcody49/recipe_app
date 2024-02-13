@@ -11,7 +11,7 @@
     <!--successful logout message-->
     <body style="background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('{% static 'recipes/images/CC_Logo.jpg' %}'); background-size: 30%; background-repeat: no-repeat; background-position: center center; position: relative;">
         <header><h1>{{ message }}</h1></header>
-        <p class= "success-login"><a class= "login-link" href="{% url 'recipes:login' %}">Log back in</a></p>
+        <p class= "success-login"><a style="text-decoration: underline;" class= "login-link" href="{% url 'recipes:login' %}">Log back in</a></p>
     
         <div class="background-container">
             <!-- Footer with a background image -->

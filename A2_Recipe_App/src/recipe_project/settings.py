@@ -155,3 +155,4 @@ LOGGING = {
 
 #AUTH
 LOGIN_URL='/login/'
+

@@ -173,21 +173,15 @@ class RecipeListView(LoginRequiredMixin, ListView):           #class-based “pr
 
     def get_queryset(self):
         queryset = Recipe.objects.all().order_by('name')
-        print(queryset.query)   # Print the generated SQL query
         return queryset     # Recipe.objects.all() retrieves all instances of the Recipe model, and .order_by('?')  orders them by name
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        recipe_list = context['object_list']  # Update 'recipes' to 'object_list'
+        recipe_list = context['object_list']  # Update 'object_list_all' to 'object_list'
 
-        paginator = Paginator(recipe_list, self.paginate_by)       # Create a paginator object for the recipe_list, paginating the recipe instances in the list view
-        # Extract the value of the 'page' parameter from the GET request.
-        # This is commonly used in paginated views to determine which page of content the user is currently viewing.
+        paginator = Paginator(recipe_list, self.paginate_by)
         page = self.request.GET.get('page')
 
-        # Try to get the requested page of recipes from the paginator.
-        # If the 'page' parameter is not an integer, default to the first page.
-        # If the 'page' parameter is too high, default to the last page.
         try:
             recipes = paginator.page(page)
         except PageNotAnInteger:
@@ -196,7 +190,9 @@ class RecipeListView(LoginRequiredMixin, ListView):           #class-based “pr
             recipes = paginator.page(paginator.num_pages)
 
         context['object_list'] = recipes  # Update paginated recipes to 'object_list'
-        return context      # returns updated context containing the paginated list
+        return context
+
+
 
 class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
     model = Recipe                                        #specify model
