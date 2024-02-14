@@ -1,55 +1,66 @@
-from django import template
+# Standard Library Imports
 from io import BytesIO
 import base64
+from enum import Enum
+
+# Third-party Library Imports
 import matplotlib.pyplot as plt
 import pandas as pd
-from .models import Recipe
+
+
+
+# Django Imports
+from django import template
 from django.db.models import Count
-from enum import Enum
 from django.http import HttpResponse
 
+# Project-specific Imports
+from .models import Recipe
 
 
-
-def get_recipe_name_from_id(value):     # takes id as value parameter
+def get_recipe_name_from_id(value):
     try:
-        recipe_name = Recipe.objects.get(id=value).name     #looks through all recipe objects for the id specified to get the recipe name
+        recipe_name = Recipe.objects.get(id=value).name
     except Recipe.DoesNotExist:
         recipe_name = f"Recipe {value} (Not Found)"
+    except Exception as e:
+        # Handle unexpected errors during the operation
+        print(f"Error getting recipe name: {e}")
+        recipe_name = f"Error fetching recipe name"
     return recipe_name
+
 
 
 # counts the occurance of each recipe type for a data visualization
 def get_recipe_type_distribution_data(type_of_recipe=None):
+    try:
+        all_recipe_types = Recipe.TYPE_OF_RECIPE
+        recipe_type_counts = {type_of_recipe: 0 for type_of_recipe, _ in all_recipe_types}
 
-    # Get all distinct recipe types
-    all_recipe_types = Recipe.TYPE_OF_RECIPE
+        for type_of_recipe, _ in all_recipe_types:
+            count = Recipe.objects.filter(type_of_recipe=type_of_recipe).count()
+            recipe_type_counts[type_of_recipe] = count
 
-    # Create a dictionary to store counts for each type
-    recipe_type_counts = {type_of_recipe: 0 for type_of_recipe, _ in all_recipe_types}
+        data = pd.DataFrame(list(recipe_type_counts.items()), columns=['recipe_type', 'count'])
+        return data
+    except Exception as e:
+        # Handle unexpected errors during the operation
+        print(f"Error getting recipe type distribution data: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
-    # Loop through each type and count the number of recipes
-    for type_of_recipe, _ in all_recipe_types:
-        count = Recipe.objects.filter(type_of_recipe=type_of_recipe).count()
-        recipe_type_counts[type_of_recipe] = count
-
-    # Convert the dictionary to a Pandas DataFrame
-    data = pd.DataFrame(list(recipe_type_counts.items()), columns=['recipe_type', 'count'])     # The list() method is being used here to convert the items of a dictionary, specifically recipe_type_counts, into a list of tuples
-
-    return data
 
 # counts the occurance of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(type_of_recipe):
-    # Filter recipes based on type_of_recipe
-    recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+    try:
+        recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+        data = recipes.values('difficulty').annotate(count=Count('difficulty'))
+        data_df = pd.DataFrame.from_records(data)
+        return data_df
+    except Exception as e:
+        # Handle unexpected errors during the operation
+        print(f"Error getting recipe difficulty distribution data: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
-    # Query the database to get the difficulty distribution data
-    data = recipes.values('difficulty').annotate(count=Count('difficulty'))
-
-    # Convert the queryset to a Pandas DataFrame
-    data_df = pd.DataFrame.from_records(data)
-
-    return data_df
 
 
 
@@ -86,6 +97,7 @@ def render_chart(request, chart_type, data=None, **kwargs):
         plt.xlabel("Months", fontsize=16)
         plt.ylabel("Number of Recipes", fontsize=16)
 
+
     else:
         print("Unknown chart type.")
 
@@ -105,29 +117,19 @@ def render_chart(request, chart_type, data=None, **kwargs):
 
 
 def get_graph(fig):
-    # create a BytesIO buffer for the image
-    buffer = BytesIO()
-
-    # create a plot with a BytesIO object as a file-like object. Set format to png
-    fig.savefig(buffer, format='png')
-
-    # set cursor to the beginning of the stream
-    buffer.seek(0)
-
-    # retrieve the content of the file
-    image_png = buffer.getvalue()
-
-    # encode the bytes-like object
-    graph = base64.b64encode(image_png)
-
-    # decode to get the string as output
-    graph = graph.decode('utf-8')
-
-    # free up the memory of buffer
-    buffer.close()
-
-    # return the image/graph
-    return graph
+    try:
+        buffer = BytesIO()
+        fig.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_png = buffer.getvalue()
+        graph = base64.b64encode(image_png)
+        graph = graph.decode('utf-8')
+        buffer.close()
+        return graph
+    except Exception as e:
+        # Handle unexpected errors during the operation
+        print(f"Error getting graph: {e}")
+        return None
 
 
 

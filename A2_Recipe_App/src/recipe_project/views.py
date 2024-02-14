@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .forms import UserRegistrationForm
 from django.contrib import messages
+from django.urls import reverse
 
-#define a function view called login_view that takes a request from user
+from .forms import UserRegistrationForm
+
+
+
+#define a function view called login_view that takes a request from the user
 def login_view(request):
     error_message = None
     form = AuthenticationForm()
@@ -41,26 +44,33 @@ def login_view(request):
 
     return render(request, 'auth/login.html', context)
 
-#define a function view called logout_view that takes a request from user
-def logout_view(request):                                  
-   logout(request)             #the use pre-defined Django function to logout
-   return render(request, 'recipes/success.html', {'message': 'You\'ve successfully logged out.'})
+#define a function view called logout_view that takes a request from the user
+def logout_view(request):
+    try:
+        logout(request)
+        return render(request, 'recipes/success.html', {'message': 'You\'ve successfully logged out.'})
+    except Exception as e:
+        messages.error(request, f'An error occurred during logout: {e}')
+        return render(request, 'recipes/success.html', {'message': 'Logout unsuccessful. Please try again.'})
 
 @login_required
 def delete_account(request):
     if request.method == 'POST':
-        # Assuming you want to confirm the deletion with a checkbox
         confirmation_checkbox = request.POST.get('confirm_delete', False)
 
         if confirmation_checkbox:
-            # Perform account deletion logic
-            request.user.delete()
+            try:
+                # Perform account deletion logic
+                request.user.delete()
 
-            # Log the user out after deletion
-            logout(request)
+                # Log the user out after deletion
+                logout(request)
 
-            # Redirect to a confirmation page or home page
-            return redirect('home')
+                # Redirect to a confirmation page or home page
+                return redirect('home')
+
+            except Exception as e:
+                messages.error(request, f'An error occurred during account deletion: {e}')
 
     return render(request, 'delete_account.html')
 
@@ -76,7 +86,6 @@ def register_view(request):
 
     return render(request, 'auth/register.html', {'form': form})
 
-
 def signup(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -85,7 +94,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             print(f'Successful registration for {username}')
-            return redirect(reverse('recipes:home')) 
+            return redirect(reverse('recipes:home'))
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -95,4 +104,3 @@ def signup(request):
         form = UserRegistrationForm()
 
     return render(request, 'auth/signup.html', {'form': form})
-

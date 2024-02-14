@@ -1,7 +1,7 @@
 from django.db import models
-from recipe_ingredients.models import RecipeIngredient
-from ingredients.models import Ingredient
 from django.shortcuts import reverse
+from ingredients.models import Ingredient
+from recipe_ingredients.models import RecipeIngredient
 
 
 TYPE_OF_RECIPE= (
@@ -30,8 +30,6 @@ def process_recipe_ingredients(ingredients_string):
         # Check if the ingredient already exists in the database
         ingredient, created = Ingredient.objects.get_or_create(name=ingredient_name)
 
-    print("Ingredients List:", ingredients_list)
-    # Return the processed list of ingredients
     return ingredients_list
 
 

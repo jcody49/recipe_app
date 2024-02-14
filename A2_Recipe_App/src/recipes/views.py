@@ -1,38 +1,35 @@
-# modules for file and random operations
+# Standard Library
 import os
 import random
-# Import Django shortcuts for rendering, redirection, and user authentication
+from io import BytesIO
+import calendar
+
+# Django
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-# Import Django's generic views for list and detail views
 from django.views.generic import ListView, DetailView
-# Import models and forms from the current application
-from .models import Recipe, TYPE_OF_RECIPE
-from .forms import RecipeForm, SearchForm 
-# Import Django decorators for user authentication
 from django.contrib.auth.decorators import login_required
-# Import Django query objects for complex database queries
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-#to protect class-based view
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+
+# Third-party
 import pandas as pd
-from .utils import get_recipe_name_from_id
-import logging
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
-from django.http import HttpResponse
-from .models import DIFFICULTY_LEVELS
-from django.db.models import Count
-import calendar
-from .utils import render_chart, get_recipe_type_distribution_data, get_recipe_difficulty_distribution_data, get_recipe_name_from_id
 import numpy as np
 
-# django's logger--helps with debugging
-logger = logging.getLogger(__name__)
+# Project-specific
+from .models import Recipe, TYPE_OF_RECIPE, DIFFICULTY_LEVELS
+from .forms import RecipeForm, SearchForm
+from .utils import (
+    get_recipe_name_from_id, render_chart,
+    get_recipe_type_distribution_data, get_recipe_difficulty_distribution_data
+)
+
+
 
 
 # Define a view function named recipes_home that takes a request object as a parameter
@@ -47,20 +44,19 @@ def recipes_home(request):
 
 @login_required
 def search_view(request):
-    form = SearchForm(request.GET or None)      # applies the SearchForm class to a form that is intende to use the GET method
-    recipes_queryset = None     # initializes the recipe's query set to none
+    form = SearchForm(request.GET or None)
+    recipes_queryset = None
 
     if form.is_valid():
-        query = form.cleaned_data['query'].strip()      # strips the whitespace from the query
+        query = form.cleaned_data['query'].strip()
 
-        if query:
-            # Use Q objects to combine queries for name and ingredients
+        try:
             combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
-
-            # Filter recipes based on the combined query
             recipes_queryset = Recipe.objects.filter(combined_query)
+        except DatabaseError as e:
+            # Handle database query error
+            messages.error(request, f"Error fetching recipes: {e}")
 
-    # The context dictionary is passed as an argument to a Django template renderer, allowing the template to access and display the values associated with the keys
     context = {
         'form': form,
         'recipes_queryset': recipes_queryset,
@@ -73,37 +69,54 @@ def search_view(request):
 # defines create_recipe view
 @login_required
 def create_recipe(request):
-    if request.method == 'POST':        # checks if req is POST
-        form = RecipeForm(request.POST, request.FILES)      # Takes input from a form and sends it as a POST req, which in Django, is handled by creating an instance of the RecipeForm class--This line creates a new instance of the RecipeForm class and initializes it with the data from the user's submitted form
-        if form.is_valid():     # checks validity of data
-            recipe = form.save(commit=False)        # Save the form data to a Recipe object without committing to the database
-            recipe.calculate_difficulty()       # Calculate difficulty before saving
-            recipe.save()
-            return redirect('recipes:recipe_detail', pk=recipe.pk)      # upon creation, user is redirected to the recipe_detail view to see their newly created recipe object using its primary key.
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            try:
+                recipe = form.save(commit=False)
+                recipe.calculate_difficulty()
+                recipe.save()
+                return redirect('recipes:recipe_detail', pk=recipe.pk)
+            except Exception as e:
+                # Handle unexpected errors during recipe creation
+                messages.error(request, f"Error creating recipe: {e}")
+        else:
+            messages.error(request, "Invalid form data. Please check your input.")
     else:
-        form = RecipeForm()     # if the request type is invalid, an empty instance of RecipeForm is created
+        form = RecipeForm()
 
-    return render(request, 'recipes/create_recipe.html', {'form': form})        # Render the create_recipe.html template with the form instance in the context (the data that is passed to a template for rendering)
+    return render(request, 'recipes/create_recipe.html', {'form': form})
 
-@login_required     # restricts access to only authenticated users
+@login_required
 def delete_account(request):
-    # logic to delete the user and log them out
-    user = request.user
-    user.delete()
-    return redirect('recipes:home')
+    if request.method == 'POST':
+        confirmation_checkbox = request.POST.get('confirm_delete', False)
+
+        if confirmation_checkbox:
+            try:
+                request.user.delete()
+                logout(request)
+                return redirect('home')
+            except Exception as e:
+                # Handle unexpected errors during account deletion
+                messages.error(request, f"Error deleting account: {e}")
+
+    return render(request, 'delete_account.html')
+
 
 
 def visualizations(request, type_of_recipe=None):
-    
-    
-
-    # Fetch recipes based on type_of_recipe, adjust this part as needed
     if type_of_recipe:
-        recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+        try:
+            recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+        except DatabaseError as e:
+            # Handle database query error
+            messages.error(request, f"Error fetching recipes: {e}")
+            recipes = None
     else:
-        recipes = None  # You may want to fetch all recipes or leave it as None if not needed
+        recipes = None
 
-    # Check if type_of_recipe is None and set a message
     if type_of_recipe is None:
         message = "Please select a type of recipe to proceed."
     else:
@@ -112,17 +125,23 @@ def visualizations(request, type_of_recipe=None):
     context = {
         'type_of_recipe': type_of_recipe,
         'recipes': recipes,
-        'message': message,  # Include the message in the context
+        'message': message,
     }
     return render(request, 'recipes/visualizations.html', context)
+
 
 
 
     
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
 def recipe_difficulty_distribution(request, type_of_recipe):
-    data = get_recipe_difficulty_distribution_data(type_of_recipe)      # calls the function to get the required data for the chart
-    chart_image = render_chart(request, chart_type=2, data=data)  # Use chart_type 2 with the data just gathered to produce a chart_image
+    try:
+        data = get_recipe_difficulty_distribution_data(type_of_recipe)
+        chart_image = render_chart(request, chart_type=2, data=data)
+    except Exception as e:
+        # Handle unexpected errors during chart rendering
+        messages.error(request, f"Error rendering difficulty distribution chart: {e}")
+        chart_image = None
 
     context = {
         'chart_image': chart_image,
@@ -130,16 +149,19 @@ def recipe_difficulty_distribution(request, type_of_recipe):
     }
     return render(request, 'recipes/recipe_difficulty_distribution.html', context)
 
+
 # defines view for recipe_type_distribution chart on all recipes
 def recipe_type_distribution(request, type_of_recipe=None):
-    # If type_of_recipe is not specified, get data for all recipe types
-    if type_of_recipe is None:
-        data = get_recipe_type_distribution_data()
-    else:
-        # Get data for a specific recipe type
-        data = get_recipe_type_distribution_data(type_of_recipe)
-
-    chart_image = render_chart(request, chart_type=1, data=data)
+    try:
+        if type_of_recipe is None:
+            data = get_recipe_type_distribution_data()
+        else:
+            data = get_recipe_type_distribution_data(type_of_recipe)
+        chart_image = render_chart(request, chart_type=1, data=data)
+    except Exception as e:
+        # Handle unexpected errors during chart rendering
+        messages.error(request, f"Error rendering type distribution chart: {e}")
+        chart_image = None
 
     return render(request, 'recipes/recipe_type_distribution.html', {'chart_image': chart_image})
 

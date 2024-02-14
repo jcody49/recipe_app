@@ -1,6 +1,9 @@
 from django.test import TestCase
-from .models import Recipe
+from django.contrib.auth.models import User
 from django.urls import reverse
+
+from .models import Recipe
+from .forms import RecipeForm, SearchForm
 from .views import (
     recipes_home, search_view, create_recipe, delete_account,
     recipe_difficulty_distribution, recipe_type_distribution,
@@ -12,11 +15,6 @@ from .utils import (
     get_recipe_difficulty_distribution_data,
     render_chart
 )
-
-from .forms import RecipeForm, SearchForm
-from django.contrib.auth.models import User
-
-
 
 
 class RecipeModelTest(TestCase):
