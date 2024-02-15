@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'immense-bastion-00478.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'immense-bastion-00478-585468ff82eb.herokuapp.com']
 
 
 
