@@ -3,7 +3,7 @@ backports.zoneinfo==0.2.1
 contourpy==1.1.1
 cycler==0.12.1
 distlib==0.3.7
-dj-database-url==2.1.0
+dj-database-url==0.5.0
 Django==4.2.9
 filelock==3.13.1
 fonttools==4.47.2
@@ -17,6 +17,7 @@ pandas==2.0.3
 pbr==6.0.0
 pillow==10.2.0
 platformdirs==3.11.0
+psycopg2-binary==2.8.6
 pyparsing==3.1.1
 python-dateutil==2.8.2
 pytz==2024.1
