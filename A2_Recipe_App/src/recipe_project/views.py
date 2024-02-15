@@ -7,17 +7,19 @@ from django.urls import reverse
 
 from .forms import UserRegistrationForm
 
+import logging
 
+logger = logging.getLogger(__name__)
 
 #define a function view called login_view that takes a request from the user
 def login_view(request):
     error_message = None
-    form = AuthenticationForm()
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
-
+ 
         if form.is_valid():
+            
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
 
@@ -32,10 +34,11 @@ def login_view(request):
                 return redirect('recipes:home')
             else:
                 print('Authentication failed')
-
         else:
-            error_message = 'Oops... something went wrong'
+            error_message = 'Invalid username or password'
             print(f'Form errors: {form.errors}')
+    else:
+        form = AuthenticationForm()
 
     context = {
         'form': form,
@@ -43,6 +46,7 @@ def login_view(request):
     }
 
     return render(request, 'auth/login.html', context)
+
 
 #define a function view called logout_view that takes a request from the user
 def logout_view(request):
@@ -66,13 +70,17 @@ def delete_account(request):
                 # Log the user out after deletion
                 logout(request)
 
-                # Redirect to a confirmation page or home page
-                return redirect('home')
+                # Add a success message
+                messages.success(request, 'Your account was successfully deleted.')
+
+                # Redirect to the login page
+                return redirect('login')
 
             except Exception as e:
+                # Add an error message
                 messages.error(request, f'An error occurred during account deletion: {e}')
 
-    return render(request, 'delete_account.html')
+    return render(request, 'auth/delete_account.html')
 
 def register_view(request):
     if request.method == 'POST':

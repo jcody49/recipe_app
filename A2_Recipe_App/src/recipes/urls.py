@@ -12,7 +12,6 @@ from .views import (
     RecipeListView,
     RecipeDetailView,
     create_recipe,
-    delete_account,
     RecipeListViewAll,
     recipe_type_distribution,
     recipe_difficulty_distribution,
@@ -30,7 +29,6 @@ urlpatterns = [
     path('list/all/', RecipeListViewAll.as_view(), name='recipe_list_all'),  # Add this line for showing all recipes
     path('list/<pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
     path('create_recipe/', create_recipe, name='create_recipe'),
-    path('delete_account/', delete_account, name='delete_account'),
     path('login/', login_view, name='login'),
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),

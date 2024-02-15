@@ -8,6 +8,7 @@ import calendar
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -77,32 +78,21 @@ def create_recipe(request):
                 recipe = form.save(commit=False)
                 recipe.calculate_difficulty()
                 recipe.save()
+
+                # Display a success message
+                messages.success(request, "Recipe created successfully!")
+
                 return redirect('recipes:recipe_detail', pk=recipe.pk)
             except Exception as e:
                 # Handle unexpected errors during recipe creation
                 messages.error(request, f"Error creating recipe: {e}")
         else:
+            # Invalid form data, display an error message
             messages.error(request, "Invalid form data. Please check your input.")
     else:
         form = RecipeForm()
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
-
-@login_required
-def delete_account(request):
-    if request.method == 'POST':
-        confirmation_checkbox = request.POST.get('confirm_delete', False)
-
-        if confirmation_checkbox:
-            try:
-                request.user.delete()
-                logout(request)
-                return redirect('home')
-            except Exception as e:
-                # Handle unexpected errors during account deletion
-                messages.error(request, f"Error deleting account: {e}")
-
-    return render(request, 'delete_account.html')
 
 
 

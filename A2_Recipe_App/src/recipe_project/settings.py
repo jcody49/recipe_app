@@ -13,6 +13,9 @@ import os
 
 from pathlib import Path
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
+print(os.environ.get('DJANGO_SETTINGS_MODULE'))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 
 ROOT_URLCONF = 'recipe_project.urls'
@@ -107,6 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -157,3 +164,9 @@ LOGGING = {
 #AUTH
 LOGIN_URL='/login/'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # Add any additional authentication backends if needed
+]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

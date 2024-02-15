@@ -5,14 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>The Cookbook Collective</title>
         {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <!--css stylesheet-->
         <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
         <!-- Load Slick Carousel styles for image scrolling -->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+        <!--test-->
+        
     </head>
     <body>
-        <!--test-->
+
         <header class="header-container">
             <div class="left-third">
                 <!-- Logo linking to the home page -->
@@ -47,11 +50,12 @@
         </header>
         
         
+        
 
         <!-- Main content section with scrolling images, introductory text, and homepage options -->
         <main>
 
-            <div class="scrolling-images-container">
+            <div style="padding: 5%" class="scrolling-images-container">
                 <!-- Slick Carousel for displaying random recipe images -->
                 <div class="scrolling-images">
                     {% for image in random_images %}
@@ -68,13 +72,8 @@
             <p class="horizontal-centering"><em>Where happy stomachs begin, and culinary adventures never end!</em></p>
         </div>
         
-        {% if messages %}
-        <div class="messages horizontal-centering">
-            {% for message in messages %}
-                    {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
+
+
 
         
         <!-- Homepage options section with buttons to browse and create recipes -->

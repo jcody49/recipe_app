@@ -22,6 +22,15 @@
                 <h1> {{object.name}} </h1>
                 <a class="logout-link" href="{% url 'logout' %}"> Logout </a>
             </header>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             {% if object.pic %}
                 <img class="increase-top-margin" src="{{object.pic.url}}" width="300" height="300" /> <br>
