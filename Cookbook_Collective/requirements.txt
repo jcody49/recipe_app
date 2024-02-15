@@ -16,10 +16,12 @@ packaging==23.2
 pandas==2.0.3
 pbr==6.0.0
 pillow==10.2.0
+pkg_resources==0.0.0
 platformdirs==3.11.0
 pyparsing==3.1.1
 python-dateutil==2.8.2
 pytz==2024.1
+setuptools==60.9.3
 six==1.16.0
 sqlparse==0.4.4
 stevedore==5.1.0
