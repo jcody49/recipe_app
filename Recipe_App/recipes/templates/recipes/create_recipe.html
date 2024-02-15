@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create a New Recipe</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
+    </head>
+    <body>
+        <header class="header-container">
+            <!-- Anchor tag wrapping the logo image, with a link to the 'home' page -->
+            <a href="{% url 'recipes:home' %}">
+                <!-- Image element displaying the Collective Cookbook Logo -->
+                <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
+            </a>
+            <h1 >Enter New Recipe Information</h1>
+            <a class="logout-link" href ="{%url 'logout' %}"> Logout </a>
+        </header>
+        
+        {% block content %}     <!--blocks of content that can be overridden in child templates--flexible-->
+        <form class="new-recipe-content" method="post" enctype="multipart/form-data" style="font-size: 25px">
+            <!--The {% csrf_token %} template tag generates a hidden input field in the form containing a unique token. When the form is submitted, this token is checked by Django to ensure that the form submission is legitimate and not a result of a CSRF attack-->
+            {% csrf_token %}
+        
+            <!-- Recipe Name -->
+            <div class="form-field">
+              {{ form.name.label_tag }}
+              {{ form.name }}
+            </div><br>
+        
+            <!-- Cooking Time -->
+            <div class="form-field">
+              {{ form.cooking_time.label_tag }}
+              {{ form.cooking_time }}
+            </div><br>
+        
+            <!-- Min Serving Size -->
+            <div class="form-field">
+              {{ form.min_serving_size.label_tag }}
+              {{ form.min_serving_size }}
+            </div><br>
+        
+            <!-- Max Serving Size -->
+            <div class="form-field">
+              {{ form.max_serving_size.label_tag }}
+              {{ form.max_serving_size }}
+            </div><br>
+        
+            <!-- Type of Recipe -->
+            <div class="form-field">
+              {{ form.type_of_recipe.label_tag }}
+              {{ form.type_of_recipe }}
+            </div><br>
+        
+            <!-- Ingredients -->
+            <div class="form-field centered-content">
+              {{ form.ingredients.label_tag }}
+              {{ form.ingredients }}
+            </div><br>
+        
+            <!-- Directions -->
+            <div class="form-field centered-content">
+              {{ form.directions.label_tag }}
+              {{ form.directions }}
+            </div><br><br>
+        
+            <!-- Recipe Image -->
+            <div class="form-field">
+              {{ form.pic.label_tag }}
+              {{ form.pic }}
+            </div><br><br>
+        
+            <!-- Submit Button -->
+            <button class="search-button" type="submit">Create Recipe</button>
+          </form>
+        {% endblock %}
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script src="{% static 'recipes/scripts.js' %}"></script>
+    </body>
+</html>

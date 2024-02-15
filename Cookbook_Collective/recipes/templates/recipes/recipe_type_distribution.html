@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Type Distribution</title>
+</head>
+<body>
+    <header>
+        <a class="link" href="{% url 'recipes:home' %}">
+            <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" ><br>
+        </a>
+        <a class="logout-link" href ="{%url 'logout' %}"> Logout </a>
+        <h2>Recipe Type Distribution</h2>
+    </header>
+    
+    <!-- Display the chart image -->
+    <img src="data:image/png;base64,{{ chart_image }}" alt="Recipe Type Distribution Chart">
+    
+
+    {% if description %}
+        <p>{{ description }}</p>
+    {% endif %}
+</body>
+</html>
