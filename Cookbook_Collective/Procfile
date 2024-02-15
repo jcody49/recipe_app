@@ -1,2 +1,3 @@
-web: gunicorn Cookbook_Collective.wsgi --log-file -
+web: gunicorn recipe_project.wsgi --log-file -
+
 
