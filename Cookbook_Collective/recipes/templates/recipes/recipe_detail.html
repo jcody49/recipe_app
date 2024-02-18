@@ -35,7 +35,7 @@
             {% if object.pic %}
                 <img class="increase-top-margin" src="{{object.pic.url}}" width="300" height="300" /> <br>
             {% else %}
-                <img class="increase-top-margin" src="{{ object.pic.url|default:'recipes/images/no_picture.jpg' }}" width="300" height="300" /> <br>
+                <img class="increase-top-margin" src="{{ object.pic.url|default:'recipes/no_picture.jpg' }}" width="300" height="300" /> <br>
             {% endif %}
 
             <!-- Detail view will access and display the following properties from the object -->
