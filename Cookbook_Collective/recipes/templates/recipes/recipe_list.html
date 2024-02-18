@@ -42,7 +42,7 @@
                         <!-- Display an image linking to the detailed view of the recipe -->
                         <td>
                             {% if object.pic %}
-                                <a href="{{object.get_absolute_url}}">{{ object.name }}<img src="{{ MEDIA_URL }}" width="170" height="200">
+                                <a href="{{object.get_absolute_url}}">{{ object.pic }}<img src="{{ MEDIA_URL }}" width="170" height="200">
                                     <img src="{{object.pic.url}}" width="170" height="200" /></a>
                             {% else %}
                                 <a href="{{object.get_absolute_url}}"><img src="{% static 'recipes/no_picture.jpg' %}" width="170" height="200" alt="No Picture" /></a>
