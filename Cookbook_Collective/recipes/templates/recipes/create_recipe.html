@@ -66,10 +66,13 @@
             </div><br><br>
         
             <!-- Recipe Image -->
-            <div class="form-field">
-              {{ form.pic.label_tag }}
-              {{ form.pic }}
-            </div><br><br>
+            <form class="new-recipe-content" method="post" enctype="multipart/form-data" style="font-size: 25px">
+
+              <div class="form-field">
+                {{ form.pic.label_tag }}
+                {{ form.pic }}
+              </div><br><br>
+            </form>
         
             <!-- Submit Button -->
             <button class="search-button" type="submit">Create Recipe</button>
