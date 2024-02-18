@@ -89,11 +89,10 @@ class Recipe(models.Model):
         """
         Override the save method to calculate and set the difficulty before saving.
         """
-        print("Before saving:", self.difficulty)
-        self.difficulty = self.calculate_difficulty()
-        print("After calculating difficulty:", self.difficulty)
-        super().save(*args, **kwargs)
-        print("After saving:", self.difficulty)
+        print("Before saving pic:", self.pic)  # Print the pic field before any changes
+        super().save(*args, **kwargs)  # Save the model
+        print("After saving pic:", self.pic)  # Print the pic field after saving
+
 
     def __str__(self):
         """
