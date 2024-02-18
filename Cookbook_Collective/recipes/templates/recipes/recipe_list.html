@@ -44,7 +44,7 @@
                             {% if object.pic %}
                                 <a href="{{object.get_absolute_url}}"><img src="{{object.pic.url}}" width="170" height="200" /></a>
                             {% else %}
-                                <a href="{{object.get_absolute_url}}"><img src="{% static 'recipes/images/no_picture.jpg' %}" width="170" height="200" alt="No Picture" /></a>
+                                <a href="{{object.get_absolute_url}}"><img src="{% static 'recipes/no_picture.jpg' %}" width="170" height="200" alt="No Picture" /></a>
                             {% endif %}
                         </td> 
                     </tr>
