@@ -75,6 +75,7 @@ def create_recipe(request):
 
         if form.is_valid():
             try:
+                print("Form data before save:", form.cleaned_data)  # Add this print statement
                 recipe = form.save(commit=False)
                 recipe.calculate_difficulty()
                 recipe.save()
@@ -85,14 +86,17 @@ def create_recipe(request):
                 return redirect('recipes:recipe_detail', pk=recipe.pk)
             except Exception as e:
                 # Handle unexpected errors during recipe creation
+                print(f"Error creating recipe: {e}")
                 messages.error(request, f"Error creating recipe: {e}")
         else:
             # Invalid form data, display an error message
+            print("Invalid form data. Form errors:", form.errors)
             messages.error(request, "Invalid form data. Please check your input.")
     else:
         form = RecipeForm()
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
+
 
 
 

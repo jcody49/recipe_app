@@ -67,17 +67,19 @@ class Recipe(models.Model):
 
         if self.cooking_time < 10 and num_ingredients < 4:
             print("Easy")
-            return "Easy"
+            calculated_difficulty = "Easy"
         elif self.cooking_time < 10 and num_ingredients >= 4:
             print("Medium")
-            return "Medium"
+            calculated_difficulty = "Medium"
         elif self.cooking_time >= 10 and num_ingredients < 4:
             print("Intermediate")
-            return "Intermediate"
+            calculated_difficulty = "Intermediate"
         else:
             print("Hard")
-            return "Hard"
+            calculated_difficulty = "Hard"
 
+        print("Inside calculate_difficulty:", calculated_difficulty)
+        return calculated_difficulty
 
 
 
@@ -87,8 +89,11 @@ class Recipe(models.Model):
         """
         Override the save method to calculate and set the difficulty before saving.
         """
+        print("Before saving:", self.difficulty)
         self.difficulty = self.calculate_difficulty()
+        print("After calculating difficulty:", self.difficulty)
         super().save(*args, **kwargs)
+        print("After saving:", self.difficulty)
 
     def __str__(self):
         """
