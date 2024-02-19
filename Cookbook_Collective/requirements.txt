@@ -6,6 +6,7 @@ cycler==0.12.1
 distlib==0.3.7
 dj-database-url==2.1.0
 Django==4.2.9
+django-storages[boto3]==1.11.0
 filelock==3.13.1
 fonttools==4.47.2
 gunicorn==21.2.0

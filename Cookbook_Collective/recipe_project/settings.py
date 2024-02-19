@@ -1,5 +1,5 @@
 import os
-
+from storages.backends.s3boto3 import S3Boto3Storage
 from pathlib import Path
 import dj_database_url
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
