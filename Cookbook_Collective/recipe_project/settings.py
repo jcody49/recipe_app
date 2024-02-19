@@ -3,8 +3,6 @@ import os
 from pathlib import Path
 import dj_database_url
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
-print(os.environ.get('DJANGO_SETTINGS_MODULE'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +13,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'immense-bastion-00478-585468ff82eb.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
+
 
 
 
@@ -48,7 +47,7 @@ MIDDLEWARE = [
 
 DEBUG = False
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-ml49cp(e)=yakpevh4xz)3w)6xuq6kv7g&3^xf^)gr-n3&p#%9')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 
 ROOT_URLCONF = 'recipe_project.urls'
@@ -79,7 +78,6 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,  # Adjust as needed
     )
 }
 
@@ -172,11 +170,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 SECURE_SSL_REDIRECT = True
 
-
-
-# Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

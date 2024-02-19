@@ -75,7 +75,7 @@ def create_recipe(request):
 
         if form.is_valid():
             try:
-                print("Form data before save:", form.cleaned_data)  # Add this print statement
+                print("Form data before save:", form.cleaned_data) 
                 recipe = form.save(commit=False)
                 recipe.calculate_difficulty()
                 recipe.save()
