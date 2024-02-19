@@ -2,6 +2,7 @@ import os
 
 from pathlib import Path
 import dj_database_url
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,8 +73,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'recipe_project.wsgi.application'
 
 
+
+
+
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+
 
 DATABASES = {
     'default': dj_database_url.config(
