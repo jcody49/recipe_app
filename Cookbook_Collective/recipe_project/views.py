@@ -17,9 +17,8 @@ def login_view(request):
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
- 
+
         if form.is_valid():
-            
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
 
@@ -31,12 +30,15 @@ def login_view(request):
             if user is not None:
                 print('User is authenticated')
                 login(request, user)
-                return redirect('recipes:home')
+                return render(request, 'recipes/home.html')  # Directly render the home page
+
             else:
                 print('Authentication failed')
+
         else:
             error_message = 'Invalid username or password'
             print(f'Form errors: {form.errors}')
+
     else:
         form = AuthenticationForm()
 
