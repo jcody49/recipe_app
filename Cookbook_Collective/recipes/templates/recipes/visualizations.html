@@ -14,46 +14,26 @@
         }
     </style>
     <!-- Add JavaScript to dynamically update the URL -->
+  
+    <select id="typeOfRecipe" name="type_of_recipe">
+        <!-- options -->
+    </select>
+
+    <a id="typeDistributionLink" href="#">Link</a>
+    
     <script>
-        function updateURL() {
-            var selectedType = document.getElementById("typeOfRecipe").value;
-            var url;
-
-            // Set a default value if selectedType is empty
-            selectedType = selectedType || 'default';
-
-            url = selectedType ? "{% url 'recipes:recipe_type_distribution' type_of_recipe=selectedType %}" : "{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}";
-
-            document.getElementById("typeDistributionLink").href = url;
-        }
-
-
-    
         document.addEventListener('DOMContentLoaded', function () {
-            var errorMessage = document.getElementById('errorMessage');
-            var recipeTypeLink = document.getElementById('typeDistributionLink');  // Corrected ID
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
-    
-            // Update the initial URL
-            updateURL();
-    
-            // To hide the error message
-            errorMessage.style.display = 'none';
-    
-            recipeTypeLink.addEventListener('click', function (event) {
-                // Check if a type_of_recipe is selected
-                if (typeOfRecipeSelect.value === '') {
-                    event.preventDefault();  // Prevent the link from navigating
-                    errorMessage.style.display = 'block';  // Show the error message
-                }
-            });
-    
+            var url = typeOfRecipeSelect.dataset.url;
+
             typeOfRecipeSelect.addEventListener('change', function () {
-                // Update the URL when the user changes the dropdown selection
-                updateURL();
-                errorMessage.style.display = 'none';  // Hide the error message when the user selects a type_of_recipe
+                var selectedType = this.value;
+                var updatedUrl = selectedType ? url.replace('default', selectedType) : url;
+
+                document.getElementById("typeDistributionLink").href = updatedUrl;
             });
         });
+
     </script>
     
     
