@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import reverse
-from recipes.views import recipes_home
+from recipes.views import recipes_home, visualizations
 from .views import login_view, logout_view, signup, delete_account, credits
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('signup/', signup, name='signup'),
     path('delete_account/', delete_account, name='delete_account'),
+    path('visualizations/', visualizations, name='visualizations'),
     path('credits/', credits, name='credits'),
 ]
 
