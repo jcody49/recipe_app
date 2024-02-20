@@ -13,6 +13,8 @@ import pandas as pd
 from django import template
 from django.db.models import Count
 from django.http import HttpResponse
+from django.http import JsonResponse
+
 
 # Project-specific Imports
 from .models import Recipe
