@@ -47,7 +47,7 @@
                         <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" ><br>
                         Home
                     </a>
-                    <a class="navbar-brand centered-content" href="{% url 'recipes:home' %}" style="margin-left: 15px;">The Cookbook Collective</a>
+                    <a class="navbar-brand centered-content" href="{% url 'recipes:home' %}">The Cookbook Collective</a>
                 </div>
                 <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -65,7 +65,7 @@
                                 <a class="nav-link" href="{% url 'login' %}">Login</a>
                             </li>
                         {% endif %}
-                      
+        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'recipes:recipe_list' %}">Browse</a>
                         </li>     
@@ -74,7 +74,6 @@
                         </li>                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'recipes:create_recipe' %}">Create Recipe</a>
-
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'recipes:delete_account' %}">Delete Account</a>
@@ -87,10 +86,10 @@
                         </li>
                         <!-- Add more items as needed -->
                     </ul>
-                    
                 </div>
             </div>
         </nav>
+        
         
         
         
