@@ -19,21 +19,16 @@
         document.addEventListener('DOMContentLoaded', function () {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
-
+            var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";  // Set the default URL
+    
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
-                var baseUrl = this.dataset.url;
-                var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) + 'json/' : baseUrl;
-
-                if (selectedType === 'default') {
-                    // Handle default case (e.g., display a message)
-                    visualizationLink.href = updatedUrl;
-                } else {
-                    visualizationLink.href = updatedUrl;
-                }
+                var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
+    
+                visualizationLink.href = updatedUrl;
             });
         });
-    </script>
+    </script>    
     
     
 
@@ -71,7 +66,7 @@
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
 
         <!-- Update the link id and href attribute -->
-        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}">Go to Recipe Difficulty Distribution</a>
+        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe=type_of_recipe %}">Go to Recipe Difficulty Distribution</a>
     </div>
 
 
