@@ -54,12 +54,12 @@ def get_recipe_difficulty_distribution_data(type_of_recipe):
     try:
         recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
         data = recipes.values('difficulty').annotate(count=Count('difficulty'))
+        print("Difficulty Distribution Data:", data)
         data_df = pd.DataFrame.from_records(data)
         return data_df
     except Exception as e:
-        # Handle unexpected errors during the operation
         print(f"Error getting recipe difficulty distribution data: {e}")
-        return pd.DataFrame()  # Return an empty DataFrame in case of an error
+        return pd.DataFrame()
 
 
 
