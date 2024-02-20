@@ -77,6 +77,9 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
 
 
 
+
+
+
 # takes data and renders its respective chart_image
 def render_chart(request, chart_type, data=None, **kwargs):
     if data is None or data.empty:
@@ -111,8 +114,7 @@ def render_chart(request, chart_type, data=None, **kwargs):
     buffer = BytesIO()
     plt.savefig(buffer, format="png")
     buffer.seek(0)
-    chart_image = buffer.getvalue()
-
+    chart_image = base64.b64encode(buffer.read()).decode("utf-8")
     plt.close(fig)
 
     return chart_image
