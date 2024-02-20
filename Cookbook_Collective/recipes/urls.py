@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from .views import RecipeListView, render_chart  
-from recipe_project.views import login_view, delete_account, credits 
+from recipe_project.views import login_view, delete_account
 
 from .views import (
     recipes_home,
@@ -17,6 +17,7 @@ from .views import (
     recipe_difficulty_distribution,
     recipes_created_per_month,
     visualizations,
+    credits 
 )
 
 
