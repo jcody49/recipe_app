@@ -133,7 +133,6 @@ def visualizations(request, type_of_recipe=None):
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
 def recipe_difficulty_distribution(request, type_of_recipe=None):
     chart_image = None
-    type_of_recipe = request.GET.get('type_of_recipe', 'default')
 
     try:
         data = get_recipe_difficulty_distribution_data(request, type_of_recipe)
