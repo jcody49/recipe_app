@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
 from django.urls import reverse
 
+
 from .forms import UserRegistrationForm
 from recipe_project.credits import CREDITS
 import logging
@@ -117,7 +118,8 @@ def signup(request):
 
 
 
-def your_view(request):
-    # ...
-    image_source = CREDITS.get("unsplash", "Unknown Source")
-    # ...
+def credits(request):
+    context = {
+        'credits': CREDITS,
+    }
+    return render(request, 'credits.html', context)

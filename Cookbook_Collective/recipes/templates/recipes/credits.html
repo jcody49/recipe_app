@@ -1,0 +1,17 @@
+<!-- credits.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- ... other content -->
+
+    <div>
+        <h2>Credits</h2>
+        <ul>
+            {% for key, value in credits.items %}
+                <li>{{ value | safe }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
