@@ -26,20 +26,18 @@ urlpatterns = [
     path('', recipes_home, name='home'),
     path('search/', search_view, name='search'),
     path('list/', RecipeListView.as_view(), name='recipe_list'),
-    path('list/all/', RecipeListViewAll.as_view(), name='recipe_list_all'),  # Add this line for showing all recipes
+    path('list/all/', RecipeListViewAll.as_view(), name='recipe_list_all'),
     path('list/<pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
     path('create_recipe/', create_recipe, name='create_recipe'),
     path('login/', login_view, name='login'),
     # Visualization URLs without a "visualizations" directory
-    path('recipe-type-distribution/<type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),
+    path('recipe-type-distribution/<type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),  # Unique name
     path('recipe-type-distribution/', recipe_type_distribution, name='recipe_type_distribution'),
-    path('recipe_difficulty_distribution/<str:type_of_recipe>/', recipe_difficulty_distribution, name='recipe_difficulty_distribution'),
-    path('recipes_created_per_month/', recipes_created_per_month, name='recipes_created_per_month'),
+    path('recipe_difficulty_distribution/<str:type_of_recipe>/', recipe_difficulty_distribution, name='recipe_difficulty_distribution_detail'),  # Unique name
+    path('recipes_created_per_month/', recipes_created_per_month, name='recipes_created_per_month_detail'),  # Unique name
     path('visualizations/', visualizations, name='visualizations'),
-    path('recipe-type-distribution/<str:type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),
-    path('recipe-difficulty-distribution/<str:type_of_recipe>/', recipe_difficulty_distribution, name='recipe_difficulty_distribution'),
-    path('recipes-created-per-month/', recipes_created_per_month, name='recipes_created_per_month'),
 ]
+
 
 
 # Specifies the URL “/media/” that will trigger this media view (in this case, an image)
