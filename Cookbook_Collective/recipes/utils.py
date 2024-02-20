@@ -63,10 +63,18 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             data = recipes.values('difficulty').annotate(count=Count('difficulty'))
             print("Difficulty Distribution Data:", data)
             data_df = pd.DataFrame.from_records(data)
-            return data_df
+
+            if data_df.empty:
+                print("No data available for rendering the chart.")
+                return JsonResponse({'message': 'No data available for rendering the chart.'})
+
+            # Assuming chart_type 2 corresponds to pie chart
+            chart_image = render_chart(request, 2, data_df)
+            return JsonResponse({'chart_image': chart_image})
     except Exception as e:
         print(f"Error getting recipe difficulty distribution data: {e}")
-        return pd.DataFrame()
+        return JsonResponse({'error': 'An error occurred while fetching data for recipe difficulty distribution.'})
+
 
 
 
