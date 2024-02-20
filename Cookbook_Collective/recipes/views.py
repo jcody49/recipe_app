@@ -136,7 +136,10 @@ def recipe_difficulty_distribution(request, type_of_recipe='default'):
 
     try:
         data = get_recipe_difficulty_distribution_data(type_of_recipe)
-        chart_image = render_chart(request, chart_type=2, data=data)
+        chart_response = render_chart(request, chart_type=2, data=data)
+
+        # Extract the image data from the response
+        chart_image = base64.b64encode(chart_response.content).decode('utf-8')
     except Exception as e:
         # Handle unexpected errors during chart rendering
         messages.error(request, f"Error rendering difficulty distribution chart: {e}")
