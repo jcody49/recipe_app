@@ -63,8 +63,16 @@
         </header>
         
 
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <style>
+            :root {
+                --secondary-color: #fbd6cf; /* Define your custom secondary color variable */
+            }
+        
+            .navbar-custom {
+                background-color: var(--secondary-color); /* Use the custom secondary color */
+            }
+        </style>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'recipes:home' %}">The Cookbook Collective</a>
                 <!--test-->
