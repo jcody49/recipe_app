@@ -29,10 +29,11 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('signup/', signup, name='signup'),
     path('delete_account/', delete_account, name='delete_account'),
-    path('visualizations/', visualizations, name='visualizations'),
-    path('recipe_difficulty_distribution/', recipe_difficulty_distribution, name='recipe_difficulty_distribution_default'),
+    path('recipe_difficulty_distribution/<str:type_of_recipe>/', recipe_difficulty_distribution, name='recipe_difficulty_distribution_detail'),
+    path('recipe_difficulty_distribution/', recipe_difficulty_distribution, {'type_of_recipe': ''}, name='recipe_difficulty_distribution_default'),  # This is correct
     path('credits/', credits, name='credits'),
 ]
+
 
 
 # specifies the URL “/media/” that will trigger this media view (in this case, an image)
