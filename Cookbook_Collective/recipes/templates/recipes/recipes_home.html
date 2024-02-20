@@ -67,9 +67,10 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'recipes:home' %}">The Cookbook Collective</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!--test-->
+                <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button>                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
@@ -192,7 +193,19 @@
         </div>
 
         
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var navbarButton = document.querySelector('.navbar-toggler');
+                var navbarCollapse = document.getElementById('navbarNav');
+        
+                navbarButton.addEventListener('click', function () {
+                    var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
+                    navbarButton.setAttribute('aria-expanded', !expanded);
+                    navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
+                });
+            });
+        </script>
+        
         <!--script links for slick carousel, jquery, and the js script-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
