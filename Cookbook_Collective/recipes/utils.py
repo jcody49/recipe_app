@@ -66,15 +66,16 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
 
             if data_df.empty:
                 print("No data available for rendering the chart.")
-                return JsonResponse({'message': 'No data available for rendering the chart.'})
+                return HttpResponse("No data available for rendering the chart.")
 
             # Assuming chart_type 2 corresponds to pie chart
             chart_image = render_chart(request, 2, data_df)
-            return JsonResponse({'chart_image': chart_image})
+            
+            # Use HttpResponse instead of JsonResponse
+            return HttpResponse(chart_image, content_type="image/png")
     except Exception as e:
         print(f"Error getting recipe difficulty distribution data: {e}")
-        return JsonResponse({'error': 'An error occurred while fetching data for recipe difficulty distribution.'})
-
+        return HttpResponse('An error occurred while fetching data for recipe difficulty distribution.')
 
 
 
