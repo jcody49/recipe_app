@@ -80,17 +80,15 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env = dj_database_url.config(conn_max_age=50000000)
 
 
 DATABASES = {
-    'default': {
-        **dj_database_url.config(
-            default=os.getenv('DATABASE_URL'),
-            conn_max_age=60000000000,
-        ),
-        'ENGINE': 'django.db.backends.postgresql',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=60000000000,  # Set the connection max age here
+        engine='django.db.backends.postgresql',
+    )
 }
 
 
