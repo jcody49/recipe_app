@@ -129,5 +129,20 @@
       
 
         </main>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var navbarButton = document.querySelector('.navbar-toggler');
+                var navbarCollapse = document.getElementById('navbarNav');
+        
+                navbarButton.addEventListener('click', function () {
+                    var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
+                    navbarButton.setAttribute('aria-expanded', !expanded);
+                    navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
+                });
+            });
+        </script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script src="{% static 'recipes/scripts.js' %}"></script>
     </body>
 </html>
