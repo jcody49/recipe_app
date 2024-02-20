@@ -52,6 +52,7 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
 # counts the occurance of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(type_of_recipe):
     try:
+        print("Type of Recipe:", type_of_recipe)
         recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
         data = recipes.values('difficulty').annotate(count=Count('difficulty'))
         print("Difficulty Distribution Data:", data)
@@ -64,13 +65,14 @@ def get_recipe_difficulty_distribution_data(type_of_recipe):
 
 
 
+
 # takes data and renders its respective chart_image
 def render_chart(request, chart_type, data=None, **kwargs):
-
     if data is None or data.empty:
-        # Handle the case when data is not available or empty
-        print("No data available.")
-        return HttpResponse("No data available.")
+        print("No data available for rendering the chart.")
+        return HttpResponse("No data available for rendering the chart.")
+
+
 
     plt.switch_backend("AGG")       # Matplotlib has different rendering backends--AGG" stands for Anti-Grain Geometry, which is a high-quality rendering engine for C++
     fig = plt.figure(figsize=(12, 8), dpi=100)      # plt.figure() is a function in Matplotlib that creates a new figure with parameters that set the chart_image size as well as the dpi (resolution, dots per inch)
