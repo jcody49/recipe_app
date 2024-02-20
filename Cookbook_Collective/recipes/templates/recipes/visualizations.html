@@ -14,14 +14,6 @@
         }
     </style>
     <!-- Add JavaScript to dynamically update the URL -->
-  
-    <select id="typeOfRecipe" name="type_of_recipe" data-url="{% url 'recipes:recipe-type-distribution-detail' type_of_recipe='default' %}">
-        <option value="" selected>-- Select --</option>
-        <option value="breakfast">Breakfast</option>
-        <option value="lunch">Lunch</option>
-        <option value="dinner">Dinner</option>
-        <!-- Add more options as needed -->
-    </select>
     
 
     <a id="typeDistributionLink" href="#">Link</a>
@@ -29,14 +21,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
-            var typeDistributionLink = document.getElementById('typeDistributionLink');
+            var visualizationLink = document.getElementById('visualizationLink');
     
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var baseUrl = this.dataset.url;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
     
-                typeDistributionLink.href = updatedUrl;
+                visualizationLink.href = updatedUrl;
             });
         });
     </script>
@@ -61,13 +53,13 @@
     <div class="visualization-link horizontal-centering" style="margin-top: 6%;">
         <h2>Recipe Difficulty Distribution</h2>
         {% if message %}
-            <p class="error-message" id="errorMessage">{% if message %}{{ message }}{% endif %}</p>
+            <p class="error-message" id="errorMessage">{{ message }}</p>
         {% endif %}
 
-        <!-- Add a form or dropdown menu for type_of_recipe selection -->
+        <!-- Remove the 'onchange' attribute from the select tag -->
         <form id="recipeTypeForm">
             <label for="typeOfRecipe">Select Recipe Type:</label>
-            <select id="typeOfRecipe" name="type_of_recipe" onchange="updateURL()">
+            <select id="typeOfRecipe" name="type_of_recipe">
                 <option value="" {% if not type_of_recipe %}selected{% endif %}>-- Select --</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="lunch">Lunch</option>
@@ -76,9 +68,8 @@
         </form>
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
 
+        <!-- Update the link id and href attribute -->
         <a class="link" id="visualizationLink" href="{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}">Go to Recipe Difficulty Distribution</a>
-
-
     </div>
 
 
