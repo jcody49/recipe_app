@@ -151,10 +151,9 @@ def recipe_difficulty_distribution(request, type_of_recipe='default'):
 # defines view for recipe_type_distribution chart on all recipes
 def recipe_type_distribution(request, type_of_recipe=None):
     try:
-        if type_of_recipe is None:
-            data = get_recipe_type_distribution_data()
-        else:
-            data = get_recipe_type_distribution_data(type_of_recipe)
+        if not type_of_recipe:
+            type_of_recipe = 'default'
+        data = get_recipe_type_distribution_data(type_of_recipe)
         chart_image = render_chart(request, chart_type=1, data=data)
     except Exception as e:
         # Handle unexpected errors during chart rendering
