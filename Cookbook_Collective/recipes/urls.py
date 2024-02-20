@@ -30,7 +30,6 @@ urlpatterns = [
     path('list/<pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
     path('create_recipe/', create_recipe, name='create_recipe'),
     path('login/', login_view, name='login'),
-    path('delete_account/', delete_account, name='delete_account'),
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),
     path('recipe-type-distribution/', recipe_type_distribution, name='recipe_type_distribution'),

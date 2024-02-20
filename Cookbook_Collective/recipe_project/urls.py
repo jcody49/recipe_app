@@ -35,3 +35,8 @@ urlpatterns = [
 
 # specifies the URL “/media/” that will trigger this media view (in this case, an image)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Include recipes app's URLs
+urlpatterns += [
+    path('recipes/', include('recipes.urls')),
+]
