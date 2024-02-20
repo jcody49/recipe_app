@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from .views import RecipeListView, render_chart  
-from recipe_project.views import login_view, delete_account 
+from recipe_project.views import login_view, delete_account, credits 
 
 from .views import (
     recipes_home,
@@ -31,6 +31,7 @@ urlpatterns = [
     path('create_recipe/', create_recipe, name='create_recipe'),
     path('login/', login_view, name='login'),
     path('delete_account/', delete_account, name='delete_account'),
+    path('credits/', credits, name='credits'),
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<type_of_recipe>/', recipe_type_distribution, name='recipe_type_distribution_detail'),  # Unique name
     path('recipe-type-distribution/', recipe_type_distribution, name='recipe_type_distribution'),
