@@ -18,39 +18,35 @@
         function updateURL() {
             var selectedType = document.getElementById("typeOfRecipe").value;
             var url;
-    
+
             if (selectedType) {
                 url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe=selectedType %}";
             } else {
                 url = "{% url 'recipes:recipe_difficulty_distribution_default' %}";
             }
-    
+
             document.getElementById("visualizationLink").href = url;
         }
-    </script>
-    
-    <!-- Add JavaScript to dynamically update the URL -->
-    <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             var errorMessage = document.getElementById('errorMessage');
             var recipeTypeLink = document.getElementById('visualizationLink');
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');  // Adjust the ID as per your form
-    
+
             // Update the initial URL
             updateURL();
-            var errorMessage = document.getElementById('errorMessage');
+
             // To hide the error message
             errorMessage.style.display = 'none';
 
             recipeTypeLink.addEventListener('click', function (event) {
                 // Check if a type_of_recipe is selected
-                
                 if (typeOfRecipeSelect.value === '') {
                     event.preventDefault();  // Prevent the link from navigating
                     errorMessage.style.display = 'block';  // Show the error message
                 }
             });
-    
+
             typeOfRecipeSelect.addEventListener('change', function () {
                 // Update the URL when the user changes the dropdown selection
                 updateURL();
@@ -58,32 +54,26 @@
             });
         });
     </script>
-    
 
-    
-    
-    
     {% load static %}
-    <!--css stylesheet-->
+    <!-- CSS stylesheet -->
     <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
 </head>
 <body>
-    <header >
+    <header>
         <!-- Logo linking to the home page -->
         <a class="link" href="{% url 'recipes:home' %}">
-            <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" ><br>
+            <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo"><br>
         </a>
         <h1>Visualizations</h1>
-        <a class="logout-link" href ="{%url 'logout' %}"> Logout </a>
+        <a class="logout-link" href="{% url 'logout' %}">Logout</a>
     </header>
-    
 
     <!-- Your existing visualization link -->
-    <div class="visualization-link horizontal-centering" style= "margin-top: 6%;">
+    <div class="visualization-link horizontal-centering" style="margin-top: 6%;">
         <h2>Recipe Difficulty Distribution</h2>
         {% if message %}
             <p class="error-message" id="errorMessage">{% if message %}{{ message }}{% endif %}</p>
-
         {% endif %}
 
         <!-- Add a form or dropdown menu for type_of_recipe selection -->
@@ -99,13 +89,12 @@
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
 
         <a class="link" id="visualizationLink" href="{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe='' %}">Go to Recipe Difficulty Distribution</a>
-
     </div>
 
     <div class="visualization-link horizontal-centering">
         <h2>Recipe Type Distribution</h2>
         <p>Click the link below to view the Recipe Type Distribution:</p>
-        <a class="link" href="{% url 'recipes:recipe_type_distribution_detail' type_of_recipe=type_of_recipe %}">Go to Recipe Type Distribution</a>
+        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe_difficulty_distribution_default' %}">Go to Recipe Difficulty Distribution</a>
     </div>
 
     <div class="visualization-link horizontal-centering">
