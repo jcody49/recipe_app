@@ -25,12 +25,12 @@
                 url = "{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}";
             }
     
-            document.getElementById("typeDistributionLink").href = url;
+            document.getElementById("typeDistributionLink").href = url;  // Corrected ID
         }
     
         document.addEventListener('DOMContentLoaded', function () {
             var errorMessage = document.getElementById('errorMessage');
-            var recipeTypeLink = document.getElementById('typeDistributionLink');
+            var recipeTypeLink = document.getElementById('typeDistributionLink');  // Corrected ID
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
     
             // Update the initial URL
