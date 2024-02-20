@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from .forms import UserRegistrationForm
-
+from recipe_project.credits import CREDITS
 import logging
 
 logger = logging.getLogger(__name__)
@@ -114,3 +114,10 @@ def signup(request):
         form = UserRegistrationForm()
 
     return render(request, 'auth/signup.html', {'form': form})
+
+
+
+def your_view(request):
+    # ...
+    image_source = CREDITS.get("unsplash", "Unknown Source")
+    # ...
