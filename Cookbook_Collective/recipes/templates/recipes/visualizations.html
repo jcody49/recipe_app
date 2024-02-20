@@ -17,8 +17,9 @@
     <script>
         function updateURL() {
             var selectedType = document.getElementById("typeOfRecipe").value;
-            var url = "{% url 'recipes:recipe_difficulty_distribution' type_of_recipe='xxx' %}".replace('xxx', selectedType);
+            var url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe='' %}".replace('', selectedType);
             document.getElementById("visualizationLink").href = url;
+
         }
     </script>
     <!-- Add JavaScript to dynamically update the URL -->
