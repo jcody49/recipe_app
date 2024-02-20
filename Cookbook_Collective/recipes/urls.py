@@ -17,7 +17,7 @@ from .views import (
     recipe_difficulty_distribution,
     recipes_created_per_month,
     visualizations,
-    credits 
+    credits, 
 )
 
 
