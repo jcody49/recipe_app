@@ -19,12 +19,12 @@
         document.addEventListener('DOMContentLoaded', function () {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
-    
+
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var baseUrl = this.dataset.url;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
-    
+
                 if (selectedType === 'default') {
                     // Handle default case (e.g., display a message)
                     visualizationLink.href = updatedUrl;
