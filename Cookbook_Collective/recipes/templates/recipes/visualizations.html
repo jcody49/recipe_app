@@ -22,14 +22,11 @@
             // Set a default value if selectedType is empty
             selectedType = selectedType || 'default';
 
-            if (selectedType) {
-                url = "{% url 'recipes:recipe_type_distribution' type_of_recipe=selectedType %}";
-            } else {
-                url = "{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}";
-            }
+            url = selectedType ? "{% url 'recipes:recipe_type_distribution' type_of_recipe=selectedType %}" : "{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}";
 
             document.getElementById("typeDistributionLink").href = url;
         }
+
 
     
         document.addEventListener('DOMContentLoaded', function () {
