@@ -188,7 +188,7 @@ def recipes_created_per_month(request):
 
 
 
-def credits_view(request):
+def credits(request):
     return render(request, 'recipes/credits.html')
 
 
