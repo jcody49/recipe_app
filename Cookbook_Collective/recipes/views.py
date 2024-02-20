@@ -131,7 +131,7 @@ def visualizations(request, type_of_recipe=None):
 
     
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
-def recipe_difficulty_distribution(request):
+def recipe_difficulty_distribution(request, type_of_recipe=None):
     chart_image = None
     type_of_recipe = request.GET.get('type_of_recipe', 'default')
 
