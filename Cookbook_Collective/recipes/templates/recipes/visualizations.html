@@ -18,6 +18,7 @@
         function updateURL() {
             var selectedType = document.getElementById("typeOfRecipe").value;
             var url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe=selectedType %}";
+
             document.getElementById("visualizationLink").href = url;
         }
     </script>
