@@ -23,14 +23,17 @@
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var baseUrl = this.dataset.url;
-                console.log("Selected Type:", selectedType);
-                console.log("Base URL:", baseUrl);
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
-                console.log("Updated URL:", updatedUrl);
 
-                visualizationLink.href = updatedUrl;
+                if (selectedType === 'default') {
+                    // Handle default case (e.g., display a message)
+                    visualizationLink.href = '#';  // Update href to a placeholder or disable the link
+                } else {
+                    visualizationLink.href = updatedUrl;
+                }
             });
         });
+
 
     </script>
     

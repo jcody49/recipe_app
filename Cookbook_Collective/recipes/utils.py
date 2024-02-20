@@ -50,18 +50,22 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
 
 
 # counts the occurance of each difficulty for a data visualization
-def get_recipe_difficulty_distribution_data(type_of_recipe):
+def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
     try:
-        print("Type of Recipe in Distribution Data:", type_of_recipe)
-        recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
-        print("SQL Query:", str(recipes.query))
-        data = recipes.values('difficulty').annotate(count=Count('difficulty'))
-        print("Difficulty Distribution Data:", data)
-        data_df = pd.DataFrame.from_records(data)
-        return data_df
+        if type_of_recipe == "default":
+            # Handle default logic or return an appropriate response
+            default_data = {'message': 'Default data or message for recipe difficulty distribution'}
+            return JsonResponse(default_data)
+        else:
+            recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+            data = recipes.values('difficulty').annotate(count=Count('difficulty'))
+            print("Difficulty Distribution Data:", data)
+            data_df = pd.DataFrame.from_records(data)
+            return data_df
     except Exception as e:
         print(f"Error getting recipe difficulty distribution data: {e}")
         return pd.DataFrame()
+
 
 
 
