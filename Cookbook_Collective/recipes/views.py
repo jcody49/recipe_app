@@ -147,6 +147,9 @@ def recipe_difficulty_distribution(request, type_of_recipe='default'):
     }
     return render(request, 'recipes/recipe_difficulty_distribution.html', context)
 
+
+
+
 # defines view for recipe_type_distribution chart on all recipes
 def recipe_type_distribution(request, type_of_recipe=None):
     try:
