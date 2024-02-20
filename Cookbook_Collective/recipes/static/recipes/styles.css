@@ -641,7 +641,7 @@ body {
 }
 
 .logo {
-    max-width: 100%;
+    max-width: 80%;
     width: auto;
     height: auto;
 }
@@ -680,10 +680,6 @@ body {
 
     .right-third {
         margin-top: -14%;
-    }
-
-    .logo {
-        max-width: 47%;
     }
 
     .title {
