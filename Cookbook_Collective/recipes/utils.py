@@ -71,8 +71,9 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             # Assuming chart_type 2 corresponds to pie chart
             chart_image = render_chart(request, 2, data_df)
             
-            # Use HttpResponse with content_type="image/png"
-            return HttpResponse(chart_image, content_type="image/png")
+            # Embed the chart image data in a JSON response
+            return JsonResponse({'chart_image': chart_image})
+
     except Exception as e:
         print(f"Error getting recipe difficulty distribution data: {e}")
         return HttpResponse('An error occurred while fetching data for recipe difficulty distribution.')
@@ -117,7 +118,8 @@ def render_chart(request, chart_type, data=None, **kwargs):
     buffer = BytesIO()
     plt.savefig(buffer, format="png")
     buffer.seek(0)
-    chart_image = base64.b64encode(buffer.read()).decode("utf-8")
+    chart_image = buffer.getvalue()
+
     plt.close(fig)
 
     return chart_image

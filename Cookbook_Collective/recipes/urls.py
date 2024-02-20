@@ -35,8 +35,11 @@ urlpatterns = [
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<str:type_of_recipe>/', recipe_type_distribution, name='recipe-type-distribution-detail'),
     path('recipe-type-distribution/', recipe_type_distribution, name='recipe-type-distribution'),
+    #test
     path('recipe-difficulty-distribution/<str:type_of_recipe>/', recipe_difficulty_distribution, name='recipe-difficulty-distribution-detail'),
-    path('recipe-difficulty-distribution/', recipe_difficulty_distribution, {'type_of_recipe': 'default'}, name='recipe-difficulty-distribution-default'),
+    path('recipe-difficulty-distribution/', recipe_difficulty_distribution, name='recipe-difficulty-distribution-default'),
+
+
     path('recipes-created-per-month/', recipes_created_per_month, name='recipes-created-per-month-detail'),
     path('visualizations/', visualizations, name='visualizations'),
 ]
