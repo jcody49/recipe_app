@@ -746,8 +746,9 @@ body {
     }
 
     .logo {
-        max-width: 70%;
+        max-width: 55%;
         margin: 10% auto;
+        padding: 5%
     }
 
     h1 {
