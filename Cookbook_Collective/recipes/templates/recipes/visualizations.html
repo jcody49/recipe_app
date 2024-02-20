@@ -15,25 +15,30 @@
     </style>
     <!-- Add JavaScript to dynamically update the URL -->
   
-    <select id="typeOfRecipe" name="type_of_recipe">
-        <!-- options -->
+    <select id="typeOfRecipe" name="type_of_recipe" data-url="{% url 'recipes:recipe-type-distribution-detail' type_of_recipe='default' %}">
+        <option value="" selected>-- Select --</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <!-- Add more options as needed -->
     </select>
+    
 
     <a id="typeDistributionLink" href="#">Link</a>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
-            var url = typeOfRecipeSelect.dataset.url;
-
+            var typeDistributionLink = document.getElementById('typeDistributionLink');
+    
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
-                var updatedUrl = selectedType ? url.replace('default', selectedType) : url;
-
-                document.getElementById("typeDistributionLink").href = updatedUrl;
+                var baseUrl = this.dataset.url;
+                var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
+    
+                typeDistributionLink.href = updatedUrl;
             });
         });
-
     </script>
     
     
@@ -91,7 +96,7 @@
     <div class="visualization-link horizontal-centering">
         <h2>Recipes Created Per Month</h2>
         <p>Click the link below to view the Recipes Created Per Month:</p>
-        <a class="link" href="{% url 'recipes:recipes_created_per_month' %}">Go to Recipes Created Per Month</a>
+        <a class="link" href="{% url 'recipes:recipes-created-per-month-detail' %}">Go to Recipes Created Per Month</a>
     </div>
 
     <div class="background-container">
