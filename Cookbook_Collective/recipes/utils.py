@@ -57,7 +57,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
         if type_of_recipe == "default":
             # Handle default logic or return an appropriate response
             default_data = {'message': 'Default data or message for recipe difficulty distribution'}
-            return JsonResponse(default_data)
+            return HttpResponse("No data available for rendering the chart.")
         else:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
             data = recipes.values('difficulty').annotate(count=Count('difficulty'))
@@ -71,7 +71,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             # Assuming chart_type 2 corresponds to pie chart
             chart_image = render_chart(request, 2, data_df)
             
-            # Use HttpResponse instead of JsonResponse
+            # Use HttpResponse with content_type="image/png"
             return HttpResponse(chart_image, content_type="image/png")
     except Exception as e:
         print(f"Error getting recipe difficulty distribution data: {e}")
@@ -89,25 +89,20 @@ def render_chart(request, chart_type, data=None, **kwargs):
         print("No data available for rendering the chart.")
         return HttpResponse("No data available for rendering the chart.")
 
+    plt.switch_backend("AGG")
+    fig = plt.figure(figsize=(12, 8), dpi=100)
+    ax = fig.add_subplot(111)
 
-
-    plt.switch_backend("AGG")       # Matplotlib has different rendering backends--AGG" stands for Anti-Grain Geometry, which is a high-quality rendering engine for C++
-    fig = plt.figure(figsize=(12, 8), dpi=100)      # plt.figure() is a function in Matplotlib that creates a new figure with parameters that set the chart_image size as well as the dpi (resolution, dots per inch)
-    ax = fig.add_subplot(111)       # The argument 111 is a shorthand notation for a subplot configuration, creating a single subplot in a grid with 1 row and 1 column, and the subplot being the first (and only) subplot. The three digits represent (nrows, ncols, index).
-
-    # essentially, these are models that determine the attributes of the charts
     if chart_type == 1:
-        plt.title("Recipe Type Distribution", fontsize=20)      #title
-        plt.bar(data["recipe_type"], data["count"])     # chart type
-        plt.xlabel("Recipe Types", fontsize=16)     # label for the x axis
-        plt.ylabel("Number of Recipes", fontsize=16)        # label for the y axis
-
+        plt.title("Recipe Type Distribution", fontsize=20)
+        plt.bar(data["recipe_type"], data["count"])
+        plt.xlabel("Recipe Types", fontsize=16)
+        plt.ylabel("Number of Recipes", fontsize=16)
     elif chart_type == 2:
         plt.title("Recipe Difficulty Distribution", fontsize=20)
         labels = data["difficulty"]
         plt.pie(data["count"], labels=labels, autopct="%1.1f%%")
         plt.legend(data["difficulty"], loc="upper right", bbox_to_anchor=(1.0, 1.0), fontsize=12)
-
     elif chart_type == 3:
         plt.title("Recipes Created per Month", fontsize=20)
         x_values = data["month"].to_numpy()
@@ -115,22 +110,15 @@ def render_chart(request, chart_type, data=None, **kwargs):
         plt.plot(x_values, y_values)
         plt.xlabel("Months", fontsize=16)
         plt.ylabel("Number of Recipes", fontsize=16)
-
-
     else:
         print("Unknown chart type.")
 
-    plt.tight_layout(pad=3.0)       # adjusts padding
-
-    buffer = BytesIO()      # creates an in-memory binary stream (a buffer)--buffer is an instance of this class and will be used to store the image data.
-    plt.savefig(buffer, format="png")       # Matplotlib function used to save the current figure to a file
-    buffer.seek(0)      # used to move the cursor to the beginning of the buffer (position 0). This prepares the buffer for reading its content.
-    
-    # buffer.read() reads the binary data from the buffer.
-    # base64.b64encode() is used to encode the binary data into base64 format.
-    # decode("utf-8") converts the base64-encoded binary data to a UTF-8 encoded string.
+    plt.tight_layout(pad=3.0)
+    buffer = BytesIO()
+    plt.savefig(buffer, format="png")
+    buffer.seek(0)
     chart_image = base64.b64encode(buffer.read()).decode("utf-8")
-
+    plt.close(fig)
 
     return chart_image
 
