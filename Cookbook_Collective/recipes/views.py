@@ -128,8 +128,12 @@ def visualizations(request, type_of_recipe=None):
 
     
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
-def recipe_difficulty_distribution(request, type_of_recipe):
+def recipe_difficulty_distribution(request, type_of_recipe=''):
     try:
+        if not type_of_recipe:
+            # Handle the case when type_of_recipe is empty
+            type_of_recipe = 'default'  # Adjust as needed
+
         data = get_recipe_difficulty_distribution_data(type_of_recipe)
         chart_image = render_chart(request, chart_type=2, data=data)
     except Exception as e:
