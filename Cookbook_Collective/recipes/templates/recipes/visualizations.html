@@ -17,11 +17,18 @@
     <script>
         function updateURL() {
             var selectedType = document.getElementById("typeOfRecipe").value;
-            var url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe=selectedType %}";
-
+            var url;
+    
+            if (selectedType) {
+                url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe=selectedType %}";
+            } else {
+                url = "{% url 'recipes:recipe_difficulty_distribution_default' %}";
+            }
+    
             document.getElementById("visualizationLink").href = url;
         }
     </script>
+    
     <!-- Add JavaScript to dynamically update the URL -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
