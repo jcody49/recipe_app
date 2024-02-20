@@ -15,22 +15,23 @@
     </style>
     <!-- Add JavaScript to dynamically update the URL -->
     
-
-    <a id="typeDistributionLink" href="#">Link</a>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
-    
+
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var baseUrl = this.dataset.url;
+                console.log("Selected Type:", selectedType);
+                console.log("Base URL:", baseUrl);
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
-    
+                console.log("Updated URL:", updatedUrl);
+
                 visualizationLink.href = updatedUrl;
             });
         });
+
     </script>
     
     
