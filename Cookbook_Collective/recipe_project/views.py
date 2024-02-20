@@ -118,8 +118,4 @@ def signup(request):
 
 
 
-def credits(request):
-    context = {
-        'credits': CREDITS,
-    }
-    return render(request, 'credits.html', context)
+

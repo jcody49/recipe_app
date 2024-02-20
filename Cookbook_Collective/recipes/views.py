@@ -186,7 +186,13 @@ def recipes_created_per_month(request):
     # Render the template for recipes created per month
     return render(request, 'recipes/recipes_created_per_month.html', context)
 
-# test
+
+
+def credits_view(request):
+    return render(request, 'recipes/credits.html')
+
+
+
 class RecipeListView(LoginRequiredMixin, ListView):           #class-based “protected” view
     model = Recipe                         #specify model
     template_name = 'recipes/home.html'    #specify template
