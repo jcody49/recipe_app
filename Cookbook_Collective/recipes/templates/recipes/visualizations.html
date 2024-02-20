@@ -18,27 +18,27 @@
         function updateURL() {
             var selectedType = document.getElementById("typeOfRecipe").value;
             var url;
-
+    
             if (selectedType) {
-                url = "{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe=selectedType %}";
+                url = "{% url 'recipes:recipe_type_distribution' type_of_recipe=selectedType %}";
             } else {
-                url = "{% url 'recipes:recipe_difficulty_distribution_default' %}";
+                url = "{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}";
             }
-
-            document.getElementById("visualizationLink").href = url;
+    
+            document.getElementById("typeDistributionLink").href = url;
         }
-
+    
         document.addEventListener('DOMContentLoaded', function () {
             var errorMessage = document.getElementById('errorMessage');
-            var recipeTypeLink = document.getElementById('visualizationLink');
+            var recipeTypeLink = document.getElementById('typeDistributionLink');  // Corrected ID
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');  // Adjust the ID as per your form
-
+    
             // Update the initial URL
             updateURL();
-
+    
             // To hide the error message
             errorMessage.style.display = 'none';
-
+    
             recipeTypeLink.addEventListener('click', function (event) {
                 // Check if a type_of_recipe is selected
                 if (typeOfRecipeSelect.value === '') {
@@ -46,7 +46,7 @@
                     errorMessage.style.display = 'block';  // Show the error message
                 }
             });
-
+    
             typeOfRecipeSelect.addEventListener('change', function () {
                 // Update the URL when the user changes the dropdown selection
                 updateURL();
@@ -54,6 +54,7 @@
             });
         });
     </script>
+    
 
     {% load static %}
     <!-- CSS stylesheet -->
@@ -69,7 +70,7 @@
         <a class="logout-link" href="{% url 'logout' %}">Logout</a>
     </header>
 
-    <!-- Your existing visualization link -->
+    <!-- DIFFICULTY -->
     <div class="visualization-link horizontal-centering" style="margin-top: 6%;">
         <h2>Recipe Difficulty Distribution</h2>
         {% if message %}
@@ -88,15 +89,22 @@
         </form>
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
 
-        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe='' %}">Go to Recipe Difficulty Distribution</a>
+        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe_difficulty_distribution_detail' type_of_recipe='default' %}">Go to Recipe Difficulty Distribution</a>
+
     </div>
 
+
+
+    <!--TYPE-->
     <div class="visualization-link horizontal-centering">
         <h2>Recipe Type Distribution</h2>
         <p>Click the link below to view the Recipe Type Distribution:</p>
-        <a class="link" id="visualizationLink" href="{% url 'recipes:recipe_difficulty_distribution_default' %}">Go to Recipe Difficulty Distribution</a>
+        <a class="link" id="typeDistributionLink" href="{% url 'recipes:recipe_type_distribution' type_of_recipe='default' %}">Go to Recipe Type Distribution</a>
     </div>
 
+
+
+   <!--RECIPES PER MONTH-->
     <div class="visualization-link horizontal-centering">
         <h2>Recipes Created Per Month</h2>
         <p>Click the link below to view the Recipes Created Per Month:</p>
