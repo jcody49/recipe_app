@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 
 # Third-party
@@ -101,20 +102,22 @@ def create_recipe(request):
 
 
 def visualizations(request, type_of_recipe=None):
-    if type_of_recipe:
-        try:
-            recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
-        except DatabaseError as e:
-            # Handle database query error
-            messages.error(request, f"Error fetching recipes: {e}")
-            recipes = None
-    else:
-        recipes = None
+    recipes = None
+    message = None
 
-    if type_of_recipe is None:
-        message = "Please select a type of recipe to proceed."
-    else:
-        message = None
+    try:
+        if type_of_recipe:
+            recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
+        elif type_of_recipe is None:
+            message = "Please select a type of recipe to proceed."
+
+    except ObjectDoesNotExist:
+        # Handle the case when the queryset is empty
+        message = "No recipes found for the selected type."
+
+    except DatabaseError as e:
+        # Handle other database query errors
+        messages.error(request, f"Error fetching recipes: {e}")
 
     context = {
         'type_of_recipe': type_of_recipe,
@@ -128,18 +131,15 @@ def visualizations(request, type_of_recipe=None):
 
     
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
-def recipe_difficulty_distribution(request, type_of_recipe=''):
-    try:
-        if not type_of_recipe:
-            # Handle the case when type_of_recipe is empty
-            type_of_recipe = 'default'  # Adjust as needed
+def recipe_difficulty_distribution(request, type_of_recipe='default'):
+    chart_image = None
 
+    try:
         data = get_recipe_difficulty_distribution_data(type_of_recipe)
         chart_image = render_chart(request, chart_type=2, data=data)
     except Exception as e:
         # Handle unexpected errors during chart rendering
         messages.error(request, f"Error rendering difficulty distribution chart: {e}")
-        chart_image = None
 
     context = {
         'chart_image': chart_image,
