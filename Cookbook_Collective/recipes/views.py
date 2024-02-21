@@ -110,18 +110,24 @@ def visualizations(request, type_of_recipe=None):
         if not selected_type:
             message = "Please select a type of recipe to proceed."
         else:
-            return redirect('recipes:recipe-difficulty-distribution-detail', type_of_recipe=selected_type)
+            try:
+                # Handle the selected type, e.g., redirect to the detailed visualization page
+                return redirect('recipes:recipe-difficulty-distribution-detail', type_of_recipe=selected_type)
+            except ObjectDoesNotExist:
+                # Handle the case when the queryset is empty
+                message = "No recipes found for the selected type."
+            except DatabaseError as e:
+                # Handle other database query errors
+                messages.error(request, f"Error fetching recipes: {e}")
 
     try:
         if type_of_recipe:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
-        elif type_of_recipe is None and not message:
+        elif type_of_recipe is None:
             message = "Please select a type of recipe to proceed."
-
     except ObjectDoesNotExist:
         # Handle the case when the queryset is empty
         message = "No recipes found for the selected type."
-
     except DatabaseError as e:
         # Handle other database query errors
         messages.error(request, f"Error fetching recipes: {e}")
@@ -131,6 +137,7 @@ def visualizations(request, type_of_recipe=None):
         'recipes': recipes,
         'message': message,
     }
+
     return render(request, 'recipes/visualizations.html', context)
 
 

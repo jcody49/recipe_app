@@ -42,6 +42,7 @@
     
 
     <script>
+        var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";
         document.addEventListener('DOMContentLoaded', function () {
             // Navbar script
             setupNavbar();
@@ -56,24 +57,30 @@
 
         function setupRecipeType() {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
+            var visualizationLink = document.getElementById('visualizationLink');
             var typeOfRecipeForm = document.getElementById('recipeTypeForm');
 
-            typeOfRecipeForm.addEventListener('submit', function (event) {
-                console.log("Form submission attempted");
-                if (!validateForm()) {
-                    alert("Please select a recipe type before proceeding.");
-                    event.preventDefault(); // Prevent the form from submitting
-                }
+            typeOfRecipeSelect.addEventListener('change', function () {
+                var selectedType = this.value;
+                var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
+                visualizationLink.href = updatedUrl;
             });
 
-            function validateForm() {
-                console.log("validateForm called");
+            typeOfRecipeForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
                 var selectedType = typeOfRecipeSelect.value;
 
                 // Check if a recipe type is selected
-                return selectedType !== "";
-            }
+                if (selectedType === "") {
+                    alert("Please select a recipe type before proceeding.");
+                } else {
+                    // Submit the form
+                    this.submit();
+                }
+            });
         }
+
     </script>
     
 
@@ -136,7 +143,8 @@
         {% endif %}
 
         <!-- Remove the 'onchange' attribute from the select tag -->
-        <form id="recipeTypeForm" onsubmit="return validateForm()">
+        <form id="recipeTypeForm" action="{% url 'recipes:visualizations' %}" method="post">
+            {% csrf_token %}
             <label for="typeOfRecipe">Select Recipe Type:</label>
             <select id="typeOfRecipe" name="type_of_recipe">
                 <option value="" {% if not type_of_recipe %}selected{% endif %}>-- Select --</option>
@@ -145,6 +153,8 @@
                 <option value="dinner">Dinner</option>
             </select>
         
+            <!-- Add the submit button -->
+            <button type="submit">Submit</button>
         </form>
         
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
