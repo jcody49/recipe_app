@@ -121,29 +121,35 @@
         <p class="horizontal-centering">No results found.</p>
         {% endif %}
 
-        {% if recipes_paginated %}
-            <!-- Pagination Controls -->
-            <div class="pagination">
-                {% if paginator and recipes_paginated.has_other_pages %}
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            {% if paginator and recipes_paginated.has_other_pages %}
+                {% with paginator=paginator page_obj=recipes_paginated %}
                     <span class="step-links horizontal-centering">
-                        {% if recipes_paginated.has_previous %}
+                        {% if page_obj.has_previous %}
                             <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                         {% endif %}
 
-                        <!-- Display current page and total pages directly -->
-                        <span class="current">
-                            Page {{ recipes_paginated.number }} of {{ recipes_paginated.paginator.num_pages }}.
-                        </span>
+                        {% for page in page_obj.paginator.page_range %}
+                            {% if page_obj.number == page %}
+                                <span class="current">
+                                    {{ page }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ page }}">{{ page }}</a>
+                            {% endif %}
+                        {% endfor %}
 
-                        {% if recipes_paginated.has_next %}
-                            <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
-                            <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                         {% endif %}
                     </span>
-                {% endif %}
-            </div>
-        {% endif %}
+                {% endwith %}
+            {% endif %}
+        </div>
+
 
 
     </main>
