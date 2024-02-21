@@ -82,21 +82,23 @@
             var typeOfRecipeForm = document.getElementById('recipeTypeForm');
             typeOfRecipeForm.addEventListener('submit', function (event) {
                 console.log("Form submission attempted");
-                if (!validateForm()) {
-                    alert("Please select a recipe type before proceeding.");
-                    event.preventDefault(); // Prevent the form from submitting
-                }
+                validateForm(event); // Pass the event to the function
             });
+
     
             // Form validation function
-            function validateForm() {
+            function validateForm(event) {
                 console.log("validateForm called");
                 var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
                 var selectedType = typeOfRecipeSelect.value;
-    
+
                 // Check if a recipe type is selected
-                return selectedType !== "";
+                if (selectedType === "") {
+                    alert("Please select a recipe type before proceeding.");
+                    event.preventDefault(); // Prevent the form from submitting
+                }
             }
+
         }
     </script>
     
