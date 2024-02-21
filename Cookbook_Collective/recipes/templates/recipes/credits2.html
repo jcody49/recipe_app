@@ -20,6 +20,7 @@
 
         <!--css stylesheet-->
         <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
+
     </head>
 <body>
     <style>
@@ -29,6 +30,15 @@
         
             .navbar-custom {
                 background-color: var(--secondary-color); /* Use the custom secondary color */
+            }
+            ul.horizontal-centering {
+                list-style-type: none;
+                padding: 0;
+            }
+    
+            ul.horizontal-centering li {
+                display: inline-block;
+                margin-right: 10px; /* Add some space between items */
             }
         </style>
         <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
