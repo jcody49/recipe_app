@@ -53,23 +53,37 @@ def recipes_home(request):
 @login_required
 def search_view(request):
     form = SearchForm(request.GET or None)
-    recipes_queryset = []
+    recipes_queryset = None
+    paginator = Paginator([], 10)  # Set a default paginator for cases where form is not valid
+    recipes_paginated = None
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
-        combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
-        recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
-    # Paginate the results
-    paginator = Paginator(recipes_queryset, 10)
-    page = request.GET.get('page', 1)
+        try:
+            combined_query = models.Q(name__icontains=query) | models.Q(ingredients__icontains=query)
+            recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
-    try:
-        recipes_paginated = paginator.page(page)
-    except PageNotAnInteger:
-        recipes_paginated = paginator.page(1)
-    except EmptyPage:
-        recipes_paginated = paginator.page(paginator.num_pages)
+            # Pagination
+            paginator = Paginator(recipes_queryset, 10)
+            page = request.GET.get('page')
+
+            try:
+                recipes_paginated = paginator.page(page)
+            except PageNotAnInteger:
+                print(f"DEBUG: PageNotAnInteger - Using first page.")
+                recipes_paginated = paginator.page(1)
+            except EmptyPage:
+                print(f"DEBUG: EmptyPage - Using last page.")
+                recipes_paginated = paginator.page(paginator.num_pages)
+
+        except models.DatabaseError as e:
+            messages.error(request, f"Error fetching recipes: {e}")
+            recipes_paginated = None
+
+    print(f"DEBUG: recipes_paginated.number: {recipes_paginated.number}")
+    print(f"DEBUG: paginator.num_pages: {paginator.num_pages}")
+    print(f"DEBUG: recipes_paginated.has_other_pages: {recipes_paginated.has_other_pages}")
 
     context = {
         'form': form,
