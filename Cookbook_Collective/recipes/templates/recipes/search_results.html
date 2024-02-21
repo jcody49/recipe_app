@@ -96,7 +96,8 @@
         <p>Number of results: {{ recipes_queryset|length }}</p>
         <p>Paginator: {{ paginator }}</p>
         <p>Current Page: {{ recipes_queryset.number|default:1 }}</p>
-        <p>Page Range: {{ recipes_queryset.paginator.page_range }}</p>
+        <p>Page Range: {{ recipes_paginated.paginator.page_range }}</p>
+
         <table class="table table-striped horizontal-centering table-rows">
             <!-- Your table headers here -->
             <thead>
