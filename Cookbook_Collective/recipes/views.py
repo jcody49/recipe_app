@@ -48,7 +48,7 @@ def recipes_home(request):
     
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
-
+# test
 @login_required
 def search_view(request):
     form = SearchForm(request.GET or None)
@@ -60,6 +60,17 @@ def search_view(request):
         try:
             combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
             recipes_queryset = Recipe.objects.filter(combined_query)
+
+            # Pagination
+            paginator = Paginator(recipes_queryset, 10)  # Change 10 to your desired number
+            page = request.GET.get('page')
+
+            try:
+                recipes_queryset = paginator.page(page)
+            except PageNotAnInteger:
+                recipes_queryset = paginator.page(1)
+            except EmptyPage:
+                recipes_queryset = paginator.page(paginator.num_pages)
         except DatabaseError as e:
             # Handle database query error
             messages.error(request, f"Error fetching recipes: {e}")
