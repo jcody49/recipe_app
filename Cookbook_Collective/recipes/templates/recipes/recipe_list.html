@@ -113,7 +113,7 @@
             <div class="pagination">
                 {% with paginator=object_list.paginator page_obj=object_list %}
                     {% if paginator.num_pages > 1 %}
-                        <span class="step-links">
+                        <span class="step-links horizontal-centering">
                             {% if page_obj.has_previous %}
                                 <a href="?page=1">&laquo; first</a>
                                 <a href="?page={{ page_obj.previous_page_number }}">previous</a>
@@ -135,7 +135,7 @@
                             {% endif %}
                         </span>
                     {% endif %}
-                    <span class="debug-info">{{ paginator.num_pages }} {{ page_obj.number }}</span>
+
                 {% endwith %}
             </div>
             
