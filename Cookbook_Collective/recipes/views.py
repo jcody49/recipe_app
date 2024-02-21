@@ -214,7 +214,7 @@ def credits2(request):
 # test
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
-    template_name = 'recipes_home.html'
+    template_name = 'recipes/recipe_list.html' 
     context_object_name = 'object_list'
     paginate_by = 10
 
@@ -268,7 +268,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):                       #c
 # uses a list view to view all recipes
 class RecipeListViewAll(LoginRequiredMixin, ListView):
     model = Recipe
-    template_name = template_name = 'recipes/recipes_home.html'
+    template_name = 'recipes/recipe_list.html' 
     context_object_name = 'object_list_all'
     paginate_by = 10
 
