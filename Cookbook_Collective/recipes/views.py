@@ -78,9 +78,11 @@ def search_view(request):
     context = {
         'form': form,
         'recipes_queryset': recipes_queryset,
+        'paginator': paginator,  # Pass paginator to the template
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 
