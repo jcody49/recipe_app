@@ -770,6 +770,7 @@ body {
 
 
 
+/*PAGINATION*/
 
 .pagination {
     text-align: center;
@@ -788,7 +789,7 @@ body {
 .pagination .step-links .current {
     padding: 8px 16px;
     margin: 0 4px;
-    background-color: #4CAF50;
+    background-color: #fbd6cf;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
