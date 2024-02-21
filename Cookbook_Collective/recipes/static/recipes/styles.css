@@ -772,10 +772,33 @@ body {
 
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: -20px;  /* Adjust the negative margin as needed */
-    background-color: lightgray;
-    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
 }
+
+.pagination .step-links a {
+    padding: 8px 16px;
+    margin: 0 4px;
+    background-color: #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.pagination .step-links .current {
+    padding: 8px 16px;
+    margin: 0 4px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.pagination .debug-info {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+}
+
 

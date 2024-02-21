@@ -110,17 +110,15 @@
             </table>
 
             <!-- Pagination Controls -->
-            <!-- Pagination Controls -->
             <div class="pagination">
                 {% with paginator=object_list.paginator page_obj=object_list %}
-                    <span class="debug-info">{{ paginator.num_pages }} {{ page_obj.number }}</span>
                     {% if paginator.num_pages > 1 %}
                         <span class="step-links">
                             {% if page_obj.has_previous %}
                                 <a href="?page=1">&laquo; first</a>
                                 <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                             {% endif %}
-                
+            
                             {% for page in paginator.page_range %}
                                 {% if page_obj.number == page %}
                                     <span class="current">
@@ -130,7 +128,7 @@
                                     <a href="?page={{ page }}">{{ page }}</a>
                                 {% endif %}
                             {% endfor %}
-                
+            
                             {% if page_obj.has_next %}
                                 <a href="?page={{ page_obj.next_page_number }}">next</a>
                                 <a href="?page={{ paginator.num_pages }}">last &raquo;</a>
@@ -138,7 +136,9 @@
                         </span>
                     {% endif %}
                 {% endwith %}
+                <span class="debug-info">{{ paginator.num_pages }} {{ page_obj.number }}</span>
             </div>
+            
 
             
             
