@@ -68,6 +68,7 @@
 
         // New part for form validation
         function validateForm() {
+            console.log("validateForm called");
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var selectedType = typeOfRecipeSelect.value;
 
@@ -150,7 +151,6 @@
                 <option value="dinner">Dinner</option>
             </select>
         
-            <a class="link" id="visualizationLink" href="{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe=type_of_recipe %}">Go to Recipe Difficulty Distribution</a>
         </form>
         
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>

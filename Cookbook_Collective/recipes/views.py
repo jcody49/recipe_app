@@ -100,7 +100,7 @@ def create_recipe(request):
 
 
 
-
+@login_required
 def visualizations(request, type_of_recipe=None):
     recipes = None
     message = None
@@ -131,6 +131,7 @@ def visualizations(request, type_of_recipe=None):
 
     
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
+@login_required
 def recipe_difficulty_distribution(request, type_of_recipe=None):
     chart_image = None
 
@@ -151,6 +152,7 @@ def recipe_difficulty_distribution(request, type_of_recipe=None):
 
 
 # defines view for recipe_type_distribution chart on all recipes
+@login_required
 def recipe_type_distribution(request, type_of_recipe=None):
     try:
         if not type_of_recipe:
@@ -165,7 +167,7 @@ def recipe_type_distribution(request, type_of_recipe=None):
     return render(request, 'recipes/recipe_type_distribution.html', {'chart_image': chart_image})
 
 
-
+@login_required
 def recipes_created_per_month(request):
     # Generate made-up data for demonstration
     months = [calendar.month_name[i] for i in range(1, 13)]
@@ -224,6 +226,7 @@ class RecipeListView(LoginRequiredMixin, ListView):           #class-based “pr
 class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
     model = Recipe                                        #specify model
     template_name = 'recipes/recipe_detail.html'                 #specify template
+
 
 # uses a list view to view all recipes
 class RecipeListViewAll(LoginRequiredMixin, ListView):
