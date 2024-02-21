@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Project-specific
+from .credits import CREDITS
 from .models import Recipe, TYPE_OF_RECIPE, DIFFICULTY_LEVELS
 from .forms import RecipeForm, SearchForm
 from .utils import (
