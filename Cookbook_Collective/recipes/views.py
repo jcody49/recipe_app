@@ -187,8 +187,8 @@ def recipes_created_per_month(request):
     # Render the template for recipes created per month
     return render(request, 'recipes/recipes_created_per_month.html', context)
 
-def credits(request):
-    return render(request, 'credits.html')
+def credits2(request):
+    return render(request, 'recipes/credits2.html')
 
 
 

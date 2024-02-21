@@ -17,7 +17,7 @@ from .views import (
     recipe_difficulty_distribution,
     recipes_created_per_month,
     visualizations,
-    credits, 
+    credits2, 
 )
 
 
@@ -32,7 +32,8 @@ urlpatterns = [
     path('create_recipe/', create_recipe, name='create_recipe'),
     path('login/', login_view, name='login'),
     path('delete_account/', delete_account, name='delete_account'),
-    path('credits/', credits, name='credits'),
+    path('credits2/', credits2, name='credits2'),
+
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<str:type_of_recipe>/', recipe_type_distribution, name='recipe-type-distribution-detail'),
     path('recipe-type-distribution/', recipe_type_distribution, name='recipe-type-distribution'),
