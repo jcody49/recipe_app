@@ -41,12 +41,14 @@ from .utils import (
 
 
 # Define a view function named recipes_home that takes a request object as a parameter
-def recipes_home(request):      
+def recipes_home(request, context):      
     all_images = Recipe.objects.filter(pic__isnull=False).exclude(pic='no_picture.jpeg').order_by('?')      # takes all pic objects, filters out the no-picture.jpg, and randomizes all objects--loads into the all_images object
     
     # Concatenate the list multiple times to ensure it's long enough for infinite scrolling
     random_images = list(all_images) * 80
-    
+    context = {
+        'loading': True,  # Set this to False when processing is complete
+    }
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
 # test
@@ -81,17 +83,14 @@ def search_view(request):
             messages.error(request, f"Error fetching recipes: {e}")
             recipes_paginated = None
 
-    print(f"DEBUG: recipes_paginated.number: {recipes_paginated.number}")
-    print(f"DEBUG: paginator.num_pages: {paginator.num_pages}")
-    print(f"DEBUG: recipes_paginated.has_other_pages: {recipes_paginated.has_other_pages}")
-
     context = {
         'form': form,
-        'recipes_queryset': recipes_paginated,
+        'recipes_queryset': recipes_paginated if recipes_paginated else paginator.page(1),
         'paginator': paginator,
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 
