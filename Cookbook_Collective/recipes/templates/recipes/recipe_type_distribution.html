@@ -22,15 +22,7 @@
     <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
 </head>
 <body>
-    <style>
-        :root {
-            --secondary-color: #fbd6cf; /* Define your custom secondary color variable */
-        }
-    
-        .navbar-custom {
-            background-color: var(--secondary-color); /* Use the custom secondary color */
-        }
-    </style>
+
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container-fluid">
             <div class="navbar-header d-flex align-items-center">
@@ -88,18 +80,7 @@
     {% if description %}
         <p>{{ description }}</p>
     {% endif %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var navbarButton = document.querySelector('.navbar-toggler');
-            var navbarCollapse = document.getElementById('navbarNav');
-    
-            navbarButton.addEventListener('click', function () {
-                var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
-                navbarButton.setAttribute('aria-expanded', !expanded);
-                navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
-            });
-        });
-    </script>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="{% static 'recipes/scripts.js' %}"></script>
