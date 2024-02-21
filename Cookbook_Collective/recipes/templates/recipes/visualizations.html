@@ -101,9 +101,10 @@
                     alert("Please select a recipe type before proceeding.");
                 } else {
                     // Redirect to visualizations page with the selected type
-                    window.location.href = "{% url 'recipes:visualizations' type_of_recipe='default' %}".replace('default', selectedType);
+                    window.location.href = "{% url 'recipes:visualizations' type_of_recipe='' %}".replace('default', selectedType);
                 }
             }
+
         }
     </script>
     
