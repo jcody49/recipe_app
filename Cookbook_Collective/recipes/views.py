@@ -53,30 +53,37 @@ def recipes_home(request):
 def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
+    paginator = None
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
 
-        combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
-        recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
+        try:
+            combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
+            recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
-    paginator = Paginator(recipes_queryset, 10)  # Change 10 to your desired number
-    page = request.GET.get('page')
+            # Pagination
+            paginator = Paginator(recipes_queryset, 10)
+            page = request.GET.get('page')
 
-    try:
-        recipes_queryset = paginator.page(page)
-    except PageNotAnInteger:
-        recipes_queryset = paginator.page(1)
-    except EmptyPage:
-        recipes_queryset = paginator.page(paginator.num_pages)
+            try:
+                recipes_paginated = paginator.page(page)
+            except PageNotAnInteger:
+                recipes_paginated = paginator.page(1)
+            except EmptyPage:
+                recipes_paginated = paginator.page(paginator.num_pages)
+
+        except DatabaseError as e:
+            messages.error(request, f"Error fetching recipes: {e}")
 
     context = {
         'form': form,
-        'recipes_queryset': recipes_queryset,
+        'recipes_queryset': recipes_paginated if 'recipes_paginated' in locals() else None,
         'paginator': paginator,
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 
