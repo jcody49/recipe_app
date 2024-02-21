@@ -3,7 +3,6 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from .views import RecipeListView, render_chart  
 from recipe_project.views import login_view, delete_account
 
 from .views import (
