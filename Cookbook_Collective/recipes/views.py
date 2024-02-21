@@ -67,6 +67,9 @@ def search_view(request):
             paginator = Paginator(recipes_queryset, 10)
             page = request.GET.get('page')
             recipes_paginated = paginator.get_page(page)
+            print(f"DEBUG: recipes_paginated.number after pagination: {recipes_paginated.number}")
+            print(f"DEBUG: Length of recipes_paginated.paginator.page_range: {len(recipes_paginated.paginator.page_range)}")
+
 
         except DatabaseError as e:
             messages.error(request, f"Error fetching recipes: {e}")
