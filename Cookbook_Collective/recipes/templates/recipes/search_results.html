@@ -90,62 +90,64 @@
                 </div>
                 
             </div>
-        </main>
-                 
 
-        {% if recipes_paginated %}
-            <!-- Display search results as a table -->
-            <p>Number of results: {{ recipes_paginated|length }}</p>
-            <p>Paginator: {{ paginator }}</p>
-            <p>Current Page: {{ recipes_paginated.number }}</p>
-            <p>Page Range: {{ recipes_paginated.paginator.page_range }}</p>
-            <table class="table table-striped horizontal-centering table-rows">
-                <!-- Your table headers here -->
-                <thead>
-                    <tr>
-                        <th class="table-headers">Recipe Name</th>
-                        <th class="table-headers">Image</th>
-                    </tr>
-                </thead>
-                <tbody class="table-rows">
-                    {% for recipe in recipes_paginated %}
-                        <tr class="horizontal-centering recipe-names">
-                            <td><a class=" table-rows recipe-names" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
-                            <td><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}"></a></td>
+            
+     
+
+            {% if recipes_paginated %}
+                <!-- Display search results as a table -->
+                <p>Number of results: {{ recipes_paginated|length }}</p>
+                <p>Paginator: {{ paginator }}</p>
+                <p>Current Page: {{ recipes_paginated.number }}</p>
+                <p>Page Range: {{ recipes_paginated.paginator.page_range }}</p>
+                <table class="table table-striped horizontal-centering table-rows">
+                    <!-- Your table headers here -->
+                    <thead>
+                        <tr>
+                            <th class="table-headers">Recipe Name</th>
+                            <th class="table-headers">Image</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-            <!-- Pagination Controls -->
-            <div class="pagination">
-                {% if paginator and recipes_paginated.has_other_pages %}
-                    <span class="step-links horizontal-centering">
-                        {% if recipes_paginated.has_previous %}
-                            <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
-                        {% endif %}
-                        
-                        {% for page in recipes_paginated.paginator.page_range %}
-                            {% if recipes_paginated.number == page %}
-                                <span class="current">
-                                    {{ page }}
-                                </span>
-                            {% else %}
-                                <a href="?page={{ page }}">{{ page }}</a>
-                            {% endif %}
+                    </thead>
+                    <tbody class="table-rows">
+                        {% for recipe in recipes_paginated %}
+                            <tr class="horizontal-centering recipe-names">
+                                <td><a class=" table-rows recipe-names" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
+                                <td><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}"></a></td>
+                            </tr>
                         {% endfor %}
-                        
-                        {% if recipes_paginated.has_next %}
-                            <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
-                            <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
-                {% endif %}
-            </div>
-        {% else %}
-            <p class="horizontal-centering">No results found.</p>
-        {% endif %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    {% if paginator and recipes_paginated.has_other_pages %}
+                        <span class="step-links horizontal-centering">
+                            {% if recipes_paginated.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
+                            {% endif %}
+                            
+                            {% for page in recipes_paginated.paginator.page_range %}
+                                {% if recipes_paginated.number == page %}
+                                    <span class="current">
+                                        {{ page }}
+                                    </span>
+                                {% else %}
+                                    <a href="?page={{ page }}">{{ page }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if recipes_paginated.has_next %}
+                                <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
+                                <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p class="horizontal-centering">No results found.</p>
+            {% endif %}
+        </main>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{% static 'recipes/scripts.js' %}"></script>
