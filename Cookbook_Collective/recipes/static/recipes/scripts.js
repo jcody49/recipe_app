@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 });
 
-
+//NAVBAR
 document.addEventListener('DOMContentLoaded', function () {
     var navbarButton = document.querySelector('.navbar-toggler');
     var navbarCollapse = document.getElementById('navbarNav');
@@ -25,4 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
    
 
-  
+//LOADING SPINNER  
+document.getElementById('submitBtn').addEventListener('click', function() {
+    document.getElementById('loading-spinner').style.display = 'block';
+});
