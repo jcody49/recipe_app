@@ -41,7 +41,7 @@ from .utils import (
 
 
 # Define a view function named recipes_home that takes a request object as a parameter
-def recipes_home(request, context):      
+def recipes_home(request):      
     all_images = Recipe.objects.filter(pic__isnull=False).exclude(pic='no_picture.jpeg').order_by('?')      # takes all pic objects, filters out the no-picture.jpg, and randomizes all objects--loads into the all_images object
     
     # Concatenate the list multiple times to ensure it's long enough for infinite scrolling
