@@ -46,35 +46,38 @@
     <!-- Your existing script for updating the URL dynamically -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            console.log("DOMContentLoaded event fired");
             // Navbar script
             setupNavbar();
-
+    
             // Recipe type script
             setupRecipeType();
         });
-
+    
         function setupNavbar() {
+            console.log("setupNavbar called");
             var navbarButton = document.querySelector('.navbar-toggler');
             var navbarCollapse = document.getElementById('navbarNav');
-
+    
             navbarButton.addEventListener('click', function () {
                 var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
                 navbarButton.setAttribute('aria-expanded', !expanded);
                 navbarCollapse.classList.toggle('show');
             });
         }
-
+    
         function setupRecipeType() {
+            console.log("validateForm called");
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
             var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";
-
+    
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
                 visualizationLink.href = updatedUrl;
             });
-
+    
             // Form submission event listener
             var typeOfRecipeForm = document.getElementById('recipeTypeForm');
             typeOfRecipeForm.addEventListener('submit', function (event) {
@@ -82,6 +85,7 @@
                 validateForm(event); // Pass the event to the function
             });
 
+    
             // Form validation function
             function validateForm(event) {
                 console.log("validateForm called");
@@ -92,16 +96,6 @@
                 if (selectedType === "") {
                     alert("Please select a recipe type before proceeding.");
                     event.preventDefault(); // Prevent the form from submitting
-                }
-            }
-
-            function redirectToVisualizations() {
-                var selectedType = document.getElementById('typeOfRecipe').value;
-                if (selectedType === "") {
-                    alert("Please select a recipe type before proceeding.");
-                } else {
-                    // Redirect to visualizations page with the selected type
-                    window.location.href = "{% url 'recipes:visualizations' type_of_recipe='' %}".replace('default', selectedType);
                 }
             }
 
