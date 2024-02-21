@@ -191,7 +191,7 @@ def credits(request):
     context = {
         'credits': CREDITS,
     }
-    return render(request, 'recipes/credits.html', context)
+    return render(request, 'credits.html', context)
 
 
 class RecipeListView(LoginRequiredMixin, ListView):           #class-based “protected” view
