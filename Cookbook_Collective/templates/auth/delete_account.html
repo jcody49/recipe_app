@@ -10,13 +10,58 @@
 </head>
 <body>
 
-    <header>
-        <!-- Display the Collective Cookbook Logo -->
-        <a href="{% url 'recipes:home' %}">
-            <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
-        </a>
-        <h1>Delete Account</h1>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header d-flex align-items-center">
+                <a class="link horizontal-centering" href="{% url 'recipes:home' %}">
+                    <img src="{% static 'recipes/images/CC_Logo.jpg' %}" alt="Collective Cookbook Logo" class="logo">
+                    <br>Home
+                </a>
+                <p><h2>The Cookbook Collective</h2></p>
+            </div>
+            <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>                
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <!-- Show Logout option when logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                            <!-- Show Login option when logged out -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                        {% endif %}
+    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:recipe_list' %}">Browse</a>
+                        </li>     
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:search' %}">Search</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:create_recipe' %}">Create Recipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:delete_account' %}">Delete Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:visualizations' %}">Data Visualizations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'recipes:credits2' %}">Credits</a>
+                        </li>
+                        <!-- Add more items as needed -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <h1 class="horizontal-centering">Delete Account</h1>
+
     <div style="margin-top:12%; font-size:20px" class="horizontal-centering">
         <p >Are you sure you want to delete your account?</p><br>
         <form method="post" action="{% url 'delete_account' %}">
@@ -41,5 +86,9 @@
             </div>
         </footer>
     </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="{% static 'recipes/scripts.js' %}"></script>
 </body>
 </html>
