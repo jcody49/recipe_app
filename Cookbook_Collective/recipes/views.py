@@ -53,6 +53,7 @@ def recipes_home(request):
 def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
+    paginator = None  # Initialize paginator outside the try block
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
@@ -78,10 +79,11 @@ def search_view(request):
     context = {
         'form': form,
         'recipes_queryset': recipes_queryset,
-        'paginator': paginator,  # Pass paginator to the template
+        'paginator': paginator,  # Pass paginator to the context
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 
