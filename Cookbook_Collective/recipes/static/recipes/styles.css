@@ -773,6 +773,6 @@ body {
 
 .pagination {
     text-align: center;
-    margin-top: -50px; /* Adjust the margin to a negative value */
+    margin-top: 10px;  /* Adjust the margin as needed */
     display: block;
 }
