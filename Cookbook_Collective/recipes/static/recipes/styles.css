@@ -750,8 +750,8 @@ body {
 
     .detail-text {
         padding: 10px;
-        font-size: 16px; /* Adjust the font size for smaller screens */
-        margin: 20px 10px; /* Adjust the margin for better spacing on smaller screens */
+        font-size: 16px; 
+        margin: 20px 10px; 
         text-align: left;
     }
 }
