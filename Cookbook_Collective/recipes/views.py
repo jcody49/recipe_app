@@ -55,7 +55,6 @@ def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
     paginator = Paginator([], 10)  # Set a default paginator for cases where form is not valid
-    recipes_paginated = paginator.page(1)
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
@@ -73,6 +72,10 @@ def search_view(request):
             messages.error(request, f"Error fetching recipes: {e}")
             recipes_paginated = paginator.page(1)
 
+    else:
+        # If the form is not valid, set default values
+        recipes_paginated = paginator.get_page(1)
+
     context = {
         'form': form,
         'recipes_queryset': recipes_paginated,
@@ -80,6 +83,7 @@ def search_view(request):
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 # defines create_recipe view
