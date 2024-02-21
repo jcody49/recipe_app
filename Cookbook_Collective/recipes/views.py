@@ -3,8 +3,12 @@ import os
 import random
 from io import BytesIO
 import calendar
+import pandas as pd
+import matplotlib
 
 # Django
+import django
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.views.generic import ListView, DetailView
@@ -17,8 +21,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 
 # Third-party
-import pandas as pd
-import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
@@ -212,6 +215,11 @@ class RecipeListView(LoginRequiredMixin, ListView):
     template_name = 'recipes/home.html'
     context_object_name = 'object_list'
     paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        print("get method called")
+        response = super().get(request, *args, **kwargs)
+        return response
 
     def get_queryset(self):
         print("get_queryset method called")  
