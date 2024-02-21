@@ -772,10 +772,10 @@ body {
 
 
 .pagination {
-    font-size: x-large;
-    text-align: center;
-    margin-top: 5px;  /* Adjust the margin as needed */
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;  /* Adjust the negative margin as needed */
     background-color: lightgray;
-    padding: 5px;
-    display: block;
+    padding: 10px;
 }
+
