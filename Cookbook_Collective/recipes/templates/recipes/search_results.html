@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% debug %}
 
     <head>
         <meta charset="UTF-8">
@@ -96,7 +95,9 @@
             <!-- Display search results as a table -->
             {% if recipes_queryset %}
                 <p>Number of results: {{ recipes_queryset|length }}</p>
-                
+                <p>Paginator: {{ paginator }}</p>
+                <p>Current Page: {{ recipes_queryset.number }}</p>
+                <p>Page Range: {{ recipes_queryset.paginator.page_range }}</p>
                 <table class="table table-striped horizontal-centering table-rows">
                     <!-- Your table headers here -->
                     <thead>
