@@ -225,22 +225,11 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return response
 
     def get_queryset(self):
-        print("get_queryset method called")  
+        print("get_queryset method called")
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
+        return queryset
 
-        paginator = Paginator(queryset, self.paginate_by)
-        page = self.request.GET.get('page')
-
-        try:
-            paginated_queryset = paginator.page(page)
-        except PageNotAnInteger:
-            paginated_queryset = paginator.page(1)
-        except EmptyPage:
-            paginated_queryset = paginator.page(paginator.num_pages)
-
-        print("Number of items in paginated queryset:", len(paginated_queryset))
-        return paginated_queryset
 
 
 
