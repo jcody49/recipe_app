@@ -110,26 +110,27 @@
             </table>
 
             <!-- Pagination Controls -->
-            <div class="pagination horizontal-centering">
-                <span class="step-links">
-                    {% if object_list.paginator.num_pages > 1 %}
+            <div class="pagination">
+                {% if object_list.paginator.num_pages > 1 %}
+                    <span class="step-links">
                         {% if object_list.has_previous %}
                             <a href="?page=1">&laquo; first</a>
                             <a href="?page={{ object_list.previous_page_number }}">previous</a>
                         {% endif %}
-
+            
                         <!-- Display current page number and total number of pages -->
                         <span class="current">
                             Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
                         </span>
-
+            
                         {% if object_list.has_next %}
                             <a href="?page={{ object_list.next_page_number }}">next</a>
                             <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
                         {% endif %}
-                    {% endif %}
-                </span>
+                    </span>
+                {% endif %}
             </div>
+            
 
         </main>
         <script>
