@@ -96,7 +96,7 @@
             {% if recipes_queryset %}
                 <p>Number of results: {{ recipes_queryset|length }}</p>
                 <p>Paginator: {{ paginator }}</p>
-                <p>Current Page: {{ recipes_queryset.number }}</p>
+                <p>Current Page: {{ recipes_paginated.number }}</p>
                 <p>Page Range: {{ recipes_queryset.paginator.page_range }}</p>
                 <table class="table table-striped horizontal-centering table-rows">
                     <!-- Your table headers here -->
@@ -149,13 +149,6 @@
             {% endif %}
 
 
-
-
-
-
-
-
-      
 
         </main>
 
