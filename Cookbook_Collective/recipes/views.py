@@ -211,7 +211,7 @@ def credits2(request):
     return render(request, 'recipes/credits2.html')
 
 
-# test
+
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     template_name = 'recipes/recipe_list.html' 
@@ -245,17 +245,16 @@ class RecipeListView(LoginRequiredMixin, ListView):
 
 
     def get_context_data(self, **kwargs):
-        logging.info("get_context_data method called")
-        print("get_context_data method called")
         context = super().get_context_data(**kwargs)
 
         paginator = context['paginator']
         recipe_list = context['page_obj']
 
         context['object_list'] = recipe_list
-        context['paginator'] = paginator  # Add the paginator to the context
+        context['paginator'] = paginator
 
         return context
+
 
 
 
