@@ -127,6 +127,8 @@
                                 {% else %}
                                     <a href="?page={{ page }}">{{ page }}</a>
                                 {% endif %}
+                                <!-- Add debug print here -->
+                                {{ page }} {{ page_obj.number }}
                             {% endfor %}
             
                             {% if page_obj.has_next %}
@@ -137,6 +139,7 @@
                     {% endif %}
                 {% endwith %}
             </div>
+            
             
             
             
