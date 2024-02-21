@@ -110,11 +110,11 @@
             </table>
 
             <!-- Pagination Controls -->
-            <div class="pagination">
+            <div class="pagination horizontal-centering">
                 {% with paginator=object_list.paginator page_obj=object_list %}
                     {% if paginator.num_pages > 1 %}
                         <div class="row">
-                            <div class="col horizontal-centering">
+                            <div class="col">
                                 <span class="step-links">
                                     {% if page_obj.has_previous %}
                                         <a href="?page=1">&laquo; first</a>
@@ -141,6 +141,7 @@
                     {% endif %}
                 {% endwith %}
             </div>
+
 
             
 

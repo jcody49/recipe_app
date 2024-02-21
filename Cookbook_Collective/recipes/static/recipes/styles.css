@@ -793,7 +793,7 @@ body {
     color: #333; /* Change the text color to improve visibility */
     text-decoration: none;
     border-radius: 4px;
-    opacity: 1; /* Adjust the opacity to improve visibility */
+    opacity: 2; /* Adjust the opacity to improve visibility */
 }
 
 .pagination .debug-info {
