@@ -757,11 +757,19 @@ body {
 }
 
 
+
+/*NAVBAR*/
 .navbar{
     background-color: #fbd6cf; 
 }
 
-/*font*/
+.navbar-custom {
+    background-color: var(--secondary-color); /* Use the custom secondary color */
+}
+
+
+
+/*FONT*/
 body {
     font-family: 'Georgia', serif;
     margin: 0;
