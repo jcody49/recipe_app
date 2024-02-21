@@ -818,4 +818,5 @@ body {
 .credits-li{
     margin-bottom: 10px;
     text-align: center;
+    list-style-type: none;
 }
