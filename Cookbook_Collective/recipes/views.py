@@ -220,41 +220,42 @@ class RecipeListView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         print("get method called")
+        print("Paginate by:", self.paginate_by)
         response = super().get(request, *args, **kwargs)
         return response
 
     def get_queryset(self):
-        logging.info("get_queryset method called")
-
         print("get_queryset method called")  
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
-        print("Number of items in queryset:", queryset.count())
-        print("Full queryset:", queryset)
-        return queryset
+
+        paginator = Paginator(queryset, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            paginated_queryset = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_queryset = paginator.page(1)
+        except EmptyPage:
+            paginated_queryset = paginator.page(paginator.num_pages)
+
+        print("Number of items in paginated queryset:", paginated_queryset.count())
+        return paginated_queryset
+
 
     def get_context_data(self, **kwargs):
         logging.info("get_context_data method called")
         print("get_context_data method called")
         context = super().get_context_data(**kwargs)
-        recipe_list = context['object_list']
 
-        paginator = Paginator(recipe_list, self.paginate_by)
-        page = self.request.GET.get('page')
+        paginator = context['paginator']
+        recipe_list = context['page_obj']
 
-        try:
-            recipes = paginator.page(page)
-            print("Number of items in paginated queryset:", len(recipes))
-        except PageNotAnInteger:
-            recipes = paginator.page(1)
-        except EmptyPage:
-            recipes = paginator.page(paginator.num_pages)
-
-        context['object_list'] = recipes
+        context['object_list'] = recipe_list
         context['paginator'] = paginator  # Add the paginator to the context
-        context['page_obj'] = recipes  # Add the paginated queryset to the context
 
         return context
+
 
 
 
