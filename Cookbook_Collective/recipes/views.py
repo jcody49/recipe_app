@@ -115,7 +115,7 @@ def visualizations(request, type_of_recipe=None):
     try:
         if type_of_recipe:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
-        elif type_of_recipe is None:
+        elif type_of_recipe is None and not message:
             message = "Please select a type of recipe to proceed."
 
     except ObjectDoesNotExist:
