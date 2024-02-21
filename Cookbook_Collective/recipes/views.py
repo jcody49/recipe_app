@@ -216,6 +216,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
+        print("get_queryset method called")  
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
         print("Number of items in queryset:", queryset.count())
@@ -223,11 +224,19 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        print("get_context_data method called")  
         context = super().get_context_data(**kwargs)
         recipe_list = context['object_list']
 
         paginator = Paginator(recipe_list, self.paginate_by)
         page = self.request.GET.get('page')
+
+        print("Paginator exists")  # Debug statement
+        print("Number of pages:", paginator.num_pages)  # Debug statement
+        print("Current page:", page)  # Debug statement
+        print("Has previous:", recipe_list.has_previous())  # Debug statement
+        print("Has next:", recipe_list.has_next())  # Debug statement
+
 
         try:
             recipes = paginator.page(page)
