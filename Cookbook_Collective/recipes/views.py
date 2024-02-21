@@ -5,6 +5,8 @@ from io import BytesIO
 import calendar
 import pandas as pd
 import matplotlib
+import logging
+
 
 # Django
 import django
@@ -222,6 +224,8 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return response
 
     def get_queryset(self):
+        logging.info("get_queryset method called")
+
         print("get_queryset method called")  
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
@@ -230,6 +234,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        logging.info("get_context_data method called")
         print("get_context_data method called")
         context = super().get_context_data(**kwargs)
         recipe_list = context['object_list']
