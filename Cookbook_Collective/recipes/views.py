@@ -39,7 +39,7 @@ def recipes_home(request):
     all_images = Recipe.objects.filter(pic__isnull=False).exclude(pic='no_picture.jpeg').order_by('?')      # takes all pic objects, filters out the no-picture.jpg, and randomizes all objects--loads into the all_images object
     
     # Concatenate the list multiple times to ensure it's long enough for infinite scrolling
-    random_images = list(all_images) * 100
+    random_images = list(all_images) * 80
     
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
@@ -232,6 +232,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
 
         try:
             recipes = paginator.page(page)
+            print("Number of items in paginated queryset:", len(recipes))
         except PageNotAnInteger:
             recipes = paginator.page(1)
         except EmptyPage:
@@ -240,7 +241,9 @@ class RecipeListView(LoginRequiredMixin, ListView):
         context['object_list'] = recipes
         context['paginator'] = paginator  # Add the paginator to the context
         context['page_obj'] = recipes  # Add the paginated queryset to the context
+
         return context
+
 
 
 class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
