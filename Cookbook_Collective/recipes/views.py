@@ -206,21 +206,23 @@ def credits2(request):
     return render(request, 'recipes/credits2.html')
 
 
+# test
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-class RecipeListView(LoginRequiredMixin, ListView):           #class-based “protected” view
-    model = Recipe                         #specify model
-    template_name = 'recipes/home.html'    #specify template
-    context_object_name = 'object_list'     # the data that is passed to a template for rendering
-    paginate_by = 10     # dictates how many instances are loaded per page
+class RecipeListView(LoginRequiredMixin, ListView):
+    model = Recipe
+    template_name = 'recipes/home.html'
+    context_object_name = 'object_list'
+    paginate_by = 10
 
     def get_queryset(self):
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
         return queryset
-        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        recipe_list = context['object_list']  # Update 'object_list_all' to 'object_list'
+        recipe_list = context['object_list']
 
         paginator = Paginator(recipe_list, self.paginate_by)
         page = self.request.GET.get('page')
@@ -232,8 +234,9 @@ class RecipeListView(LoginRequiredMixin, ListView):           #class-based “pr
         except EmptyPage:
             recipes = paginator.page(paginator.num_pages)
 
-        context['object_list'] = recipes  # Update paginated recipes to 'object_list'
+        context['object_list'] = recipes
         return context
+
 
 
 

@@ -110,7 +110,7 @@
             </table>
 
             <!-- Pagination Controls -->
-            <div class="pagination">
+            <div class="pagination horizontal-centering">
                 <span class="step-links">
                     {% if object_list.paginator.num_pages > 1 %}
                         {% if object_list.has_previous %}
@@ -130,6 +130,7 @@
                     {% endif %}
                 </span>
             </div>
+
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function () {

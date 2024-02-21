@@ -767,3 +767,12 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
+
+
+.pagination {
+    text-align: center;
+    margin-top: 10px;  /* Adjust the margin as needed */
+    display: block;
+}
