@@ -218,6 +218,8 @@ class RecipeListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         distinct_names = Recipe.objects.values('name').distinct()
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
+        print("Number of items in queryset:", queryset.count())
+        print("Full queryset:", queryset)
         return queryset
 
     def get_context_data(self, **kwargs):
