@@ -53,7 +53,8 @@ def recipes_home(request):
 def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
-    paginator = None
+    paginator = Paginator([], 10)
+    recipes_paginated = paginator.get_page(1)
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
@@ -66,23 +67,20 @@ def search_view(request):
             paginator = Paginator(recipes_queryset, 10)
             page = request.GET.get('page')
 
-            try:
-                recipes_paginated = paginator.page(page)
-            except PageNotAnInteger:
-                recipes_paginated = paginator.page(1)
-            except EmptyPage:
-                recipes_paginated = paginator.page(paginator.num_pages)
+            recipes_paginated = paginator.get_page(page)
 
         except DatabaseError as e:
             messages.error(request, f"Error fetching recipes: {e}")
 
     context = {
         'form': form,
-        'recipes_queryset': recipes_paginated if 'recipes_paginated' in locals() else None,
+        'recipes_queryset': recipes_paginated,
         'paginator': paginator,
     }
 
     return render(request, 'recipes/search_results.html', context)
+
+
 
 
 

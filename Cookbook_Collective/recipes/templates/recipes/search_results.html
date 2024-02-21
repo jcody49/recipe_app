@@ -91,7 +91,7 @@
                 
             </div>
             
-            
+            <!--test-->
             <!-- Display search results as a table -->
             {% if recipes_queryset %}
                 <p>Number of results: {{ recipes_queryset|length }}</p>
@@ -119,36 +119,36 @@
                 <p class="horizontal-centering">No results found.</p>
             {% endif %}
          
-            {% if recipes_queryset %}
+            {% if recipes_paginated %}
                 <!-- Pagination Controls -->
                 <div class="pagination">
-                    {% if paginator and recipes_queryset.has_other_pages %}
-                        <p>Recipes Queryset has other pages: {{ recipes_queryset.has_other_pages }}</p>
-                        <p>Number of Paginator Pages: {{ paginator.num_pages }}</p>
+                    {% if paginator and recipes_paginated.has_other_pages %}
                         <span class="step-links horizontal-centering">
-                            {% if recipes_queryset.has_previous %}
-                                <a href="?page=1">&laquo; first</a>
-                                <a href="?page={{ recipes_queryset.previous_page_number }}">previous</a>
+                            {% if recipes_paginated.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
+                        {% endif %}
+                        
+                        {% for page in recipes_paginated.paginator.page_range %}
+                            {% if recipes_paginated.number == page %}
+                                <span class="current">
+                                    {{ page }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ page }}">{{ page }}</a>
                             {% endif %}
-                            
-                            {% for page in recipes_queryset.paginator.page_range %}
-                                {% if recipes_queryset.number == page %}
-                                    <span class="current">
-                                        {{ page }}
-                                    </span>
-                                {% else %}
-                                    <a href="?page={{ page }}">{{ page }}</a>
-                                {% endif %}
-                            {% endfor %}
-                            
-                            {% if recipes_queryset.has_next %}
-                                <a href="?page={{ recipes_queryset.next_page_number }}">next</a>
-                                <a href="?page={{ recipes_queryset.paginator.num_pages }}">last &raquo;</a>
-                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if recipes_paginated.has_next %}
+                            <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
+                            <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}                        
                         </span>
                     {% endif %}
                 </div>
             {% endif %}
+
+
 
 
 
