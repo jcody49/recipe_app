@@ -95,15 +95,15 @@
                     event.preventDefault(); // Prevent the form from submitting
                 }
             }
-        }
 
-        function redirectToVisualizations() {
-            var selectedType = document.getElementById('typeOfRecipe').value;
-            if (selectedType === "") {
-                alert("Please select a recipe type before proceeding.");
-            } else {
-                // Redirect to visualizations page with the selected type
-                window.location.href = "{% url 'recipes:visualizations' type_of_recipe=type_of_recipe %}".replace('default', selectedType);
+            function redirectToVisualizations() {
+                var selectedType = document.getElementById('typeOfRecipe').value;
+                if (selectedType === "") {
+                    alert("Please select a recipe type before proceeding.");
+                } else {
+                    // Redirect to visualizations page with the selected type
+                    window.location.href = "{% url 'recipes:visualizations' type_of_recipe='default' %}".replace('default', selectedType);
+                }
             }
         }
     </script>
