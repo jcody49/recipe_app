@@ -28,9 +28,6 @@
     </head>
     <body>
 
-        
-        
-
         <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
             <div class="container-fluid">
                 <div class="navbar-header d-flex align-items-center">
@@ -160,20 +157,6 @@
                 <a class="link" style="margin-left: 5px" href="{% url 'recipes:visualizations' %}">data visualizations!</a>
             </p>
         </div>
-
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var navbarButton = document.querySelector('.navbar-toggler');
-                var navbarCollapse = document.getElementById('navbarNav');
-        
-                navbarButton.addEventListener('click', function () {
-                    var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
-                    navbarButton.setAttribute('aria-expanded', !expanded);
-                    navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
-                });
-            });
-        </script>
         
         <!--script links for slick carousel, jquery, and the js script-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

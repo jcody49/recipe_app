@@ -12,5 +12,16 @@ $(document).ready(function(){
 });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    var navbarButton = document.querySelector('.navbar-toggler');
+    var navbarCollapse = document.getElementById('navbarNav');
+
+    navbarButton.addEventListener('click', function () {
+        var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
+        navbarButton.setAttribute('aria-expanded', !expanded);
+        navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
+    });
+});
+   
 
   
