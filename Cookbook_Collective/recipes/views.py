@@ -60,7 +60,7 @@ def search_view(request):
 
         try:
             combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
-            recipes_queryset = Recipe.objects.filter(combined_query)
+            recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
             # Pagination
             paginator = Paginator(recipes_queryset, 10)  # Change 10 to your desired number
@@ -83,6 +83,7 @@ def search_view(request):
     }
 
     return render(request, 'recipes/search_results.html', context)
+
 
 
 
