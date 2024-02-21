@@ -55,6 +55,7 @@ def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
     paginator = Paginator([], 10)  # Set a default paginator for cases where form is not valid
+    recipes_paginated = None  # Initialize the paginated object
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
@@ -67,9 +68,6 @@ def search_view(request):
             paginator = Paginator(recipes_queryset, 10)
             page = request.GET.get('page')
             recipes_paginated = paginator.get_page(page)
-            print(f"DEBUG: recipes_paginated.number after pagination: {recipes_paginated.number}")
-            print(f"DEBUG: Length of recipes_paginated.paginator.page_range: {len(recipes_paginated.paginator.page_range)}")
-
 
         except DatabaseError as e:
             messages.error(request, f"Error fetching recipes: {e}")
@@ -77,7 +75,7 @@ def search_view(request):
 
     else:
         # If the form is not valid, set default values
-        recipes_paginated = paginator.get_page(1)
+        recipes_paginated = paginator.page(1)
 
     context = {
         'form': form,
