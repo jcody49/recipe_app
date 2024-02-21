@@ -82,6 +82,7 @@ def search_view(request):
     context = {
         'form': form,
         'recipes_queryset': recipes_paginated,
+        'paginator': paginator,
     }
 
     return render(request, 'recipes/search_results.html', context)
