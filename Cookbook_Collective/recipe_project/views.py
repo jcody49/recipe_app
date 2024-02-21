@@ -7,7 +7,6 @@ from django.urls import reverse
 
 
 from .forms import UserRegistrationForm
-from recipes.credits import CREDITS
 import logging
 
 logger = logging.getLogger(__name__)
