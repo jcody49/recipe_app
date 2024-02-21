@@ -59,18 +59,23 @@ def search_view(request):
         query = form.cleaned_data['query'].strip()
 
         try:
-            combined_query = Q(name__icontains=query) | Q(ingredients__icontains=query)
+            combined_query = models.Q(name__icontains=query) | models.Q(ingredients__icontains=query)
             recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
             # Pagination
             paginator = Paginator(recipes_queryset, 10)
             page = request.GET.get('page')
 
-            recipes_paginated = paginator.get_page(page)
+            try:
+                recipes_paginated = paginator.page(page)
+            except PageNotAnInteger:
+                recipes_paginated = paginator.page(1)
+            except EmptyPage:
+                recipes_paginated = paginator.page(paginator.num_pages)
 
         except DatabaseError as e:
             messages.error(request, f"Error fetching recipes: {e}")
-            recipes_paginated = paginator.get_page(1)
+            recipes_paginated = paginator.page(1)
 
     context = {
         'form': form,
