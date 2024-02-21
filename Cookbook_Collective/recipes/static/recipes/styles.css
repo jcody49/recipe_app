@@ -816,7 +816,8 @@ body {
 /*CREDITS*/
 
 .credits-li{
-    margin-bottom: 20px;
+    padding: 5%;
+    margin-bottom: 5%;
     text-align: center;
     list-style-type: none;
 }
