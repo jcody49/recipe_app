@@ -27,13 +27,6 @@
     transform: scale(1.1);
 }
 
-/*font*/
-body {
-    font-family: 'Georgia', serif;
-    margin: 0;
-    padding: 0;
-}
-
 /*styles container with title, subtitle, and logo*/
 header {
     background-color: var(--secondary-color);
@@ -766,4 +759,11 @@ body {
 
 .navbar{
     background-color: #d45e51;
+}
+
+/*font*/
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
 }
