@@ -207,8 +207,6 @@ def credits2(request):
 
 
 # test
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     template_name = 'recipes/home.html'
@@ -224,6 +222,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        print("get_context_data method called")
         context = super().get_context_data(**kwargs)
         recipe_list = context['object_list']
 
