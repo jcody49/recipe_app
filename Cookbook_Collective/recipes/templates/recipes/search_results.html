@@ -85,16 +85,67 @@
             </form>
             <!-- Show all recipes link -->
             <div style="padding-top: 20px;">
-                <a style="text-decoration: underline;" class="link" href="{% url 'recipes:recipe_list_all' %}">Show All Recipes</a>
+                <a style="text-decoration: underline;" class="link"
+                    href="{% url 'recipes:recipe_list_all' %}">Show All Recipes</a>
             </div>
+
         </div>
-    
-        <!-- Display search results count -->
+
+        <!-- Display search results as a table -->
         {% if recipes_queryset %}
-            <p class="horizontal-centering">Number of results: {{ recipes_queryset.paginator.count }}</p>
+        <p>Number of results: {{ recipes_queryset|length }}</p>
+
+        <table class="table table-striped horizontal-centering table-rows">
+            <!-- Your table headers here -->
+            <thead>
+                <tr>
+                    <th class="table-headers">Recipe Name</th>
+                    <th class="table-headers">Image</th>
+                </tr>
+            </thead>
+            <tbody class="table-rows">
+                {% for recipe in recipes_queryset %}
+                <tr class="horizontal-centering recipe-names">
+                    <td><a class=" table-rows recipe-names"
+                            href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
+                    <td><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.pic.url }}"
+                                alt="{{ recipe.name }}"></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            {% if recipes_queryset.has_other_pages %}
+                <span class="step-links horizontal-centering">
+                    {% if recipes_queryset.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ recipes_queryset.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    {% for page in recipes_queryset.paginator.page_range %}
+                        {% if recipes_queryset.number == page %}
+                            <span class="current">
+                                {{ page }}
+                            </span>
+                        {% else %}
+                            <a href="?page={{ page }}">{{ page }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if recipes_queryset.has_next %}
+                        <a href="?page={{ recipes_queryset.next_page_number }}">next</a>
+                        <a href="?page={{ recipes_queryset.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            {% endif %}
+        </div>
+
         {% else %}
-            <p class="horizontal-centering">No results found.</p>
+        <p class="horizontal-centering">No results found.</p>
         {% endif %}
+
     </main>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
