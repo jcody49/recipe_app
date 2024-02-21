@@ -239,8 +239,9 @@ class RecipeListView(LoginRequiredMixin, ListView):
         except EmptyPage:
             paginated_queryset = paginator.page(paginator.num_pages)
 
-        print("Number of items in paginated queryset:", paginated_queryset.count())
+        print("Number of items in paginated queryset:", len(paginated_queryset))
         return paginated_queryset
+
 
 
     def get_context_data(self, **kwargs):
