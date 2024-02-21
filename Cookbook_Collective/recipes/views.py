@@ -105,6 +105,13 @@ def visualizations(request, type_of_recipe=None):
     recipes = None
     message = None
 
+    if request.method == 'POST':
+        selected_type = request.POST.get('type_of_recipe', '')
+        if not selected_type:
+            message = "Please select a type of recipe to proceed."
+        else:
+            return redirect('recipes:recipe-difficulty-distribution-detail', type_of_recipe=selected_type)
+
     try:
         if type_of_recipe:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
