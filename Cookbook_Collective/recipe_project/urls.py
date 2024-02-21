@@ -3,7 +3,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 from recipes.views import recipes_home
-from .views import login_view, logout_view, signup, delete_account, credits
+from .views import login_view, logout_view, signup, delete_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),

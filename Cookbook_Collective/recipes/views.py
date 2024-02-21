@@ -188,10 +188,8 @@ def recipes_created_per_month(request):
     return render(request, 'recipes/recipes_created_per_month.html', context)
 
 def credits(request):
-    context = {
-        'credits': CREDITS,
-    }
-    return render(request, 'recipes/credits.html', context)
+    return render(request, 'credits.html')
+
 
 
 class RecipeListView(LoginRequiredMixin, ListView):           #class-based “protected” view
