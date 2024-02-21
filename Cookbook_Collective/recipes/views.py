@@ -56,6 +56,12 @@ def search_view(request):
     recipes_queryset = None
     paginator = Paginator([], 10)  # Set a default paginator for cases where form is not valid
 
+
+    print(f"DEBUG: recipes_paginated.number: {recipes_paginated.number}")
+    print(f"DEBUG: recipes_paginated.paginator.num_pages: {recipes_paginated.paginator.num_pages}")
+    print(f"DEBUG: recipes_paginated.has_other_pages: {recipes_paginated.has_other_pages}")
+
+
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
 
