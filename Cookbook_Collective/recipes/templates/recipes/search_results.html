@@ -122,33 +122,29 @@
         {% endif %}
 
         {% if recipes_paginated %}
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            {% if paginator and recipes_paginated.has_other_pages %}
-            <span class="step-links horizontal-centering">
-                {% if recipes_paginated.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
-                {% endif %}
+            <!-- Pagination Controls -->
+            <div class="pagination">
+                {% if paginator and recipes_paginated.has_other_pages %}
+                    <span class="step-links horizontal-centering">
+                        {% if recipes_paginated.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ recipes_paginated.previous_page_number }}">previous</a>
+                        {% endif %}
 
-                {% for page in recipes_paginated.paginator.page_range %}
-                {% if recipes_paginated.number == page %}
-                <span class="current">
-                    {{ page }}
-                </span>
-                {% else %}
-                <a href="?page={{ page }}">{{ page }}</a>
-                {% endif %}
-                {% endfor %}
+                        <!-- Display current page and total pages directly -->
+                        <span class="current">
+                            Page {{ recipes_paginated.number }} of {{ recipes_paginated.paginator.num_pages }}.
+                        </span>
 
-                {% if recipes_paginated.has_next %}
-                <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
-                <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
+                        {% if recipes_paginated.has_next %}
+                            <a href="?page={{ recipes_paginated.next_page_number }}">next</a>
+                            <a href="?page={{ recipes_paginated.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
                 {% endif %}
-            </span>
-            {% endif %}
-        </div>
+            </div>
         {% endif %}
+
 
     </main>
 
