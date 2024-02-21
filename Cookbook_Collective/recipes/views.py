@@ -224,19 +224,11 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        print("get_context_data method called")  
         context = super().get_context_data(**kwargs)
         recipe_list = context['object_list']
 
         paginator = Paginator(recipe_list, self.paginate_by)
         page = self.request.GET.get('page')
-
-        print("Paginator exists")  # Debug statement
-        print("Number of pages:", paginator.num_pages)  # Debug statement
-        print("Current page:", page)  # Debug statement
-        print("Has previous:", recipe_list.has_previous())  # Debug statement
-        print("Has next:", recipe_list.has_next())  # Debug statement
-
 
         try:
             recipes = paginator.page(page)
@@ -246,9 +238,9 @@ class RecipeListView(LoginRequiredMixin, ListView):
             recipes = paginator.page(paginator.num_pages)
 
         context['object_list'] = recipes
+        context['paginator'] = paginator  # Add the paginator to the context
+        context['page_obj'] = recipes  # Add the paginated queryset to the context
         return context
-
-
 
 
 class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
