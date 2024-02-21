@@ -111,26 +111,39 @@
 
             <!-- Pagination Controls -->
             <div class="pagination">
-                {% if object_list.paginator.num_pages > 1 %}
-                    <p>Condition is true</p>
-                    <span class="step-links">
-                        {% if object_list.has_previous %}
-                            <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ object_list.previous_page_number }}">previous</a>
-                        {% endif %}
+                {% if object_list.paginator %}
+                    <p>Paginator exists</p>
+                    <p>Number of pages: {{ object_list.paginator.num_pages }}</p>
+                    <p>Current page: {{ object_list.number }}</p>
+                    <p>Has previous: {{ object_list.has_previous }}</p>
+                    <p>Has next: {{ object_list.has_next }}</p>
             
-                        <!-- Display current page number and total number of pages -->
-                        <span class="current">
-                            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                    {% if object_list.paginator.num_pages > 1 %}
+                        <p>Condition is true</p>
+                        <span class="step-links">
+                            {% if object_list.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                            {% endif %}
+            
+                            <!-- Display current page number and total number of pages -->
+                            <span class="current">
+                                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                            </span>
+            
+                            {% if object_list.has_next %}
+                                <a href="?page={{ object_list.next_page_number }}">next</a>
+                                <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
                         </span>
-            
-                        {% if object_list.has_next %}
-                            <a href="?page={{ object_list.next_page_number }}">next</a>
-                            <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
+                    {% else %}
+                        <p>Condition is false</p>
+                    {% endif %}
+                {% else %}
+                    <p>No paginator</p>
                 {% endif %}
             </div>
+            
             
 
         </main>
