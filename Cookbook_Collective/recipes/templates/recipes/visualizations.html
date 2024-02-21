@@ -42,20 +42,47 @@
     
     <!-- Add JavaScript to dynamically update the URL -->
     
+    <!-- Inside your visualizations.html file -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Your existing script for updating the URL dynamically
+
+            var navbarButton = document.querySelector('.navbar-toggler');
+            var navbarCollapse = document.getElementById('navbarNav');
+
+            navbarButton.addEventListener('click', function () {
+                var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
+                navbarButton.setAttribute('aria-expanded', !expanded);
+                navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
+            });
+
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
             var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";  // Set the default URL
-    
+
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
-    
+
                 visualizationLink.href = updatedUrl;
             });
         });
-    </script>   
+
+        function validateForm() {
+            var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
+            var selectedType = typeOfRecipeSelect.value;
+
+            // Check if a recipe type is selected
+            if (selectedType === "") {
+                alert("Please select a recipe type before proceeding.");
+                return false; // Prevent the form from submitting
+            }
+
+            // If the user has selected a recipe type, the form can be submitted
+            return true;
+        }
+    </script>
+  
      <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container-fluid">
             <div class="navbar-header d-flex align-items-center">
@@ -114,7 +141,7 @@
         {% endif %}
 
         <!-- Remove the 'onchange' attribute from the select tag -->
-        <form id="recipeTypeForm">
+        <form id="recipeTypeForm" onsubmit="return validateForm()">
             <label for="typeOfRecipe">Select Recipe Type:</label>
             <select id="typeOfRecipe" name="type_of_recipe">
                 <option value="" {% if not type_of_recipe %}selected{% endif %}>-- Select --</option>
@@ -122,7 +149,10 @@
                 <option value="lunch">Lunch</option>
                 <option value="dinner">Dinner</option>
             </select>
+        
+            <a class="link" id="visualizationLink" href="{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe=type_of_recipe %}">Go to Recipe Difficulty Distribution</a>
         </form>
+        
         <p>Click the link below to view the Recipe Difficulty Distribution:</p>
 
         <!-- Update the link id and href attribute -->
