@@ -48,40 +48,50 @@
         document.addEventListener('DOMContentLoaded', function () {
             var navbarButton = document.querySelector('.navbar-toggler');
             var navbarCollapse = document.getElementById('navbarNav');
-
+    
             navbarButton.addEventListener('click', function () {
                 var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
                 navbarButton.setAttribute('aria-expanded', !expanded);
                 navbarCollapse.classList.toggle('show');
             });
-
+    
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
             var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";
-
+    
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
                 visualizationLink.href = updatedUrl;
             });
+    
+            // Form submission event listener
+            var typeOfRecipeForm = document.getElementById('recipeTypeForm');
+            typeOfRecipeForm.addEventListener('submit', function (event) {
+                console.log("Form submission attempted");
+                if (!validateForm()) {
+                    event.preventDefault(); // Prevent the form from submitting
+                }
+            });
         });
-
-        // New part for form validation
+    
+        // Form validation function
         function validateForm() {
             console.log("validateForm called");
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var selectedType = typeOfRecipeSelect.value;
-
+    
             // Check if a recipe type is selected
             if (selectedType === "") {
                 alert("Please select a recipe type before proceeding.");
                 return false; // Prevent the form from submitting
             }
-
+    
             // If the user has selected a recipe type, the form can be submitted
             return true;
         }
     </script>
+    
 
   
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
