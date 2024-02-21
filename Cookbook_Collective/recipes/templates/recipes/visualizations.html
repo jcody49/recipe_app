@@ -70,6 +70,7 @@
             typeOfRecipeForm.addEventListener('submit', function (event) {
                 console.log("Form submission attempted");
                 if (!validateForm()) {
+                    alert("Please select a recipe type before proceeding.");
                     event.preventDefault(); // Prevent the form from submitting
                 }
             });
@@ -82,13 +83,7 @@
             var selectedType = typeOfRecipeSelect.value;
     
             // Check if a recipe type is selected
-            if (selectedType === "") {
-                alert("Please select a recipe type before proceeding.");
-                return false; // Prevent the form from submitting
-            }
-    
-            // If the user has selected a recipe type, the form can be submitted
-            return true;
+            return selectedType !== "";
         }
     </script>
     
