@@ -56,8 +56,6 @@ def recipes_home(request, context):
 def search_view(request):
     form = SearchForm(request.GET or None)
     recipes_queryset = None
-    paginator = Paginator([], 10)  # Set a default paginator for cases where form is not valid
-    recipes_paginated = None
 
     if form.is_valid():
         query = form.cleaned_data['query'].strip()
@@ -66,27 +64,24 @@ def search_view(request):
             combined_query = models.Q(name__icontains=query) | models.Q(ingredients__icontains=query)
             recipes_queryset = Recipe.objects.filter(combined_query).order_by('name')
 
-            # Pagination
-            paginator = Paginator(recipes_queryset, 10)
-            page = request.GET.get('page')
-
-            try:
-                recipes_paginated = paginator.page(page)
-            except PageNotAnInteger:
-                print(f"DEBUG: PageNotAnInteger - Using first page.")
-                recipes_paginated = paginator.page(1)
-            except EmptyPage:
-                print(f"DEBUG: EmptyPage - Using last page.")
-                recipes_paginated = paginator.page(paginator.num_pages)
-
         except models.DatabaseError as e:
             messages.error(request, f"Error fetching recipes: {e}")
-            recipes_paginated = None
+
+    paginator = Paginator(recipes_queryset or [], 10)
+    page = request.GET.get('page', 1)
+
+    try:
+        recipes_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        print(f"DEBUG: PageNotAnInteger - Using first page.")
+        recipes_paginated = paginator.page(1)
+    except EmptyPage:
+        print(f"DEBUG: EmptyPage - Using last page.")
+        recipes_paginated = paginator.page(paginator.num_pages)
 
     context = {
         'form': form,
-        'recipes_queryset': recipes_paginated if recipes_paginated else paginator.page(1),
-        'paginator': paginator,
+        'recipes_queryset': recipes_paginated,
     }
 
     return render(request, 'recipes/search_results.html', context)
