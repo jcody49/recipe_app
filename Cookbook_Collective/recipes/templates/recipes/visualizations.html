@@ -43,31 +43,30 @@
     <!-- Add JavaScript to dynamically update the URL -->
     
     <!-- Inside your visualizations.html file -->
+    <!-- Your existing script for updating the URL dynamically -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Your existing script for updating the URL dynamically
-
             var navbarButton = document.querySelector('.navbar-toggler');
             var navbarCollapse = document.getElementById('navbarNav');
 
             navbarButton.addEventListener('click', function () {
                 var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
                 navbarButton.setAttribute('aria-expanded', !expanded);
-                navbarCollapse.classList.toggle('show'); // If you want to toggle the 'show' class as well
+                navbarCollapse.classList.toggle('show');
             });
 
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
-            var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";  // Set the default URL
+            var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";
 
             typeOfRecipeSelect.addEventListener('change', function () {
                 var selectedType = this.value;
                 var updatedUrl = selectedType ? baseUrl.replace('default', selectedType) : baseUrl;
-
                 visualizationLink.href = updatedUrl;
             });
         });
 
+        // New part for form validation
         function validateForm() {
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var selectedType = typeOfRecipeSelect.value;
@@ -82,8 +81,9 @@
             return true;
         }
     </script>
+
   
-     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container-fluid">
             <div class="navbar-header d-flex align-items-center">
                 <a class="link horizontal-centering" href="{% url 'recipes:home' %}">
