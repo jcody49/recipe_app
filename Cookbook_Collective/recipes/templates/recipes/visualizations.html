@@ -67,6 +67,7 @@
         }
     
         function setupRecipeType() {
+            console.log("validateForm called");
             var typeOfRecipeSelect = document.getElementById('typeOfRecipe');
             var visualizationLink = document.getElementById('visualizationLink');
             var baseUrl = "{% url 'recipes:recipe-difficulty-distribution-detail' type_of_recipe='default' %}";
