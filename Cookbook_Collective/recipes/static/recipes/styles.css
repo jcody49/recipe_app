@@ -824,3 +824,14 @@ body {
     list-style-type: none;
 }
 
+
+
+.about-me-content {
+    max-width: 600px; /* Adjust the width as needed */
+    margin: 0 auto;  /* Center the content horizontally */
+}
+
+/* Additional styles for consistency within the paragraphs if needed... */
+.about-me-content p {
+    /* Any additional styles for paragraphs */
+}
