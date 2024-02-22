@@ -1,6 +1,6 @@
 console.log('Script loaded!');
 
-$(document).ready(function () {
+//$(document).ready(function () {
     console.log('DOM content loaded!');
 
     // Slick-carousel script
@@ -25,4 +25,4 @@ $(document).ready(function () {
     $('#submitBtn').click(function () {
         $('#loading-spinner').css('display', 'block');
     });
-});
+//});
