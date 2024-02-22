@@ -51,7 +51,6 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
 
-# test
 # counts the occurrence of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
     try:

@@ -89,7 +89,7 @@ def search_view(request):
 
 
 
-
+# test
 # defines create_recipe view
 @login_required
 def create_recipe(request):
@@ -100,7 +100,10 @@ def create_recipe(request):
             try:
                 print("Form data before save:", form.cleaned_data) 
                 recipe = form.save(commit=False)
-                recipe.calculate_difficulty()
+                
+                # Assign the calculated difficulty to the recipe
+                recipe.difficulty = recipe.calculate_difficulty()
+
                 recipe.save()
 
                 # Display a success message
@@ -119,6 +122,7 @@ def create_recipe(request):
         form = RecipeForm()
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
+
 
 
 
