@@ -3,7 +3,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from recipe_project.views import login_view, logout_view, delete_account
+from recipe_project.views import login_view, logout_view, delete_account, signup
 
 from .views import (
     recipes_home,
@@ -33,6 +33,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('delete_account/', delete_account, name='delete_account'),
     path('credits2/', credits2, name='credits2'),
+    path('signup/', signup, name='signup'),
 
     # Visualization URLs without a "visualizations" directory
     path('recipe-type-distribution/<str:type_of_recipe>/', recipe_type_distribution, name='recipe-type-distribution-detail'),
