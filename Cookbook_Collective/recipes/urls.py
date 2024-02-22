@@ -3,7 +3,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from recipe_project.views import login_view, delete_account
+from recipe_project.views import login_view, logout_view, delete_account
 
 from .views import (
     recipes_home,
@@ -17,7 +17,6 @@ from .views import (
     recipes_created_per_month,
     visualizations,
     credits2, 
-    logout_view,
 )
 
 
