@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // slick-carousel script
     $('.scrolling-images').slick({
         infinite: true,
@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     navbarButton.addEventListener('click', function () {
         var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
-        navbarButton.setAttribute('aria-expanded', !expanded);
-        navbarCollapse.classList.toggle('show');
+        navbarButton.setAttribute('aria-expanded', String(!expanded));
+        navbarCollapse.classList.toggle('show', !expanded);
     });
 
     // LOADING SPINNER
     var submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
-        submitBtn.addEventListener('click', function() {
+        submitBtn.addEventListener('click', function () {
             document.getElementById('loading-spinner').style.display = 'block';
         });
     }
@@ -36,6 +36,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Manually trigger the click event after a short delay (adjust as needed)
-    setTimeout(triggerSubmitBtnClick, 500);
-
+    setTimeout(triggerSubmitBtnClick, 1000);
 });
