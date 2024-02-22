@@ -2,15 +2,15 @@ console.log('Script loaded!');
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM content loaded!');
     // slick-carousel script
-    //$('.scrolling-images').slick({
-        //infinite: true,
-        //slidesToShow: 3,
-        //slidesToScroll: 1,
-        //autoplay: true,
-        //autoplaySpeed: 100,
-      //  speed: 10000,
-    //    pauseOnHover: false,
-    //});
+    $('.scrolling-images').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 100,
+        speed: 10000,
+        pauseOnHover: false,
+    });
 
     // NAVBAR
     var navbarButton = document.querySelector('.navbar-toggler');
