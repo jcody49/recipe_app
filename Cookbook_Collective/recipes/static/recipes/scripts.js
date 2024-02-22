@@ -1,7 +1,9 @@
 console.log('Script loaded!');
-document.addEventListener('DOMContentLoaded', function () {
+
+$(document).ready(function () {
     console.log('DOM content loaded!');
-    // slick-carousel script
+
+    // Slick-carousel script
     $('.scrolling-images').slick({
         infinite: true,
         slidesToShow: 3,
@@ -12,22 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
         pauseOnHover: false,
     });
 
-    // NAVBAR
-    var navbarButton = document.querySelector('.navbar-toggler');
-    var navbarCollapse = document.getElementById('navbarNav');
-
-    navbarButton.addEventListener('click', function () {
-        console.log("clicked")
-        var expanded = navbarButton.getAttribute('aria-expanded') === 'true';
-        navbarButton.setAttribute('aria-expanded', String(!expanded));
-        navbarCollapse.classList.toggle('show', !expanded);
+    // Navbar
+    $('.navbar-toggler').click(function () {
+        console.log("clicked");
+        var navbarCollapse = $('#navbarNav');
+        navbarCollapse.toggleClass('show');
     });
 
-    // LOADING SPINNER
-    var submitBtn = document.getElementById('submitBtn');
-    if (submitBtn) {
-        submitBtn.addEventListener('click', function () {
-            document.getElementById('loading-spinner').style.display = 'block';
-        });
-    }
+    // Loading Spinner
+    $('#submitBtn').click(function () {
+        $('#loading-spinner').css('display', 'block');
+    });
 });
