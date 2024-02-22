@@ -27,14 +27,4 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('loading-spinner').style.display = 'block';
         });
     }
-
-    // Function to manually trigger the click event
-    function triggerSubmitBtnClick() {
-        if (submitBtn) {
-            submitBtn.click();
-        }
-    }
-
-    // Manually trigger the click event after a short delay (adjust as needed)
-    setTimeout(triggerSubmitBtnClick, 1000);
 });
