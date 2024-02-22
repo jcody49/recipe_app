@@ -824,47 +824,7 @@ body {
 
 
 
-/*CENTERING FORMS*/
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Adjust as needed */
-}
 
-.center-form {
-    width: 300px; /* Adjust as needed */
-    padding: 20px; /* Adjust as needed */
-    border: 1px solid #ccc; /* Add a border for better visibility */
-}
 
-.center-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px; /* Adjust as needed */
-}
 
-label {
-    width: 100%; /* Labels span full width */
-    margin-bottom: 5px; /* Adjust as needed */
-}
 
-input {
-    width: 100%; /* Input fields span full width */
-    padding: 8px; /* Adjust as needed */
-    box-sizing: border-box;
-}
-
-button {
-    width: 100%; /* Button spans full width */
-    padding: 10px; /* Adjust as needed */
-}
-
-.messages {
-    list-style: none;
-    padding: 0;
-}
-
-.messages li {
-    color: red; /* Adjust text color as needed */
-}
