@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    {% load static %}
-    <!--css stylesheet-->
-    <!-- Bootstrap 4 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        {% load static %}
+        <!--css stylesheet-->
+        <!-- Bootstrap 4 CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Popper.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <!-- Popper.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-    <!-- Bootstrap 4 JavaScript bundle -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap 4 JavaScript bundle -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
 
-    <!--css stylesheet-->
-    <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
-</head>
-<body>
+        <!--css stylesheet-->
+        <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
+    </head>
+    <body>
 
 
         <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
@@ -74,47 +74,47 @@
                     </div>
                 </div>
         </nav>
-        <h2 class="horizontal-centering">Sign Up</h2>
+            <h2 class="horizontal-centering">Sign Up</h2>
 
-    {% block content %}
-    <!-- signup.html -->
+        {% block content %}
+        <!-- signup.html -->
 
-    <div class="center-container d-flex justify-content-center">
-        <form method="post" class="center-form" id="signup-form" action="{% url 'signup' %}">
-            {% csrf_token %}
-            <div class="center-field">
-                {{ form.username.label_tag }}
-                {{ form.username }}
-            </div>
-            <div class="center-field">
-                {{ form.email.label_tag }}
-                {{ form.email }}
-            </div>
-            <div class="center-field">
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
-            </div>
-            <div class="center-field">
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-            </div>
-            <a href="{% url 'recipes:home' %}">
-                <button type="submit">Sign Up</button>
-            </a>
-        </form>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        <div class="center-container d-flex justify-content-center">
+            <form method="post" class="center-form" id="signup-form" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <div class="center-field">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="center-field">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="center-field">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                </div>
+                <div class="center-field">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                </div>
+                <a href="{% url 'recipes:home' %}">
+                    <button type="submit">Sign Up</button>
+                </a>
+            </form>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-    </div>
-        
+        </div>
+            
 
-    {% endblock %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'recipes/scripts.js' %}"></script>
-</body>
+        {% endblock %}
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'recipes/scripts.js' %}"></script>
+    </body>
 </html>
