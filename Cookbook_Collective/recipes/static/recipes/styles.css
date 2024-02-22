@@ -826,12 +826,19 @@ body {
 
 
 
+
+/*ABOUT*/
 .about-me-content {
     max-width: 600px; /* Adjust the width as needed */
     margin: 0 auto;  /* Center the content horizontally */
 }
 
-/* Additional styles for consistency within the paragraphs if needed... */
-.about-me-content p {
-    /* Any additional styles for paragraphs */
+.no-bullets {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
 }
+
+.no-bullets li {
+    margin-bottom: 10px; /* Adjust the spacing between list items if needed */
+}
+
