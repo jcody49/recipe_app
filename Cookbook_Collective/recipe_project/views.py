@@ -52,6 +52,7 @@ def login_view(request):
 
 #define a function view called logout_view that takes a request from the user
 def logout_view(request):
+    print("Reached logout view")
     try:
         logout(request)
         return render(request, 'recipes/success.html', {'message': 'You\'ve successfully logged out.'})
