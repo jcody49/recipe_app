@@ -767,6 +767,10 @@ body {
     background-color: var(--secondary-color); /* Use the custom secondary color */
 }
 
+.nav-title {
+    font-size: 1.2em; /* You can adjust the value to make it slightly bigger */
+}
+
 
 
 /*FONT*/
@@ -819,12 +823,4 @@ body {
     text-align: center;
     list-style-type: none;
 }
-
-
-
-
-
-
-
-
 
