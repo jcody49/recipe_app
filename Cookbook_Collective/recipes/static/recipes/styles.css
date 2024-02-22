@@ -842,3 +842,6 @@ body {
     margin-bottom: 10px; /* Adjust the spacing between list items if needed */
 }
 
+.about_me h2 {
+    padding: 4%;
+}
