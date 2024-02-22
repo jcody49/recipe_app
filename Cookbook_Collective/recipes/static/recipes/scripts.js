@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM content loaded!');
     // slick-carousel script
     $('.scrolling-images').slick({
         infinite: true,
