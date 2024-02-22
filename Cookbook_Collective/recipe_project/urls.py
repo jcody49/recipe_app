@@ -1,6 +1,5 @@
 #test
 from django.contrib import admin
-from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
@@ -10,7 +9,7 @@ from .views import login_view, logout_view, signup, delete_account
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', recipes_home, name='home'),
-    path('recipes/', include('recipes.urls')),
+    path('', include('recipes.urls')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('signup/', signup, name='signup'),
