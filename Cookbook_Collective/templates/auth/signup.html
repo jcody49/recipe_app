@@ -74,12 +74,12 @@
                     </div>
                 </div>
         </nav>
-        <h2>Sign Up</h2>
+        <h2 class="horizontal-centering">Sign Up</h2>
 
     {% block content %}
     <!-- signup.html -->
 
-    <div class="center-container">
+    <div class="center-container d-flex justify-content-center">
         <form method="post" class="center-form" id="signup-form" action="{% url 'signup' %}">
             {% csrf_token %}
             <div class="center-field">
