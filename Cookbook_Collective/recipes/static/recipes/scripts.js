@@ -28,6 +28,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.getElementById('submitBtn').click();
-
 });
