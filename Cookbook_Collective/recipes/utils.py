@@ -60,7 +60,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             return HttpResponse("No data available for rendering the chart.")
         else:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
-            data = recipes.values('difficulty').annotate(count=Count('difficulty'))
+            data = recipes.values('difficulty').annotate(count=Count('difficulty')).exclude(difficulty='')
             print("Difficulty Distribution Data:", data)
             data_df = pd.DataFrame.from_records(data)
 
