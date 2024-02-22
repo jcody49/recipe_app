@@ -228,6 +228,9 @@ def credits2(request):
     return render(request, 'recipes/credits2.html')
 
 
+def about_me(request):
+    return render(request, 'recipes/about_me.html')
+
 
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
