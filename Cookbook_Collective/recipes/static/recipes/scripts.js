@@ -27,4 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('loading-spinner').style.display = 'block';
         });
     }
+
+    document.getElementById('submitBtn').click();
+
 });
