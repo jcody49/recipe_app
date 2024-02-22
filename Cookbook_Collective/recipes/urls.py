@@ -17,6 +17,7 @@ from .views import (
     recipes_created_per_month,
     visualizations,
     credits2, 
+    logout_view,
 )
 
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('list/<pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
     path('create_recipe/', create_recipe, name='create_recipe'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('delete_account/', delete_account, name='delete_account'),
     path('credits2/', credits2, name='credits2'),
 
