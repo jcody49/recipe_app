@@ -4,8 +4,9 @@ from django.urls import reverse
 
 from .models import Recipe
 from .forms import RecipeForm, SearchForm
+from recipe_project.views import delete_account
 from .views import (
-    recipes_home, search_view, create_recipe, delete_account,
+    recipes_home, search_view, create_recipe, 
     recipe_difficulty_distribution, recipe_type_distribution,
     recipes_created_per_month, RecipeListView, RecipeDetailView, RecipeListViewAll
 )

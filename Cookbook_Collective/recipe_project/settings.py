@@ -1,4 +1,5 @@
 import os
+import sys
 from storages.backends.s3boto3 import S3Boto3Storage
 from pathlib import Path
 import dj_database_url
@@ -82,14 +83,23 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 
 db_from_env = dj_database_url.config(conn_max_age=50000000)
 
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=60000000000,  # Set the connection max age here
-        engine='django.db.backends.postgresql',
-    )
-}
+#test
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / "db_test.sqlite3",
+        }
+    }
+else:
+    # Your production or development database configuration
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=60000000000,  # Set the connection max age here
+            #engine='django.db.backends.postgresql',
+        )
+    }
 
 
 
