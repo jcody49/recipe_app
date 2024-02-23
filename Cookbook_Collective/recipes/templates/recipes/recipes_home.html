@@ -15,6 +15,7 @@
         <!-- Bootstrap 4 JavaScript bundle -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <!--css stylesheet-->
         <link rel="stylesheet" href="{% static 'recipes/styles.css' %}">
@@ -27,8 +28,11 @@
 
         <!-- Loading Spinner -->
         {% if loading %}
-            <p>Loading...</p>
+            <div id="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i> Loading...
+            </div>
         {% endif %}
+
 
         <div id="loading-spinner" class="hidden"></div>
 
