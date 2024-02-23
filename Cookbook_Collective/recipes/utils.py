@@ -76,12 +76,6 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
 
 
 
-
-
-
-
-
-
 # takes data and renders its respective chart_image
 def render_chart(request, chart_type, data=None, **kwargs):
     if data is None or data.empty:
