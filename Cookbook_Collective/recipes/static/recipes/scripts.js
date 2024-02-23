@@ -21,19 +21,6 @@ console.log('Script loaded!');
         navbarCollapse.toggleClass('show');
     });
 
-    // Loading Spinner
-    $('#submitBtn').click(function () {
-        $('#loading-spinner').css('display', 'block');
-    });
 //});
 
-$('#submitBtn').click(function () {
-    // Show the loading spinner
-    $('#loading-spinner').css('display', 'block');
 
-    // Perform your loading operation (e.g., AJAX request)
-    // ...
-
-    // Assuming the loading is complete, hide the loading spinner
-    $('#loading-spinner').css('display', 'none');
-});
