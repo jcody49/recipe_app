@@ -12,6 +12,7 @@ import logging
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -122,8 +123,11 @@ def create_recipe(request):
     return render(request, 'recipes/create_recipe.html', {'form': form})
 
 
-@login_required
+#@login_required
+@csrf_exempt
 def visualizations(request, type_of_recipe=None):
+    print("Reached visualizations view")
+
     recipes = None
     message = None
 
