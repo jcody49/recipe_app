@@ -127,7 +127,7 @@ class RecipeViewsTest(TestCase):
 
     def test_recipe_detail_view(self):
         print("BEFORE FORCE_LOGIN - IS USER AUTHENTICATED?", self.client.session['_auth_user_id'] is not None)
-        self.client.force_login(self.user)
+        self.client.login(username='testuser', password='Testpassword1!')
         print("AFTER FORCE_LOGIN - IS USER AUTHENTICATED?", self.client.session['_auth_user_id'] is not None)
         response = self.client.get(reverse('recipes:recipe_detail', args=[self.recipe.pk]))
         self.assertEqual(response.status_code, 200)
@@ -206,13 +206,21 @@ class RecipeViewsTest(TestCase):
 
     def test_delete_account_redirect_to_login(self):
         # Assuming you have the necessary setup for the user and authentication
-        self.client.login(username='testuser', password='password')
+        self.client.login(username='testuser', password='Testpassword1!')
+
+        # Get the initial count of user objects
+        initial_user_count = get_user_model().objects.count()
 
         # Perform the delete account request
         response = self.client.post(reverse('delete_account'), {'confirm_delete': 'true'})
 
+        # Assert that the user count decreased by 1
+        self.assertEqual(get_user_model().objects.count(), initial_user_count - 1)
+
         # Assert the redirect status code and URL
-        self.assertRedirects(response, reverse('login'), status_code=302)
+        self.assertEqual(response.status_code, 302)  # Check if the response code is 302
+        self.assertEqual(response.url, reverse('login'))  # Check if the redirection URL is the login page
+
 
 
 
