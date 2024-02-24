@@ -6,7 +6,7 @@ import logging
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.test import override_settings
 from django.urls import reverse
 from users.models import User
@@ -202,11 +202,23 @@ class RecipeViewsTest(TestCase):
 
 
 
-    def test_delete_account_view_authenticated(self):
+    def test_delete_account_authenticated(self):
         self.client.force_login(self.user)
+        print("Delete ACCOUNT AUTHENTICATED TEST")
 
-        response = self.client.get(reverse('recipes:delete_account'))
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post(reverse('delete_account'), {'confirm_delete': 'true'})
+        print("Redirected to:", response.url)
+
+        print(response.content.decode('utf-8'))  # Print response content for debugging
+        print("Redirect chain:", response.redirect_chain)
+
+        # Your assertions here
+        self.assertRedirects(response, expected_url=reverse('login'), status_code=302)
+        self.assertTemplateUsed(response, 'auth/login.html')
+        self.assertTrue(response.context['user'] == AnonymousUser())
+
+
+
 
     def test_delete_account_view_not_authenticated(self):
 
@@ -275,26 +287,22 @@ class RecipeViewsTest(TestCase):
 
 
     def test_visualizations_template(self):
+        # Log in the user
         self.client.force_login(self.user)
 
         # Print CSRF token
-        csrf_token = self.client.session.get('csrftoken')
+        csrf_token = self.client.cookies.get('csrftoken')
         print("CSRF Token:", csrf_token)
 
         # Print session keys for additional information
         session_keys = list(self.client.session.keys())
-        print("Session Keys (before login):", session_keys)
+        print("Session Keys:", session_keys)
 
         # Continue with the request
         response = self.client.get(reverse('recipes:visualizations'))
 
         # Your assertions here
         self.assertEqual(response.status_code, 200)
-
-        # Print session keys after the request
-        session_keys_after = list(self.client.session.keys())
-        print("Session Keys (after request):", session_keys_after)
-
 
 
 

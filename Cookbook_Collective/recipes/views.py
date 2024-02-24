@@ -124,7 +124,6 @@ def create_recipe(request):
 
 
 #@login_required
-@csrf_exempt
 def visualizations(request, type_of_recipe=None):
     print("Reached visualizations view")
 
