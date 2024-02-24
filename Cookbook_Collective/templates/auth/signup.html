@@ -95,9 +95,7 @@
                     {{ form.password2.label_tag }}
                     {{ form.password2 }}
                 </div>
-                <a href="{% url 'recipes:home' %}">
-                    <button type="submit">Sign Up</button>
-                </a>
+                <button type="submit">Sign Up</button>
             </form>
             {% if messages %}
                 <ul class="messages">
@@ -105,9 +103,9 @@
                         <li>{{ message }}</li>
                     {% endfor %}
                 </ul>
-            {% endif %}
-
+            {% endif}
         </div>
+        
             
 
         {% endblock %}

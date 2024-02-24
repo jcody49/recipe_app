@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.urls import reverse
 
 
@@ -11,6 +12,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+#test
 #define a function view called login_view that takes a request from the user
 def login_view(request):
     error_message = None
@@ -30,6 +32,12 @@ def login_view(request):
             if user is not None:
                 print('User is authenticated')
                 login(request, user)
+
+                # Additional debug prints
+                print(f'Request path: {request.path}')
+                print(f'Middleware classes: {settings.MIDDLEWARE}')
+                print(f'Allowed schemes for HttpResponsePermanentRedirect: {HttpResponsePermanentRedirect.allowed_schemes}')
+
                 return redirect('home')  # Use the name of the home URL pattern
 
             else:
@@ -105,7 +113,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             print(f'Successful registration for {username}')
-            return redirect(reverse('recipes:home'))
+            return HttpResponseRedirect(reverse('recipes:home'))
         else:
             for field, errors in form.errors.items():
                 for error in errors:

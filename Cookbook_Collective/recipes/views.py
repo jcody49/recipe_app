@@ -20,7 +20,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 # Third-party
@@ -88,8 +88,6 @@ def search_view(request):
     return render(request, 'recipes/search_results.html', context)
 
 
-
-# test
 # defines create_recipe view
 @login_required
 def create_recipe(request):
@@ -122,8 +120,6 @@ def create_recipe(request):
         form = RecipeForm()
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
-
-
 
 
 @login_required

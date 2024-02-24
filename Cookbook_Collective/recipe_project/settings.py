@@ -76,32 +76,38 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 
 
 
-
+#print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-db_from_env = dj_database_url.config(conn_max_age=50000000)
+# db_from_env = dj_database_url.config(conn_max_age=50000000)
 
 #test
-if 'test' in sys.argv:
+if 'DATABASE_URL' in os.environ:
+    # Use dj_database_url to configure the production database
+    db_from_env = dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=60000000000,  # Set the connection max age here
+        engine='django.db.backends.postgresql',
+    )
+    DATABASES = {
+        'default': db_from_env
+    }
+else:
+    # Use SQLite for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db_test.sqlite3",
+            'NAME': BASE_DIR / "db.sqlite3",
         }
     }
-else:
-    # Your production or development database configuration
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv('DATABASE_URL'),
-            conn_max_age=60000000000,  # Set the connection max age here
-            #engine='django.db.backends.postgresql',
-        )
-    }
+
+print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -150,8 +156,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 
