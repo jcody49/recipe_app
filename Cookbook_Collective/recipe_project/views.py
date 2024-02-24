@@ -14,38 +14,41 @@ logger = logging.getLogger(__name__)
 
 #test
 #define a function view called login_view that takes a request from the user
+from django.contrib.auth.forms import AuthenticationForm
+
 def login_view(request):
     error_message = None
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
- 
+
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
 
-            logger.info(f'Username: {username}')
-            logger.info(f'Password: {password}')
+            print(f'Username: {username}')
+            print(f'Password: {password}')
 
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                logger.info('User is authenticated')
-
-                # Additional debug logs
-                logger.info(f'Request path: {request.path}')
-                logger.info(f'Middleware classes: {settings.MIDDLEWARE}')
-                logger.info(f'Allowed schemes for HttpResponsePermanentRedirect: {HttpResponsePermanentRedirect.allowed_schemes}')
-
+                print(f'User {username} is authenticated with ID {user.id}')
                 login(request, user)
+
+                # Additional debug prints
+                print(f'Request path: {request.path}')
+                print(f'Middleware classes: {settings.MIDDLEWARE}')
+                print(f'Allowed schemes for HttpResponsePermanentRedirect: {HttpResponsePermanentRedirect.allowed_schemes}')
+
                 return redirect('home')  # Use the name of the home URL pattern
 
             else:
-                logger.warning('Authentication failed')
+                print('Authentication failed')
+                print(f'No user found for username {username}')
 
         else:
             error_message = 'Invalid username or password'
-            logger.warning(f'Form errors: {form.errors}')
+            print(f'Form errors: {form.errors}')
 
     else:
         form = AuthenticationForm()
@@ -58,6 +61,8 @@ def login_view(request):
     return render(request, 'auth/login.html', context)
 
 
+
+
 #define a function view called logout_view that takes a request from the user
 def logout_view(request):
     print("Reached logout view")
@@ -68,6 +73,7 @@ def logout_view(request):
         messages.error(request, f'An error occurred during logout: {e}')
         return render(request, 'recipes/success.html', {'message': 'Logout unsuccessful. Please try again.'})
 
+#test
 @login_required
 def delete_account(request):
     if request.method == 'POST':
@@ -93,17 +99,7 @@ def delete_account(request):
 
     return render(request, 'auth/delete_account.html')
 
-def register_view(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('recipes:home')
-    else:
-        form = UserRegistrationForm()
 
-    return render(request, 'auth/register.html', {'form': form})
 
 def signup(request):
     if request.method == 'POST':
