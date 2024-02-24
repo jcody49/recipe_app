@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.conf import settings
 from django.urls import reverse
 
 
