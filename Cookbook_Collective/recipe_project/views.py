@@ -24,28 +24,28 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
 
-            print(f'Username: {username}')
-            print(f'Password: {password}')
+            logger.info(f'Username: {username}')
+            logger.info(f'Password: {password}')
 
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                print('User is authenticated')
+                logger.info('User is authenticated')
+
+                # Additional debug logs
+                logger.info(f'Request path: {request.path}')
+                logger.info(f'Middleware classes: {settings.MIDDLEWARE}')
+                logger.info(f'Allowed schemes for HttpResponsePermanentRedirect: {HttpResponsePermanentRedirect.allowed_schemes}')
+
                 login(request, user)
-
-                # Additional debug prints
-                print(f'Request path: {request.path}')
-                print(f'Middleware classes: {settings.MIDDLEWARE}')
-                print(f'Allowed schemes for HttpResponsePermanentRedirect: {HttpResponsePermanentRedirect.allowed_schemes}')
-
                 return redirect('home')  # Use the name of the home URL pattern
 
             else:
-                print('Authentication failed')
+                logger.warning('Authentication failed')
 
         else:
             error_message = 'Invalid username or password'
-            print(f'Form errors: {form.errors}')
+            logger.warning(f'Form errors: {form.errors}')
 
     else:
         form = AuthenticationForm()
