@@ -94,33 +94,23 @@ class RecipeModelTest(TestCase):
 
 
 class RecipeViewsTest(TestCase):
+
     def setUp(self):
-        try:
-            # Create a Recipe object for testing
-            self.recipe = Recipe.objects.create(
-                name='Test Recipe',
-                cooking_time=30,
-                min_serving_size=2,
-                max_serving_size=4,
-                type_of_recipe='Dessert',
-                ingredients='Sugar, Flour, Eggs',
-                directions='Mix ingredients and bake.',
-                pic='test_image.jpg',
-                difficulty='Easy',
-            )
+        # Create a test user
+        self.user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='Testpassword1!',
+        )
 
-            # Create a test user with your custom user model
-            self.user = get_user_model().objects.create_user(
-                username='testuser',
-                email='testuser@example.com',
-                password='Testpassword1!',
-            )
-            print("User created:", self.user.username, self.user.email)
+        # Record the initial user count
+        self.initial_user_count = get_user_model().objects.count()
 
-        except Exception as e:
-            print("Error during setup:", e)
-            traceback.print_exc()
-            raise  # Re-raise the exception after printing the traceback
+    def tearDown(self):
+        # Clean up: Delete the test user if it exists
+        if self.user:
+            self.user.delete()
+
 
         
 
@@ -208,19 +198,20 @@ class RecipeViewsTest(TestCase):
         # Assuming you have the necessary setup for the user and authentication
         self.client.login(username='testuser', password='Testpassword1!')
 
-        # Get the initial count of user objects
+        # Record the initial user count again
         initial_user_count = get_user_model().objects.count()
 
         # Perform the delete account request
         response = self.client.post(reverse('delete_account'), {'confirm_delete': 'true'})
 
+        # Assert the redirect status code and URL
+        self.assertRedirects(response, reverse('login'), status_code=302)
+
+        # Assert that the response contains content indicating a successful delete
+        self.assertContains(response, 'Your account was successfully deleted.')
+
         # Assert that the user count decreased by 1
         self.assertEqual(get_user_model().objects.count(), initial_user_count - 1)
-
-        # Assert the redirect status code and URL
-        self.assertEqual(response.status_code, 302)  # Check if the response code is 302
-        self.assertEqual(response.url, reverse('login'))  # Check if the redirection URL is the login page
-
 
 
 

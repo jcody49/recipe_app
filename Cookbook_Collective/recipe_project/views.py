@@ -13,7 +13,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-#test
+
 #define a function view called login_view that takes a request from the user
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -90,8 +90,8 @@ def delete_account(request):
                 # Add a success message
                 messages.success(request, 'Your account was successfully deleted.')
 
-                # Redirect to the login page
-                return redirect('login')
+                # Redirect to the login page using a temporary redirect (HTTP 302)
+                return HttpResponseRedirect(reverse('login'))
 
             except Exception as e:
                 # Add an error message
