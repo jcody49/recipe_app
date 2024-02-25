@@ -1,10 +1,12 @@
 import os
+import matplotlib
 import sys
 from storages.backends.s3boto3 import S3Boto3Storage
 from pathlib import Path
 import dj_database_url
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
 
+matplotlib.use('Agg')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
