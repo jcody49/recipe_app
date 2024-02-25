@@ -16,8 +16,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('signup/', signup, name='signup'),
     path('delete_account/', delete_account, name='delete_account'),
-    path('docs/', serve, {'document_root': settings.STATICFILES_DIRS[0], 'path': 'index.html'}),
-    re_path(r'^docs/.*$', views.placeholder_view),
+    path('docs/', include('recipe_project.docs_urls')),
 ]
 
 # specifies the URL “/media/” that will trigger this media view (in this case, an image)
