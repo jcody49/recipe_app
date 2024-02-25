@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse
+
 from django.urls import reverse
 
 
@@ -119,6 +120,11 @@ def signup(request):
         form = UserRegistrationForm()
 
     return render(request, 'auth/signup.html', {'form': form})
+
+
+def placeholder_view(request):
+    # You can customize the response if needed
+    return HttpResponse("This is a placeholder for Sphinx-generated documentation.")
 
 
 
