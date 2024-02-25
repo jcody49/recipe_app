@@ -7,7 +7,6 @@ import pandas as pd
 import matplotlib
 import logging
 
-
 # Django
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -23,9 +22,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 
-
 # Third-party
-
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,11 +35,17 @@ from .utils import (
     get_recipe_type_distribution_data, get_recipe_difficulty_distribution_data
 )
 
-
-
-
 # Define a view function named recipes_home that takes a request object as a parameter
-def recipes_home(request):      
+def recipes_home(request):     
+    """
+    View for the home page displaying a list of recipes with infinite scrolling.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the home page.
+    """ 
     all_images = Recipe.objects.filter(pic__isnull=False).exclude(pic='no_picture.jpeg').order_by('?')      # takes all pic objects, filters out the no-picture.jpg, and randomizes all objects--loads into the all_images object
     
     # Concatenate the list multiple times to ensure it's long enough for infinite scrolling
@@ -55,6 +58,16 @@ def recipes_home(request):
 # test
 @login_required
 def search_view(request):
+    """
+    View for searching recipes.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the search results.
+    """
+
     form = SearchForm(request.GET or None)
     recipes_queryset = None
 
@@ -88,10 +101,19 @@ def search_view(request):
 
     return render(request, 'recipes/search_results.html', context)
 
-
 # defines create_recipe view
 @login_required
 def create_recipe(request):
+    """
+    View for creating a new recipe.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the create recipe page.
+    """
+
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
 
@@ -122,9 +144,18 @@ def create_recipe(request):
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
 
-
 #@login_required
 def visualizations(request, type_of_recipe=None):
+    """
+    View for displaying visualizations of recipe data.
+
+    Parameters:
+    - request: Django HTTP request object.
+    - type_of_recipe: Type of recipe to filter data (optional).
+
+    Returns:
+    - Rendered HTML response for the visualizations page.
+    """
     print("Reached visualizations view")
 
     recipes = None
@@ -165,13 +196,20 @@ def visualizations(request, type_of_recipe=None):
 
     return render(request, 'recipes/visualizations.html', context)
 
-
-
-
-    
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
 @login_required
 def recipe_difficulty_distribution(request, type_of_recipe=None):
+    """
+    View for displaying a chart of recipe difficulty distribution.
+
+    Parameters:
+    - request: Django HTTP request object.
+    - type_of_recipe: Type of recipe to filter data (optional).
+
+    Returns:
+    - Rendered HTML response for the recipe difficulty distribution chart.
+    """
+
     chart_image = None
 
     try:
@@ -187,12 +225,19 @@ def recipe_difficulty_distribution(request, type_of_recipe=None):
     }
     return render(request, 'recipes/recipe_difficulty_distribution.html', context)
 
-
-
-
 # defines view for recipe_type_distribution chart on all recipes
 @login_required
 def recipe_type_distribution(request, type_of_recipe=None):
+    """
+    View for displaying a chart of recipe type distribution.
+
+    Parameters:
+    - request: Django HTTP request object.
+    - type_of_recipe: Type of recipe to filter data (optional).
+
+    Returns:
+    - Rendered HTML response for the recipe type distribution chart.
+    """
     try:
         if not type_of_recipe:
             type_of_recipe = 'default'
@@ -205,9 +250,17 @@ def recipe_type_distribution(request, type_of_recipe=None):
 
     return render(request, 'recipes/recipe_type_distribution.html', {'chart_image': chart_image})
 
-
 @login_required
 def recipes_created_per_month(request):
+    """
+    View for displaying a chart of recipes created per month.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the recipes created per month chart.
+    """
     # Generate made-up data for demonstration
     months = [calendar.month_name[i] for i in range(1, 13)]
     recipes_created = [10, 15, 20, 25, 30, 35, 40, 45, 50, 45, 40, 35]
@@ -228,14 +281,40 @@ def recipes_created_per_month(request):
     return render(request, 'recipes/recipes_created_per_month.html', context)
 
 def credits2(request):
+    """
+    View for displaying credits information.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the credits page.
+    """
     return render(request, 'recipes/credits2.html')
 
-
 def about_me(request):
+    """
+    View for displaying information about the author.
+
+    Parameters:
+    - request: Django HTTP request object.
+
+    Returns:
+    - Rendered HTML response for the about me page.
+    """
     return render(request, 'recipes/about_me.html')
 
-
 class RecipeListView(LoginRequiredMixin, ListView):
+    """
+    Class-based view for displaying a list of recipes.
+
+    Attributes:
+    - model: Recipe model.
+    - template_name: HTML template for rendering the view.
+    - context_object_name: Name of the context variable containing the list of recipes.
+    - paginate_by: Number of recipes to display per page.
+    """
+
     model = Recipe
     template_name = 'recipes/recipe_list.html' 
     context_object_name = 'object_list'
@@ -253,9 +332,6 @@ class RecipeListView(LoginRequiredMixin, ListView):
         queryset = Recipe.objects.filter(name__in=distinct_names).order_by('name')
         return queryset
 
-
-
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -267,17 +343,29 @@ class RecipeListView(LoginRequiredMixin, ListView):
 
         return context
 
-
-
-
-
 class RecipeDetailView(LoginRequiredMixin, DetailView):                       #class-based “protected” view
+    """
+    Class-based view for displaying details of a recipe.
+
+    Attributes:
+    - model: Recipe model.
+    - template_name: HTML template for rendering the view.
+    """
+
     model = Recipe                                        #specify model
     template_name = 'recipes/recipe_detail.html'                 #specify template
 
-
 # uses a list view to view all recipes
 class RecipeListViewAll(LoginRequiredMixin, ListView):
+    """
+    Class-based view for displaying a list of all recipes.
+
+    Attributes:
+    - model: Recipe model.
+    - template_name: HTML template for rendering the view.
+    - context_object_name: Name of the context variable containing the list of all recipes.
+    - paginate_by: Number of recipes to display per page.
+    """
     model = Recipe
     template_name = 'recipes/recipe_list.html' 
     context_object_name = 'object_list_all'
@@ -285,7 +373,3 @@ class RecipeListViewAll(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Recipe.objects.all().order_by('name')
-
-
-
-

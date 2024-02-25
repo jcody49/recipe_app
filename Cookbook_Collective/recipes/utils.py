@@ -7,34 +7,42 @@ from enum import Enum
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-
 # Django Imports
 from django import template
 from django.db.models import Count
 from django.http import HttpResponse
-from django.http import JsonResponse
-
 
 # Project-specific Imports
 from .models import Recipe
 
-
 def get_recipe_name_from_id(value):
+    """
+    Get the name of a recipe given its ID.
+
+    Args:
+        value: ID of the recipe.
+
+    Returns:
+        str: Name of the recipe.
+    """
     try:
         recipe_name = Recipe.objects.get(id=value).name
     except Recipe.DoesNotExist:
         recipe_name = f"Recipe {value} (Not Found)"
     except Exception as e:
-
-
         recipe_name = f"Error fetching recipe name"
     return recipe_name
 
-
-
-# counts the occurance of each recipe type for a data visualization
 def get_recipe_type_distribution_data(type_of_recipe=None):
+    """
+    Get data for recipe type distribution.
+
+    Args:
+        type_of_recipe (str): Type of recipe for which distribution data is needed.
+
+    Returns:
+        pd.DataFrame: DataFrame containing recipe type distribution data.
+    """
     try:
         all_recipe_types = Recipe.TYPE_OF_RECIPE
         recipe_type_counts = {type_of_recipe: 0 for type_of_recipe, _ in all_recipe_types}
@@ -47,12 +55,20 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
         return data
     except Exception as e:
         # Handle unexpected errors during the operation
+        print(f"Error getting recipe type distribution data: {e}")
+        return pd.DataFrame()
 
-        return pd.DataFrame()  # Return an empty DataFrame in case of an error
-
-
-# counts the occurrence of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
+    """
+    Get data for recipe difficulty distribution.
+
+    Args:
+        request: The HTTP request.
+        type_of_recipe (str): Type of recipe for which difficulty distribution data is needed.
+
+    Returns:
+        pd.DataFrame: DataFrame containing difficulty distribution data.
+    """
     try:
         if type_of_recipe == "default":
             # Handle default logic or return an appropriate response
@@ -71,13 +87,22 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             return data_df
 
     except Exception as e:
-
+        # Handle unexpected errors during the operation
+        print(f"Error getting recipe difficulty distribution data: {e}")
         return pd.DataFrame()
 
-
-
-# takes data and renders its respective chart_image
 def render_chart(request, chart_type, data=None, **kwargs):
+    """
+    Render a chart based on the given data and chart type.
+
+    Args:
+        request: The HTTP request.
+        chart_type: Type of chart to render.
+        data: DataFrame containing chart data.
+
+    Returns:
+        str: Base64-encoded chart image.
+    """
     if data is None or data.empty:
         print("No data available for rendering the chart.")
         return HttpResponse("No data available for rendering the chart.")
@@ -115,8 +140,16 @@ def render_chart(request, chart_type, data=None, **kwargs):
 
     return chart_image
 
-
 def get_graph(fig):
+    """
+    Get a base64-encoded image of the graph.
+
+    Args:
+        fig: Matplotlib figure.
+
+    Returns:
+        str: Base64-encoded image of the graph.
+    """
     try:
         buffer = BytesIO()
         fig.savefig(buffer, format='png')
@@ -130,8 +163,6 @@ def get_graph(fig):
         # Handle unexpected errors during the operation
         print(f"Error getting graph: {e}")
         return None
-
-
 
 # template.Library is a class provided by Django in the django.template module.
 # It is used to register and organize custom template tags and filters.

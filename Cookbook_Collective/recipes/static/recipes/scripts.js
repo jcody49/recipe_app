@@ -1,6 +1,14 @@
+/**
+ * DOM content loaded event handler.
+ * @event
+ */
 console.log('DOM content loaded!');
 
-// Slick-carousel script
+/**
+ * Initialize slick-carousel for scrolling images.
+ * @function
+ * @param {Object} settings - Slick-carousel settings.
+ */
 $('.scrolling-images').slick({
     infinite: true,
     slidesToShow: 3,
@@ -11,13 +19,12 @@ $('.scrolling-images').slick({
     pauseOnHover: false,
 });
 
-// Navbar
+/**
+ * Click event handler for the navbar-toggler button.
+ * @event
+ */
 $('.navbar-toggler').click(function () {
-    console.log("clicked");
+    console.log("Navbar toggler clicked");
     var navbarCollapse = $('#navbarNav');
     navbarCollapse.toggleClass('show');
 });
-
-
-
-
