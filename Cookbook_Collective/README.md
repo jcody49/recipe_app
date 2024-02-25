@@ -6,19 +6,19 @@ The Cookbook Collective is a web application that allows users to explore, share
 
 - **Browse Recipes:** Explore a diverse range of recipes categorized by type, difficulty, and more.
 
-![Browse recipes...](/static/recipes/images/browse.png)
+![Browse recipes...](recipes/static/recipes/images/browse.png)
 
 - **Search Functionality:** Quickly find specific recipes using by searching for the recipe name or its ingredients.
 
-![Search recipes...](/static/recipes/images/search.png)
+![Search recipes...](recipes/static/recipes/images/search.png)
 
 - **Create and Share Recipes:** Contribute your own recipes and share them with the community.
 
-![Upload recipes...](/static/recipes/images/create_recipe.png)
+![Upload recipes...](recipes/static/recipes/images/create_recipe.png)
 
 - **Data Visualizations:** Gain insights into recipe distributions, difficulty levels, and more through interactive visualizations.
 
-![Data Visualizations...](/static/recipes/images/visualization.png)
+![Data Visualizations...](recipes/static/recipes/images/visualization.png)
 
 - **User Accounts:** Create an account to personalize your Cookbook Collective experience.
 
