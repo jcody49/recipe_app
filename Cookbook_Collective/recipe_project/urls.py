@@ -1,6 +1,7 @@
 
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.views.static import serve
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -15,6 +16,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('signup/', signup, name='signup'),
     path('delete_account/', delete_account, name='delete_account'),
+    path('docs/', serve, {'document_root': settings.STATICFILES_DIRS[0], 'path': 'index.html'}),
     re_path(r'^docs/.*$', views.placeholder_view),
 ]
 
