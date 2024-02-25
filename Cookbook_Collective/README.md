@@ -5,53 +5,84 @@ The Cookbook Collective is a web application that allows users to explore, share
 ## Features
 
 - **Browse Recipes:** Explore a diverse range of recipes categorized by type, difficulty, and more.
-- **Search Functionality:** Quickly find specific recipes using the search feature.
+
+![Browse recipes...](/static/recipes/images/browse.png)
+
+- **Search Functionality:** Quickly find specific recipes using by searching for the recipe name or its ingredients.
+
+![Search recipes...](/static/recipes/images/search.png)
+
 - **Create and Share Recipes:** Contribute your own recipes and share them with the community.
+
+![Upload recipes...](/static/recipes/images/create_recipe.png)
+
 - **Data Visualizations:** Gain insights into recipe distributions, difficulty levels, and more through interactive visualizations.
-- **User Accounts:** Create an account to save your favorite recipes and personalize your Cookbook Collective experience.
+
+![Data Visualizations...](/static/recipes/images/visualization.png)
+
+- **User Accounts:** Create an account to personalize your Cookbook Collective experience.
+
+![Account Creation](/static/recipes/images/account_creation.png)
+
+
+
+
+
+## Build
+
+### Technologies Used
+- HTML, CSS, JavaScript
+- Python 
+- Django 
+- Pandas 
+
+### Deployment
+- Hosted on Heroku
+- Gunicorn 21.2.0
+- Whitenoise 6.6.0 for serving static files
+- Django-Storages[boto3] 1.11.0 for static and media file storage on AWS S3
+
 
 ## Installation
 
 To run The Cookbook Collective locally, follow these steps:
 
 1. Clone the repository:
-   ```bash
+
    git clone https://github.com/your-username/cookbook-collective.git
 
-Navigate to the project directory:
+2. Navigate to the project directory:
 
 
-cd cookbook-collective
+    cd cookbook-collective
 
 
-Install dependencies:
+3. Install dependencies:
 
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 
-Apply migrations:
+4. Apply migrations:
 
 
-python manage.py migrate
-Run the development server:
+    python manage.py migrate
+
+5. Run the development server:
 
 
-python manage.py runserver
+    python manage.py runserver
 
-Access the application at http://localhost:8000/
+6. Access the application at http://localhost:8000/
 
-Usage
+## Usage
 
-Create a user account or log in if you already have one.
-Explore recipes, contribute your own, or save your favorites.
-Enjoy the Cookbook Collective community and culinary inspiration!
+- Create a user account or log in if you already have one.
+- Explore recipes, contribute your own, or save your favorites.
+- Enjoy the Cookbook Collective community and culinary inspiration!
 
-Contributing
 
-We welcome contributions! If you have suggestions, bug reports, or want to contribute code, feel free to open an issue or submit a pull request.
-
-License
+## License
 
 This project is licensed under the MIT License.
 

@@ -1,31 +1,31 @@
 import pandas as pd
 import logging
 import traceback
-
-
+from urllib.parse import urlparse
+import sys
+from urllib.parse import urlsplit
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, AnonymousUser
-from django.test import override_settings
-from django.urls import reverse
+from django.urls import reverse, resolve
 from users.models import User
 from .models import Recipe
 from .forms import RecipeForm, SearchForm
 from recipe_project.views import delete_account
-from .views import (
-    recipes_home, search_view, create_recipe, 
-    recipe_difficulty_distribution, recipe_type_distribution,
-    recipes_created_per_month, RecipeListView, RecipeDetailView, RecipeListViewAll
-)
+
+
 from .utils import (
     get_recipe_name_from_id,
     get_recipe_type_distribution_data,
     get_recipe_difficulty_distribution_data,
     render_chart
 )
-
-
+from .views import (
+    recipes_home, search_view, create_recipe, 
+    recipe_difficulty_distribution, recipe_type_distribution,
+    recipes_created_per_month, RecipeListView, RecipeDetailView, RecipeListViewAll
+)
+print("SYS PATH: ", sys.path)
 logging.getLogger("matplotlib.font_manager").setLevel(logging.INFO)
 #logging.getLogger('django').setLevel(logging.DEBUG)
 
@@ -103,13 +103,28 @@ class RecipeViewsTest(TestCase):
             password='Testpassword1!',
         )
 
+        # Create a test recipe and assign it to self.recipe
+        self.recipe = Recipe.objects.create(
+            name="Test Recipe",
+            cooking_time=30,
+            difficulty="Easy",
+            min_serving_size=4,
+            max_serving_size=6,
+            type_of_recipe="lunch",
+            ingredients="Ingredient 1, Ingredient 2",
+            directions="Test directions for the recipe."
+        )
+
         # Record the initial user count
         self.initial_user_count = get_user_model().objects.count()
 
     def tearDown(self):
-        # Clean up: Delete the test user if it exists
+        # Clean up: Delete the test user and recipe if they exist
         if self.user:
             self.user.delete()
+        if self.recipe:
+            self.recipe.delete()
+
 
 
         
@@ -204,7 +219,7 @@ class RecipeViewsTest(TestCase):
         # Perform the delete account request
         response = self.client.post(reverse('delete_account'), {'confirm_delete': 'true'})
 
-        # Assert the redirect status code and URL
+        # Assert the redirect status code for both 301 and 302
         self.assertRedirects(response, reverse('login'), status_code=302)
 
         # Assert that the response contains content indicating a successful delete
@@ -212,7 +227,6 @@ class RecipeViewsTest(TestCase):
 
         # Assert that the user count decreased by 1
         self.assertEqual(get_user_model().objects.count(), initial_user_count - 1)
-
 
 
 

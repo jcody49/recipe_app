@@ -90,8 +90,8 @@ def delete_account(request):
                 # Add a success message
                 messages.success(request, 'Your account was successfully deleted.')
 
-                # Redirect to the login page using a temporary redirect (HTTP 302)
-                return HttpResponseRedirect(reverse('login'))
+                # test
+                return redirect('login', permanent=False)
 
             except Exception as e:
                 # Add an error message
