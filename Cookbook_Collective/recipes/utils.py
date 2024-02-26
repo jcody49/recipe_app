@@ -1,39 +1,40 @@
+# Standard Library Imports
 from io import BytesIO
 import base64
 from enum import Enum
+
+# Third-party Library Imports
 import matplotlib.pyplot as plt
 import pandas as pd
+
+
+
+# Django Imports
 from django import template
 from django.db.models import Count
 from django.http import HttpResponse
 from django.http import JsonResponse
+
+
+# Project-specific Imports
 from .models import Recipe
 
 
 def get_recipe_name_from_id(value):
-    """
-    Retrieve the name of a recipe given its ID.
-
-    :param value: The ID of the recipe.
-    :return: The name of the recipe or an error message if the recipe is not found.
-    """
     try:
         recipe_name = Recipe.objects.get(id=value).name
     except Recipe.DoesNotExist:
         recipe_name = f"Recipe {value} (Not Found)"
     except Exception as e:
         # Handle unexpected errors during the operation
+
         recipe_name = f"Error fetching recipe name"
     return recipe_name
 
 
-def get_recipe_type_distribution_data(type_of_recipe=None):
-    """
-    Count the occurrence of each recipe type for data visualization.
 
-    :param type_of_recipe: Filter by a specific recipe type.
-    :return: DataFrame with recipe type and count columns.
-    """
+# counts the occurance of each recipe type for a data visualization
+def get_recipe_type_distribution_data(type_of_recipe=None):
     try:
         all_recipe_types = Recipe.TYPE_OF_RECIPE
         recipe_type_counts = {type_of_recipe: 0 for type_of_recipe, _ in all_recipe_types}
@@ -46,17 +47,12 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
         return data
     except Exception as e:
         # Handle unexpected errors during the operation
+
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
 
+# counts the occurrence of each difficulty for a data visualization
 def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
-    """
-    Count the occurrence of each difficulty for data visualization.
-
-    :param request: The HTTP request.
-    :param type_of_recipe: Filter by a specific recipe type.
-    :return: DataFrame with difficulty and count columns.
-    """
     try:
         if type_of_recipe == "default":
             # Handle default logic or return an appropriate response
@@ -65,6 +61,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
         else:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
             data = recipes.values('difficulty').annotate(count=Count('difficulty')).exclude(difficulty='')
+            # print("Difficulty Distribution Data:", data)
             data_df = pd.DataFrame.from_records(data)
 
             if data_df.empty:
@@ -72,21 +69,15 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
                 return HttpResponse("No data available for rendering the chart.")
 
             return data_df
+
     except Exception as e:
-        # Handle unexpected errors during the operation
+
         return pd.DataFrame()
 
 
-def render_chart(request, chart_type, data=None, **kwargs):
-    """
-    Render a chart image based on the specified chart type and data.
 
-    :param request: The HTTP request.
-    :param chart_type: Type of the chart (1, 2, 3).
-    :param data: DataFrame containing data for the chart.
-    :param kwargs: Additional keyword arguments.
-    :return: Base64-encoded chart image.
-    """
+# takes data and renders its respective chart_image
+def render_chart(request, chart_type, data=None, **kwargs):
     if data is None or data.empty:
         print("No data available for rendering the chart.")
         return HttpResponse("No data available for rendering the chart.")
@@ -126,12 +117,6 @@ def render_chart(request, chart_type, data=None, **kwargs):
 
 
 def get_graph(fig):
-    """
-    Get a base64-encoded graph image from a Matplotlib figure.
-
-    :param fig: Matplotlib figure.
-    :return: Base64-encoded graph image.
-    """
     try:
         buffer = BytesIO()
         fig.savefig(buffer, format='png')
@@ -145,6 +130,7 @@ def get_graph(fig):
         # Handle unexpected errors during the operation
         print(f"Error getting graph: {e}")
         return None
+
 
 
 # template.Library is a class provided by Django in the django.template module.
