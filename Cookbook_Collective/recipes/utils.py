@@ -28,12 +28,6 @@ def get_recipe_name_from_id(value):
 
 
 def get_recipe_type_distribution_data(type_of_recipe=None):
-    """
-    Count the occurrence of each recipe type for data visualization.
-
-    :param type_of_recipe: Filter by a specific recipe type.
-    :return: DataFrame with recipe type and count columns.
-    """
     try:
         all_recipe_types = Recipe.TYPE_OF_RECIPE
         recipe_type_counts = {type_of_recipe: 0 for type_of_recipe, _ in all_recipe_types}
@@ -43,9 +37,12 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
             recipe_type_counts[type_of_recipe] = count
 
         data = pd.DataFrame(list(recipe_type_counts.items()), columns=['recipe_type', 'count'])
+        print("Recipe Type Distribution Data:")
+        print(data)
         return data
     except Exception as e:
         # Handle unexpected errors during the operation
+        print(f"Error getting recipe type distribution data: {e}")
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
 
