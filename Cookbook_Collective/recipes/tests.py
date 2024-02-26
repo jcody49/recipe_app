@@ -144,6 +144,12 @@ class RecipeViewsTest(TestCase):
 
 
 
+
+
+
+
+
+
     def test_recipe_detail_view(self):
         print("BEFORE FORCE_LOGIN - IS USER AUTHENTICATED?", self.client.session['_auth_user_id'] is not None)
         self.client.login(username='testuser', password='Testpassword1!')
