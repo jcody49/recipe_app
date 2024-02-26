@@ -47,8 +47,9 @@ def get_recipe_type_distribution_data(type_of_recipe=None):
         return data
     except Exception as e:
         # Handle unexpected errors during the operation
-
+        print(f"Error getting recipe type distribution data: {e}")
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
+
 
 
 # counts the occurrence of each difficulty for a data visualization
@@ -61,7 +62,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
         else:
             recipes = Recipe.objects.filter(type_of_recipe=type_of_recipe)
             data = recipes.values('difficulty').annotate(count=Count('difficulty')).exclude(difficulty='')
-            # print("Difficulty Distribution Data:", data)
+            print("Difficulty Distribution Data:", data)
             data_df = pd.DataFrame.from_records(data)
 
             if data_df.empty:
@@ -71,8 +72,14 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
             return data_df
 
     except Exception as e:
-
+        print(f"Error getting recipe difficulty distribution data: {e}")
         return pd.DataFrame()
+
+
+
+
+
+
 
 
 
