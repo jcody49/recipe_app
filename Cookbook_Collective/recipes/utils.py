@@ -27,7 +27,7 @@ def get_recipe_name_from_id(value):
         recipe_name = f"Recipe {value} (Not Found)"
     except Exception as e:
         # Handle unexpected errors during the operation
-
+        print(f"Error getting recipe name: {e}")
         recipe_name = f"Error fetching recipe name"
     return recipe_name
 
