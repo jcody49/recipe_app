@@ -225,6 +225,7 @@ def recipe_difficulty_distribution(request, type_of_recipe=None):
     }
     return render(request, 'recipes/recipe_difficulty_distribution.html', context)
 
+#test
 # defines view for recipe_type_distribution chart on all recipes
 @login_required
 def recipe_type_distribution(request, type_of_recipe=None):
@@ -242,7 +243,15 @@ def recipe_type_distribution(request, type_of_recipe=None):
         if not type_of_recipe:
             type_of_recipe = 'default'
         data = get_recipe_type_distribution_data(type_of_recipe)
+        
+        print("Data for Recipe Type Distribution:")
+        print(data)  # Print the data for debugging
+        
         chart_image = render_chart(request, chart_type=1, data=data)
+        
+        print("Chart Image After Rendering:")
+        print(chart_image)  # Print the chart_image for debugging
+        
     except Exception as e:
         # Handle unexpected errors during chart rendering
         messages.error(request, f"Error rendering type distribution chart: {e}")
