@@ -26,7 +26,7 @@ def get_recipe_name_from_id(value):
     except Recipe.DoesNotExist:
         recipe_name = f"Recipe {value} (Not Found)"
     except Exception as e:
-
+        # Handle unexpected errors during the operation
 
         recipe_name = f"Error fetching recipe name"
     return recipe_name
