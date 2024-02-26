@@ -86,8 +86,8 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 # db_from_env = dj_database_url.config(conn_max_age=50000000)
 
 #test
+# If running in a production environment (Heroku), use the production database.
 if 'DATABASE_URL' in os.environ:
-    # Use dj_database_url to configure the production database
     db_from_env = dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
         conn_max_age=60000000000,  # Set the connection max age here
@@ -96,8 +96,13 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': db_from_env
     }
+    # Set the test database URL if available
+    TEST_DATABASE_URL = os.getenv('TEST_DATABASE_URL', None)
+    if TEST_DATABASE_URL:
+        DATABASES['default']['TEST'] = {'NAME': TEST_DATABASE_URL}
+
+# If running locally, use SQLite for local development.
 else:
-    # Use SQLite for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -105,7 +110,6 @@ else:
         }
     }
 
-print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 
 
 MEDIA_URL = '/media/'
@@ -195,7 +199,7 @@ AUTHENTICATION_BACKENDS = [
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-SECURE_SSL_REDIRECT = True
+
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -215,5 +219,4 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 # Use Amazon S3 for storage for uploaded media files.
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-CSRF_USE_SESSIONS = True
-CSRF_COOKIE_SECURE = False
+

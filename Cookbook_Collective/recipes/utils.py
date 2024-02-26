@@ -119,8 +119,6 @@ def render_chart(request, chart_type, data=None, **kwargs):
     chart_image = base64.b64encode(buffer.read()).decode("utf-8")
     plt.close(fig)
 
-    print("Chart Image Inside render_chart:")
-    print(chart_image)  # Print chart_image for debugging
     return chart_image
 
 

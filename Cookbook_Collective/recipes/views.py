@@ -55,7 +55,7 @@ def recipes_home(request):
     }
     return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
 
-# test
+
 @login_required
 def search_view(request):
     """
@@ -323,11 +323,14 @@ class RecipeListView(LoginRequiredMixin, ListView):
     - context_object_name: Name of the context variable containing the list of recipes.
     - paginate_by: Number of recipes to display per page.
     """
+    #test
+
 
     model = Recipe
     template_name = 'recipes/recipe_list.html' 
     context_object_name = 'object_list'
     paginate_by = 10
+    login_url = '/login/'
 
     def get(self, request, *args, **kwargs):
         print("get method called")

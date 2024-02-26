@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
@@ -75,10 +76,14 @@ def logout_view(request):
         messages.error(request, f'An error occurred during logout: {e}')
         return render(request, 'recipes/success.html', {'message': 'Logout unsuccessful. Please try again.'})
 
+#test
 @login_required
 def delete_account(request):
+    logger.info("Received POST request to delete account.")
+    print("Received POST request to delete account.")
     if request.method == 'POST':
-        confirmation_checkbox = request.POST.get('confirm_delete', False)
+        confirmation_checkbox = request.POST.get('confirm_delete') == 'on'
+
 
         if confirmation_checkbox:
             try:
@@ -91,14 +96,21 @@ def delete_account(request):
                 # Add a success message
                 messages.success(request, 'Your account was successfully deleted.')
 
-                # test
-                return redirect('login', permanent=False)
+                # Get the messages from the request and add them to the context
+                messages_to_render = messages.get_messages(request)
+
+                return redirect('login')
 
             except Exception as e:
                 # Add an error message
                 messages.error(request, f'An error occurred during account deletion: {e}')
 
     return render(request, 'auth/delete_account.html')
+
+
+
+
+
 
 
 
