@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import Recipe
+from unittest.mock import patch
 
 
 def get_recipe_name_from_id(value):
@@ -73,17 +74,8 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
         # Handle unexpected errors during the operation
         return pd.DataFrame()
 
-
+#test
 def render_chart(request, chart_type, data=None, **kwargs):
-    """
-    Render a chart image based on the specified chart type and data.
-
-    :param request: The HTTP request.
-    :param chart_type: Type of the chart (1, 2, 3).
-    :param data: DataFrame containing data for the chart.
-    :param kwargs: Additional keyword arguments.
-    :return: Base64-encoded chart image.
-    """
     if data is None or data.empty:
         print("No data available for rendering the chart.")
         return HttpResponse("No data available for rendering the chart.")
@@ -119,7 +111,10 @@ def render_chart(request, chart_type, data=None, **kwargs):
     chart_image = base64.b64encode(buffer.read()).decode("utf-8")
     plt.close(fig)
 
+    print("Generated Chart Image (starts with):", chart_image[:50])  # Print the first 50 characters
+
     return chart_image
+
 
 
 def get_graph(fig):

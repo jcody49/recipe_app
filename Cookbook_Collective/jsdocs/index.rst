@@ -2,6 +2,7 @@
    sphinx-quickstart on Sat Feb 24 19:21:57 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+.. include:: ../../jsdocs/index.rst
 
 Welcome to The Cookbook Collective's documentation!
 ===================================================
@@ -10,7 +11,8 @@ Welcome to The Cookbook Collective's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   recipe_project/index
+   jsdocs/index
 
 Indices and tables
 ==================

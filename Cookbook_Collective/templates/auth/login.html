@@ -76,6 +76,12 @@
             <h2 class="horizontal-centering">Login</h2>
 
 
+            {% if error_message %}
+            <div class="error-message">
+                <strong>{{ error_message }}</strong>
+            </div>
+        {% endif %}
+        
         {% if form.errors %}
             <div class="error-message">
                 <strong>Form errors:</strong>
