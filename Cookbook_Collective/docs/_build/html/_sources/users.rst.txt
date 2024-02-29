@@ -1,0 +1,30 @@
+users package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   users.migrations
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   users.admin
+   users.apps
+   users.models
+   users.tests
+   users.views
+
+Module contents
+---------------
+
+.. automodule:: users
+   :members:
+   :undoc-members:
+   :show-inheritance:

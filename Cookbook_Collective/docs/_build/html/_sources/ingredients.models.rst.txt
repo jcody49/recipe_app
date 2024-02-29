@@ -1,0 +1,7 @@
+ingredients.models module
+=========================
+
+.. automodule:: ingredients.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

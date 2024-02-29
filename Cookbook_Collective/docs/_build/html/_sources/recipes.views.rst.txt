@@ -1,0 +1,7 @@
+recipes.views module
+====================
+
+.. automodule:: recipes.views
+   :members:
+   :undoc-members:
+   :show-inheritance:

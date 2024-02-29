@@ -11,10 +11,6 @@ Welcome to Cookbook Collective's documentation!
    :caption: Contents:
 
    recipe_project/index
-   recipes/index
-   users/index
-   recipe_ingredients/index
-   ingredients/index
 
 Indices and tables
 ==================

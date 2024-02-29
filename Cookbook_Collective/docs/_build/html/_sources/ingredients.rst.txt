@@ -1,0 +1,30 @@
+ingredients package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   ingredients.migrations
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   ingredients.admin
+   ingredients.apps
+   ingredients.models
+   ingredients.tests
+   ingredients.views
+
+Module contents
+---------------
+
+.. automodule:: ingredients
+   :members:
+   :undoc-members:
+   :show-inheritance:

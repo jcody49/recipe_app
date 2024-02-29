@@ -1,0 +1,7 @@
+recipes.tests module
+====================
+
+.. automodule:: recipes.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

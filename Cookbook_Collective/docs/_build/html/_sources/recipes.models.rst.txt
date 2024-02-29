@@ -1,0 +1,7 @@
+recipes.models module
+=====================
+
+.. automodule:: recipes.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

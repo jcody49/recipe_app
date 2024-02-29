@@ -1,0 +1,7 @@
+recipe\_project.settings module
+===============================
+
+.. automodule:: recipe_project.settings
+   :members:
+   :undoc-members:
+   :show-inheritance:

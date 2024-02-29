@@ -1,0 +1,19 @@
+users.migrations package
+========================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   users.migrations.0001_initial
+   users.migrations.0002_alter_user_options_alter_user_managers_and_more
+
+Module contents
+---------------
+
+.. automodule:: users.migrations
+   :members:
+   :undoc-members:
+   :show-inheritance:

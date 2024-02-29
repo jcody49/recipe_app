@@ -1,0 +1,7 @@
+recipe\_ingredients.views module
+================================
+
+.. automodule:: recipe_ingredients.views
+   :members:
+   :undoc-members:
+   :show-inheritance:

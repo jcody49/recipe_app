@@ -1,0 +1,7 @@
+recipes.urls module
+===================
+
+.. automodule:: recipes.urls
+   :members:
+   :undoc-members:
+   :show-inheritance:

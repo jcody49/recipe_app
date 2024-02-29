@@ -1,0 +1,7 @@
+recipes.forms module
+====================
+
+.. automodule:: recipes.forms
+   :members:
+   :undoc-members:
+   :show-inheritance:

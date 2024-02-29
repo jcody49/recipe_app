@@ -1,0 +1,7 @@
+recipe\_project.settings\_test module
+=====================================
+
+.. automodule:: recipe_project.settings_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

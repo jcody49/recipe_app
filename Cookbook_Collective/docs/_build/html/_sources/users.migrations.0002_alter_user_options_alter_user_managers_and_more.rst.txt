@@ -1,0 +1,7 @@
+users.migrations.0002\_alter\_user\_options\_alter\_user\_managers\_and\_more module
+====================================================================================
+
+.. automodule:: users.migrations.0002_alter_user_options_alter_user_managers_and_more
+   :members:
+   :undoc-members:
+   :show-inheritance:

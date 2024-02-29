@@ -1,0 +1,24 @@
+recipe\_project package
+=======================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipe_project.asgi
+   recipe_project.forms
+   recipe_project.settings
+   recipe_project.settings_test
+   recipe_project.urls
+   recipe_project.views
+   recipe_project.wsgi
+
+Module contents
+---------------
+
+.. automodule:: recipe_project
+   :members:
+   :undoc-members:
+   :show-inheritance:

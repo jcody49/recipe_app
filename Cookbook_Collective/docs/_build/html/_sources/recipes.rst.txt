@@ -1,0 +1,33 @@
+recipes package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipes.migrations
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipes.admin
+   recipes.apps
+   recipes.forms
+   recipes.models
+   recipes.tests
+   recipes.urls
+   recipes.utils
+   recipes.views
+
+Module contents
+---------------
+
+.. automodule:: recipes
+   :members:
+   :undoc-members:
+   :show-inheritance:

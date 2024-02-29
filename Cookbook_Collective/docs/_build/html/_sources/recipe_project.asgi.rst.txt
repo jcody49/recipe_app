@@ -1,0 +1,7 @@
+recipe\_project.asgi module
+===========================
+
+.. automodule:: recipe_project.asgi
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+ingredients.admin module
+========================
+
+.. automodule:: ingredients.admin
+   :members:
+   :undoc-members:
+   :show-inheritance:

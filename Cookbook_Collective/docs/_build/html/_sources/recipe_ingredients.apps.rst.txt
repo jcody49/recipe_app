@@ -1,0 +1,7 @@
+recipe\_ingredients.apps module
+===============================
+
+.. automodule:: recipe_ingredients.apps
+   :members:
+   :undoc-members:
+   :show-inheritance:

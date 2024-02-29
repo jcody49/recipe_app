@@ -1,0 +1,30 @@
+recipe\_ingredients package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipe_ingredients.migrations
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipe_ingredients.admin
+   recipe_ingredients.apps
+   recipe_ingredients.models
+   recipe_ingredients.tests
+   recipe_ingredients.views
+
+Module contents
+---------------
+
+.. automodule:: recipe_ingredients
+   :members:
+   :undoc-members:
+   :show-inheritance:

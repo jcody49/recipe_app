@@ -1,7 +1,14 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../recipe_project'))
+sys.path.insert(0, os.path.abspath('../recipes'))
+sys.path.insert(0, os.path.abspath('../users'))
+sys.path.insert(0, os.path.abspath('../ingredients'))
+
+# Add your Django settings module
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -9,6 +16,26 @@ sys.path.insert(0, os.path.abspath('../'))
 project = 'The Cookbook Collective'
 copyright = '2024, Jon Cody'
 author = 'Jon Cody'
+
+autodoc_mock_imports = [
+    'django',
+    'django.contrib.auth',
+    'django.db',
+    'django.apps',
+    'django.conf',
+    'django.core',
+    'django.urls',
+    'django.forms',
+    'django.views',
+    'recipes.models',
+    'recipe_ingredients.models',
+    'recipe_project.views',
+    'recipe_project.forms',
+]
+
+
+
+
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

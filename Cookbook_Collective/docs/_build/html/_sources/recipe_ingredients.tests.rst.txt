@@ -1,0 +1,7 @@
+recipe\_ingredients.tests module
+================================
+
+.. automodule:: recipe_ingredients.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

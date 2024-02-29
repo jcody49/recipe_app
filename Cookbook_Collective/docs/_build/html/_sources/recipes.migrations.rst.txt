@@ -1,0 +1,19 @@
+recipes.migrations package
+==========================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   recipes.migrations.0001_initial
+   recipes.migrations.0002_alter_recipe_pic
+
+Module contents
+---------------
+
+.. automodule:: recipes.migrations
+   :members:
+   :undoc-members:
+   :show-inheritance:

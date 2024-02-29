@@ -1,0 +1,7 @@
+recipe\_project.wsgi module
+===========================
+
+.. automodule:: recipe_project.wsgi
+   :members:
+   :undoc-members:
+   :show-inheritance:

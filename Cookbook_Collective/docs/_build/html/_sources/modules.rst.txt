@@ -1,0 +1,12 @@
+Cookbook_Collective
+===================
+
+.. toctree::
+   :maxdepth: 4
+
+   ingredients
+   manage
+   recipe_ingredients
+   recipe_project
+   recipes
+   users

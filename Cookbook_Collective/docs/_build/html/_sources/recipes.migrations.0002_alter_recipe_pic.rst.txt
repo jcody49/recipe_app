@@ -1,0 +1,7 @@
+recipes.migrations.0002\_alter\_recipe\_pic module
+==================================================
+
+.. automodule:: recipes.migrations.0002_alter_recipe_pic
+   :members:
+   :undoc-members:
+   :show-inheritance:
