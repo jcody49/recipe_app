@@ -74,7 +74,7 @@ def get_recipe_difficulty_distribution_data(request, type_of_recipe="default"):
         # Handle unexpected errors during the operation
         return pd.DataFrame()
 
-#test
+
 def render_chart(request, chart_type, data=None, **kwargs):
     if data is None or data.empty:
         print("No data available for rendering the chart.")

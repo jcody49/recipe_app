@@ -144,7 +144,7 @@ def create_recipe(request):
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
 
-#@login_required
+@login_required
 def visualizations(request, type_of_recipe=None):
     """
     View for displaying visualizations of recipe data.

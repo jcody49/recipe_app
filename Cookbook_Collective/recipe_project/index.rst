@@ -1,11 +1,7 @@
-.. include:: ../../recipe_project/index.rst
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-.. automodule:: recipe_project.views
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: recipe_project.forms
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   views
+   forms
+   
