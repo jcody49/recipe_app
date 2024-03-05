@@ -845,3 +845,7 @@ body {
 .about_me h2 {
     padding: 4%;
 }
+
+.red {
+    color:red;
+}
