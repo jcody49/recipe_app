@@ -85,17 +85,16 @@
 
         <!-- Main content section with scrolling images, introductory text, and homepage options -->
         <main>
-
+            <!--test-->
             <div style="padding: 5%" class="scrolling-images-container">
                 <!-- Slick Carousel for displaying random recipe images -->
                 <div class="scrolling-images">
                     {% for image in random_images %}
-                        {% if image.pic.name != "no_picture.jpg" %}
-                            <div><img src="{{ image.pic.url }}" alt="Recipe Image"></div>
-                        {% endif %}
+                        <div><img src="{% static 'recipes/recipe_images/' %}{{ image }}" alt="Recipe Image"></div>
                     {% endfor %}
                 </div>
             </div>
+            
         </main>
             
 

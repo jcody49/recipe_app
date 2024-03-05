@@ -35,26 +35,32 @@ from .utils import (
     get_recipe_type_distribution_data, get_recipe_difficulty_distribution_data
 )
 
+#test
 # Define a view function named recipes_home that takes a request object as a parameter
-def recipes_home(request):     
+def recipes_home(request):
     """
-    View for the home page displaying a list of recipes with infinite scrolling.
+    View for the home page displaying a carousel of random recipe images.
 
     Parameters:
     - request: Django HTTP request object.
 
     Returns:
     - Rendered HTML response for the home page.
-    """ 
-    all_images = Recipe.objects.filter(pic__isnull=False).exclude(pic='no_picture.jpeg').order_by('?')      # takes all pic objects, filters out the no-picture.jpg, and randomizes all objects--loads into the all_images object
-    
-    # Concatenate the list multiple times to ensure it's long enough for infinite scrolling
-    random_images = list(all_images) * 80
-    context = {
-        'loading': True,  # Set this to False when processing is complete
-    }
-    return render(request, 'recipes/recipes_home.html', {'random_images': random_images})
+    """
+    # Path to the recipe_images folder
+    images_folder = os.path.join(settings.STATIC_ROOT, 'recipes/recipe_images/')
 
+    # Get a list of all image files in the folder
+    all_images = [image for image in os.listdir(images_folder) if image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+
+    # Randomize the order
+    random.shuffle(all_images)
+
+    context = {
+        'random_images': all_images,
+        'loading': True,
+    }
+    return render(request, 'recipes/recipes_home.html', context)
 
 @login_required
 def search_view(request):
@@ -144,7 +150,7 @@ def create_recipe(request):
 
     return render(request, 'recipes/create_recipe.html', {'form': form})
 
-@login_required
+
 def visualizations(request, type_of_recipe=None):
     """
     View for displaying visualizations of recipe data.
@@ -197,7 +203,7 @@ def visualizations(request, type_of_recipe=None):
     return render(request, 'recipes/visualizations.html', context)
 
 # defines view for recipe_difficulty_distribution chart, taking the type of recipe as a parameter
-@login_required
+
 def recipe_difficulty_distribution(request, type_of_recipe=None):
     """
     View for displaying a chart of recipe difficulty distribution.
@@ -227,7 +233,7 @@ def recipe_difficulty_distribution(request, type_of_recipe=None):
 
 #test
 # defines view for recipe_type_distribution chart on all recipes
-@login_required
+
 def recipe_type_distribution(request, type_of_recipe=None):
     """
     View for displaying a chart of recipe type distribution.
@@ -259,7 +265,7 @@ def recipe_type_distribution(request, type_of_recipe=None):
 
     return render(request, 'recipes/recipe_type_distribution.html', {'chart_image': chart_image})
 
-@login_required
+
 def recipes_created_per_month(request):
     """
     View for displaying a chart of recipes created per month.

@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
@@ -79,14 +79,14 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 
 
 
-#print("DATABASE_URL:", os.getenv('DATABASE_URL'))
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# db_from_env = dj_database_url.config(conn_max_age=50000000)
 
-#test
+
+
 # If running in a production environment (Heroku), use the production database.
 if 'DATABASE_URL' in os.environ:
     db_from_env = dj_database_url.config(
