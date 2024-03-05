@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
