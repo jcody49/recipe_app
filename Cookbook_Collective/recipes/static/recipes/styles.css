@@ -454,10 +454,12 @@ body {
 }
 
 .login-form label {
-    width: 100%; /* Fill the available width */
+    display: block; /* Display labels as block elements */
+    width: 100px; /* Set a fixed width for labels */
     text-align: right; /* Align labels to the right */
     margin-bottom: 10px; /* Adjust margin between label and input */
 }
+
 
 
 
