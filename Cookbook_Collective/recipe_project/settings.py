@@ -94,6 +94,10 @@ if 'DATABASE_URL' in os.environ:
         conn_max_age=60000000000,  # Set the connection max age here
         engine='django.db.backends.postgresql',
     )
+    # Add SSL settings for Heroku PostgreSQL
+    db_from_env['OPTIONS'] = {
+        'sslmode': 'require',
+    }
     DATABASES = {
         'default': db_from_env
     }
