@@ -412,53 +412,6 @@ body {
     text-align: center;
 }
 
-/* Login Form Styles */
-
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Adjust as needed */
-}
-
-.login-form {
-    font-size: 23px; /* Adjust the font size as needed */
-    font-family: 'Georgia', serif; /* Use the same font family as the rest of the app */
-    max-width: 400px; /* Adjust the maximum width of the form */
-    margin: 0 auto; /* Center the form horizontally */
-    margin-top: -20%; /* Keep the vertical margin */
-}
-
-.login-form button {
-    margin-top: 15px; /* Adjust the margin between form and button */
-    background-color: #fbd6cf;
-    color: black;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 20px;
-}
-
-.login-form button:hover {
-    background-color: white;
-}
-
-.login-form input {
-    font-family: 'Georgia', serif;
-    font-size: 20px;
-    width: 100%; /* Fill the available width */
-    padding: 8px; /* Add padding for better appearance */
-    box-sizing: border-box; /* Include padding and border in width calculation */
-}
-
-.login-form label {
-    display: block; /* Display labels as block elements */
-    width: 100px; /* Set a fixed width for labels */
-    text-align: right; /* Align labels to the right */
-    margin-bottom: 10px; /* Adjust margin between label and input */
-}
 
 
 
@@ -856,4 +809,68 @@ body {
 
 .red {
     color:red;
+}
+
+
+
+/* Form Styles */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Adjust as needed */
+}
+
+.login-form {
+    font-size: 23px; /* Adjust the font size as needed */
+    font-family: 'Georgia', serif; /* Use the same font family as the rest of the app */
+    max-width: 400px; /* Adjust the maximum width of the form */
+    margin: 0 auto; /* Center the form horizontally */
+    margin-top: -20%; /* Keep the vertical margin */
+}
+
+.login-form button {
+    margin-top: 15px; /* Adjust the margin between form and button */
+    background-color: #fbd6cf;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.login-form button:hover {
+    background-color: white;
+}
+
+.login-form input {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    width: 100%; /* Fill the available width */
+    padding: 8px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.login-form label {
+    display: block; /* Display labels as block elements */
+    width: 100px; /* Set a fixed width for labels */
+    text-align: right; /* Align labels to the right */
+    margin-bottom: 10px; /* Adjust margin between label and input */
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Adjust spacing between fields */
+}
+
+.form-label {
+    font-weight: bold; /* Optional: Make labels bold */
+}
+
+.form-input {
+    flex-grow: 1; /* Make inputs fill remaining space */
 }
