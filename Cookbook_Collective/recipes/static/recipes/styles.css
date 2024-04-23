@@ -413,7 +413,8 @@ body {
 }
 
 /* Login Form Styles */
-.column {
+
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -425,7 +426,8 @@ body {
     font-size: 23px; /* Adjust the font size as needed */
     font-family: 'Georgia', serif; /* Use the same font family as the rest of the app */
     max-width: 400px; /* Adjust the maximum width of the form */
-    margin: -20% auto 0; /* Center the form horizontally */
+    margin: 0 auto; /* Center the form horizontally */
+    margin-top: -20%; /* Keep the vertical margin */
 }
 
 .login-form button {
@@ -443,11 +445,11 @@ body {
     background-color: white;
 }
 
-
 .login-form input {
     font-family: 'Georgia', serif;
     font-size: 20px; 
 }
+
 
 
 
@@ -471,8 +473,6 @@ body {
 }
 
 
-
-/*test*/
 .header-container {
     display: flex;
     justify-content: space-between;
