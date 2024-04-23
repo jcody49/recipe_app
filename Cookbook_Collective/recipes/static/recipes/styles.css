@@ -447,11 +447,17 @@ body {
 
 .login-form input {
     font-family: 'Georgia', serif;
-    font-size: 20px; 
+    font-size: 20px;
+    width: 100%; /* Fill the available width */
+    padding: 8px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
-
-
+.login-form label {
+    width: 100%; /* Fill the available width */
+    text-align: right; /* Align labels to the right */
+    margin-bottom: 10px; /* Adjust margin between label and input */
+}
 
 
 
