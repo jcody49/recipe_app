@@ -74,64 +74,60 @@
     </nav>
         
         {% block content %}     <!--blocks of content that can be overridden in child templates--flexible-->
-        <form class="new-recipe-content" method="post" enctype="multipart/form-data" style="font-size: 25px">
-            <!--The {% csrf_token %} template tag generates a hidden input field in the form containing a unique token. When the form is submitted, this token is checked by Django to ensure that the form submission is legitimate and not a result of a CSRF attack-->
-            {% csrf_token %}
-        
-            <!-- Recipe Name -->
-            <div class="form-field">
+        <form class="new-recipe-content column" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+      
+          <!-- Recipe Name -->
+          <div class="form-field">
               {{ form.name.label_tag }}
               {{ form.name }}
-            </div><br>
-        
-            <!-- Cooking Time -->
-            <div class="form-field">
+          </div><br>
+      
+          <!-- Cooking Time -->
+          <div class="form-field">
               {{ form.cooking_time.label_tag }}
               {{ form.cooking_time }}
-            </div><br>
-        
-            <!-- Min Serving Size -->
-            <div class="form-field">
+          </div><br>
+      
+          <!-- Min Serving Size -->
+          <div class="form-field">
               {{ form.min_serving_size.label_tag }}
               {{ form.min_serving_size }}
-            </div><br>
-        
-            <!-- Max Serving Size -->
-            <div class="form-field">
+          </div><br>
+      
+          <!-- Max Serving Size -->
+          <div class="form-field">
               {{ form.max_serving_size.label_tag }}
               {{ form.max_serving_size }}
-            </div><br>
-        
-            <!-- Type of Recipe -->
-            <div class="form-field">
+          </div><br>
+      
+          <!-- Type of Recipe -->
+          <div class="form-field">
               {{ form.type_of_recipe.label_tag }}
               {{ form.type_of_recipe }}
-            </div><br>
-        
-            <!-- Ingredients -->
-            <div class="form-field centered-content">
+          </div><br>
+      
+          <!-- Ingredients -->
+          <div class="form-field">
               {{ form.ingredients.label_tag }}
               {{ form.ingredients }}
-            </div><br>
-        
-            <!-- Directions -->
-            <div class="form-field centered-content">
+          </div><br>
+      
+          <!-- Directions -->
+          <div class="form-field">
               {{ form.directions.label_tag }}
               {{ form.directions }}
-            </div><br><br>
-        
-            <!-- Recipe Image -->
-
-
-            <div class="form-field">
+          </div><br>
+      
+          <!-- Recipe Image -->
+          <div class="form-field">
               {{ form.pic.label_tag }}
               {{ form.pic }}
-            </div><br><br>
-
-        
-            <!-- Submit Button -->
-            <button class="search-button" type="submit">Create Recipe</button>
-          </form>
+          </div><br><br>
+      
+          <!-- Submit Button -->
+          <button class="search-button" type="submit">Create Recipe</button>
+        </form>
         {% endblock %}
 
 
