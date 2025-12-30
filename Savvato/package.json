@@ -1,0 +1,18 @@
+{
+  "name": "savvato",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "cd savvato-work-app-frontend-app && npm start",
+    "start:backend": "cd savvato-work-app-backend-api && npm start",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd savvato-work-app-frontend-app && npm run dev",
+    "dev:backend": "cd savvato-work-app-backend-api && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
